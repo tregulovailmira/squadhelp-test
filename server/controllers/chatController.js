@@ -4,7 +4,7 @@ const Catalog = require('../models/mongoModels/Catalog');
 const moment = require('moment');
 const db = require('../models/index');
 const userQueries = require('./queries/userQueries');
-const controller = require('../../socketInit');
+const controller = require('../socketInit');
 const _ = require('lodash');
 
 module.exports.addMessage = async (req, res, next) => {

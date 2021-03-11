@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const CONSTANTS = require('../../constants');
+const CONSTANTS = require('../constants');
 const TokenError = require('../errors/TokenError');
-import userQueries from '../controllers/queries/userQueries';
+const userQueries = require('../controllers/queries/userQueries');
 
 module.exports.checkAuth = async (req, res, next) => {
   const accessToken = req.headers.authorization;

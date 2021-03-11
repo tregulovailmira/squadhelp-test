@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const CONSTANTS = require('../../constants');
+const CONSTANTS = require('../constants');
 const bd = require('../models/index');
 const NotFound = require('../errors/UserNotFoundError');
 const ServerError = require('../errors/ServerError');
@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt');
 const NotUniqueEmail = require('../errors/NotUniqueEmail');
 const moment = require('moment');
 const uuid = require('uuid/v1');
-const controller = require('../../socketInit');
+const controller = require('../socketInit');
 const userQueries = require('./queries/userQueries');
 const bankQueries = require('./queries/bankQueries');
 const ratingQueries = require('./queries/ratingQueries');

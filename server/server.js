@@ -1,10 +1,10 @@
-require('./server/dbMongo/mongoose');
+require('./dbMongo/mongoose');
 const http = require('http');
 const express = require('express');
-const router = require('./server/router');
+const router = require('./router');
 const cors = require('cors');
 const controller = require('./socketInit');
-const handlerError = require('./server/handlerError/handler');
+const handlerError = require('./handlerError/handler');
 
 const PORT = process.env.PORT || 9632;
 const app = express();
@@ -16,8 +16,8 @@ app.use(router);
 app.use(handlerError);
 
 const server = http.createServer(app);
-server.listen(PORT/*,
-  () => console.log(`Example app listening on port ${ PORT }!`)*/);
+server.listen(PORT,
+  () => console.log(`Example app listening on port ${ PORT }!`));
 controller.createConnection(server);
 
 
