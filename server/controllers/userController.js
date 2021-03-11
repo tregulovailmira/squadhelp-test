@@ -114,7 +114,7 @@ module.exports.payment = async (req, res, next) => {
   try {
     transaction = await bd.sequelize.transaction();
     await bankQueries.updateBankBalance({
-        balance: bd.sequelize.literal(`CASE
+      balance: bd.sequelize.literal(`CASE
           WHEN 
             "cardNumber"='${ number.replace(/ /g, '') }' 
             AND "cvc"='${ cvc }' 
@@ -127,21 +127,21 @@ module.exports.payment = async (req, res, next) => {
           THEN "balance"+${ price } 
           END
         `),
+    },
+    {
+      cardNumber: {
+        [ bd.sequelize.Op.in ]: [
+          CONSTANTS.SQUADHELP_BANK_NUMBER,
+          number.replace(/ /g, ''),
+        ],
       },
-      {
-        cardNumber: {
-          [ bd.sequelize.Op.in ]: [
-            CONSTANTS.SQUADHELP_BANK_NUMBER,
-            number.replace(/ /g, ''),
-          ],
-        },
-      },
-      transaction
+    },
+    transaction
     );
 
     const orderId = uuid();
     contests.forEach((contest, index) => {
-      const prize = index === contests.length - 1 
+      const prize = index === contests.length - 1
         ? Math.ceil(price / contests.length)
         : Math.floor(price / contests.length);
       contest = Object.assign(contest, {
@@ -192,11 +192,11 @@ module.exports.cashout = async (req, res, next) => {
     transaction = await bd.sequelize.transaction();
     const updatedUser = await userQueries.updateUser({
       balance: bd.sequelize.literal('balance - ' + sum) },
-      userId, 
-      transaction
+    userId,
+    transaction
     );
     await bankQueries.updateBankBalance({
-        balance: bd.sequelize.literal(`CASE 
+      balance: bd.sequelize.literal(`CASE 
           WHEN 
             "cardNumber"='${ number.replace(/ /g, '') }' 
             AND "expiry"='${ expiry }' 
@@ -209,16 +209,16 @@ module.exports.cashout = async (req, res, next) => {
           THEN "balance"-${ sum }
           END
         `),
+    },
+    {
+      cardNumber: {
+        [ bd.sequelize.Op.in ]: [
+          CONSTANTS.SQUADHELP_BANK_NUMBER,
+          number.replace(/ /g, ''),
+        ],
       },
-      {
-        cardNumber: {
-          [ bd.sequelize.Op.in ]: [
-            CONSTANTS.SQUADHELP_BANK_NUMBER,
-            number.replace(/ /g, ''),
-          ],
-        },
-      },
-      transaction
+    },
+    transaction
     );
 
     await transaction.commit();
