@@ -60,7 +60,7 @@ export function* sendMessage(action) {
 
 export function* changeChatFavorite(action) {
     try {
-        const {data} = yield restController.changeChatFavorite(action.data);
+        const {data} = yield restController.toggleBlackAndFavoriteList(action.data);
         const {messagesPreview} = yield select(state => state.chatStore);
         messagesPreview.forEach(preview => {
             if (isEqual(preview.participants, data.participants))
@@ -74,7 +74,7 @@ export function* changeChatFavorite(action) {
 
 export function* changeChatBlock(action) {
     try {
-        const {data} = yield restController.changeChatBlock(action.data);
+        const {data} = yield restController.toggleBlackAndFavoriteList(action.data);
         const {messagesPreview} = yield select(state => state.chatStore);
         messagesPreview.forEach(preview => {
             if (isEqual(preview.participants, data.participants))
@@ -98,7 +98,7 @@ export function* getCatalogListSaga(action) {
 
 export function* addChatToCatalog(action) {
     try {
-        const {data} = yield restController.addChatToCatalog(action.data);
+        const {data} = yield restController.updateCatalog(action.data);
         const {catalogList} = yield select(state => state.chatStore);
         for (let i = 0; i < catalogList.length; i++) {
             if (catalogList[i]._id === data._id) {
@@ -135,7 +135,7 @@ export function* deleteCatalog(action) {
 
 export function* removeChatFromCatalogSaga(action) {
     try {
-        const {data} = yield restController.removeChatFromCatalog(action.data);
+        const {data} = yield restController.updateCatalog(action.data);
         const {catalogList} = yield select(state => state.chatStore);
         for (let i = 0; i < catalogList.length; i++) {
             if (catalogList[i]._id === data._id) {
@@ -152,7 +152,7 @@ export function* removeChatFromCatalogSaga(action) {
 
 export function* changeCatalogName(action) {
     try {
-        const {data} = yield restController.changeCatalogName(action.data);
+        const {data} = yield restController.updateCatalog(action.data);
         const {catalogList} = yield select(state => state.chatStore);
         for (let i = 0; i < catalogList.length; i++) {
             if (catalogList[i]._id === data._id) {

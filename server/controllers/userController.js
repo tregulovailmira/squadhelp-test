@@ -76,8 +76,12 @@ module.exports.changeMark = async (req, res, next) => {
   let sum = 0;
   let avg = 0;
   let transaction;
-  const { isFirst, offerId, mark, creatorId } = req.body;
-  const userId = req.tokenData.userId;
+  const {
+    body: { isFirst, mark, creatorId },
+    params: { offerId },
+    tokenData: { userId },
+  } = req;
+
   try {
     transaction = await bd.sequelize.transaction(
       { isolationLevel: bd.Sequelize.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED });

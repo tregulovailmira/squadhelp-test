@@ -13,15 +13,15 @@ module.exports.addMessage = async (req, res, next) => {
     (participant1, participant2) => participant1 - participant2);
   try {
     const newConversation = await Conversation.findOneAndUpdate({
-        participants,
-      },
-      { participants, blackList: [false, false], favoriteList: [false, false] },
-      {
-        upsert: true,
-        new: true,
-        setDefaultsOnInsert: true,
-        useFindAndModify: false,
-      });
+      participants,
+    },
+    { participants, blackList: [false, false], favoriteList: [false, false] },
+    {
+      upsert: true,
+      new: true,
+      setDefaultsOnInsert: true,
+      useFindAndModify: false,
+    });
     const message = new Message({
       sender: req.tokenData.userId,
       body: req.body.messageBody,
@@ -41,7 +41,7 @@ module.exports.addMessage = async (req, res, next) => {
       favoriteList: newConversation.favoriteList,
     };
     controller.getChatController().emitNewMessage(interlocutorId, {
-      message: message,
+      message,
       preview: {
         _id: newConversation._id,
         sender: req.tokenData.userId,
@@ -70,7 +70,12 @@ module.exports.addMessage = async (req, res, next) => {
 };
 
 module.exports.getChat = async (req, res, next) => {
-  const participants = [req.tokenData.userId, req.body.interlocutorId];
+  const {
+    params:{ interlocutorId },
+    tokenData: { userId },
+  } = req;
+
+  const participants = [userId, +interlocutorId];
   participants.sort(
     (participant1, participant2) => participant1 - participant2);
   try {
@@ -98,7 +103,7 @@ module.exports.getChat = async (req, res, next) => {
     ]);
 
     const interlocutor = await userQueries.findUser(
-      { id: req.body.interlocutorId });
+      { id: +interlocutorId });
     res.send({
       messages,
       interlocutor: {
@@ -180,37 +185,50 @@ module.exports.getPreview = async (req, res, next) => {
   }
 };
 
-module.exports.blackList = async (req, res, next) => {
-  const predicate = 'blackList.' +
-    req.body.participants.indexOf(req.tokenData.userId);
-  try {
-    const chat = await Conversation.findOneAndUpdate(
-      { participants: req.body.participants },
-      { $set: { [ predicate ]: req.body.blackListFlag } }, { new: true });
-    res.send(chat);
-    const interlocutorId = req.body.participants.filter(
-      (participant) => participant !== req.tokenData.userId)[ 0 ];
-    controller.getChatController().emitChangeBlockStatus(interlocutorId, chat);
-  } catch (err) {
-    res.send(err);
-  }
+const blackList = async (blackListFlag, participants, userId) => {
+  const predicate = 'blackList.' + participants.indexOf(userId);
+  const updatedConversation = await Conversation.findOneAndUpdate(
+    { participants },
+    { $set: { [ predicate ]: blackListFlag } }, { new: true });
+  const interlocutorId = participants.filter(
+    (participant) => participant !== userId)[ 0 ];
+  controller.getChatController().emitChangeBlockStatus(interlocutorId, updatedConversation);
+  return updatedConversation;
 };
 
-module.exports.favoriteChat = async (req, res, next) => {
-  const predicate = 'favoriteList.' +
-    req.body.participants.indexOf(req.tokenData.userId);
+const favoriteChat = async (favoriteFlag, participants, userId) => {
+  const predicate = 'favoriteList.' + participants.indexOf(userId);
+  const updatedConversation = await Conversation.findOneAndUpdate(
+    { participants },
+    { $set: { [ predicate ]: favoriteFlag } }, { new: true });
+  return updatedConversation;
+};
+
+module.exports.toggleBlackAndFavoriteList = async (req, res, next) => {
+  const {
+    body, tokenData: { userId } } = req;
+
   try {
-    const chat = await Conversation.findOneAndUpdate(
-      { participants: req.body.participants },
-      { $set: { [ predicate ]: req.body.favoriteFlag } }, { new: true });
-    res.send(chat);
-  } catch (err) {
-    res.send(err);
+    if(body.hasOwnProperty('blackListFlag')) {
+      const { body: { blackListFlag, participants } } = req;
+
+      const updatedConversation = await blackList(blackListFlag, participants, userId);
+      res.send(updatedConversation);
+    }
+
+    if(body.hasOwnProperty('favoriteFlag')) {
+      const { body: { favoriteFlag, participants } } = req;
+
+      const updatedConversation = await favoriteChat(favoriteFlag, participants, userId);
+      res.send(updatedConversation);
+    }
+  } catch (error) {
+    res.send(error);
   }
+
 };
 
 module.exports.createCatalog = async (req, res, next) => {
-  console.log(req.body);
   const catalog = new Catalog({
     userId: req.tokenData.userId,
     catalogName: req.body.catalogName,
@@ -224,46 +242,70 @@ module.exports.createCatalog = async (req, res, next) => {
   }
 };
 
-module.exports.updateNameCatalog = async (req, res, next) => {
-  try {
-    const catalog = await Catalog.findOneAndUpdate({
-      _id: req.body.catalogId,
-      userId: req.tokenData.userId,
-    }, { catalogName: req.body.catalogName }, { new: true });
-    res.send(catalog);
-  } catch (err) {
-    next(err);
-  }
+const updateNameCatalog = async (catalogId, userId, catalogName) => {
+
+  const updatedCatalog = await Catalog.findOneAndUpdate({
+    _id: catalogId,
+    userId,
+  }, { catalogName }, { new: true });
+  return updatedCatalog;
 };
 
-module.exports.addNewChatToCatalog = async (req, res, next) => {
-  try {
-    const catalog = await Catalog.findOneAndUpdate({
-      _id: req.body.catalogId,
-      userId: req.tokenData.userId,
-    }, { $addToSet: { chats: req.body.chatId } }, { new: true });
-    res.send(catalog);
-  } catch (err) {
-    next(err);
-  }
+const addNewChatToCatalog = async (catalogId, userId, chatId) => {
+
+  const updatedCatalog = await Catalog.findOneAndUpdate({
+    _id: catalogId,
+    userId,
+  }, { $addToSet: { chats: chatId } }, { new: true });
+  return updatedCatalog;
+
 };
 
-module.exports.removeChatFromCatalog = async (req, res, next) => {
+const removeChatFromCatalog = async (catalogId, userId, chatId) => {
+
+  const catalog = await Catalog.findOneAndUpdate({
+    _id: catalogId,
+    userId,
+  }, { $pull: { chats: chatId } }, { new: true });
+  return catalog;
+};
+
+module.exports.updateCatalog = async (req, res, next) => {
+  const {
+    body,
+    body: { catalogName, chatId, isRemoved },
+    params:{ catalogId },
+    tokenData: { userId },
+  } = req;
+
   try {
-    const catalog = await Catalog.findOneAndUpdate({
-      _id: req.body.catalogId,
-      userId: req.tokenData.userId,
-    }, { $pull: { chats: req.body.chatId } }, { new: true });
-    res.send(catalog);
-  } catch (err) {
-    next(err);
+
+    if(body.hasOwnProperty('catalogName')) {
+      const updatedCatalog = await updateNameCatalog(catalogId, userId, catalogName);
+      return res.send(updatedCatalog);
+    }
+
+    if(body.hasOwnProperty('chatId')) {
+
+      if(isRemoved){
+        const updatedCatalog = await removeChatFromCatalog(catalogId, userId, chatId);
+        return res.send(updatedCatalog);
+      }
+      const updatedCatalog = await addNewChatToCatalog(catalogId, userId, chatId);
+      return res.send(updatedCatalog);
+
+    }
+  } catch (error) {
+    next(error);
   }
+
+
 };
 
 module.exports.deleteCatalog = async (req, res, next) => {
   try {
     await Catalog.remove(
-      { _id: req.body.catalogId, userId: req.tokenData.userId });
+      { _id: req.params.catalogId, userId: req.tokenData.userId });
     res.end();
   } catch (err) {
     next(err);

@@ -28,7 +28,7 @@ const ChatHeader = (props) => {
     };
 
 
-    const {avatar, firstName} = props.interlocutor;
+    const {avatar, firstName, id} = props.interlocutor;
     const {backToDialogList, chatData, userId} = props;
     return (
         <div className={styles.chatHeader}>
@@ -44,7 +44,8 @@ const ChatHeader = (props) => {
                 <div>
                     <i onClick={(event) => changeFavorite({
                         participants: chatData.participants,
-                        favoriteFlag: !isFavorite(chatData, userId)
+                        favoriteFlag: !isFavorite(chatData, userId),
+                        interlocutorId: id
                     }, event)}
                        className={classNames({
                            ['far fa-heart']: !isFavorite(chatData, userId),
@@ -52,7 +53,8 @@ const ChatHeader = (props) => {
                        })}/>
                     <i onClick={(event) => changeBlackList({
                         participants: chatData.participants,
-                        blackListFlag: !isBlocked(chatData, userId)
+                        blackListFlag: !isBlocked(chatData, userId),
+                        interlocutorId: id
                     }, event)}
                        className={classNames({
                            ['fas fa-user-lock']: !isBlocked(chatData, userId),

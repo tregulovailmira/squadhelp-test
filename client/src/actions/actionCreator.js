@@ -54,10 +54,10 @@ export const getUserAction = (data) => {
 };
 
 
-export const getDataForContest = (data) => {
+export const getDataForContest = (data = {}) => {
     return {
         type: ACTION.GET_DATA_FOR_CONTEST_ACTION,
-        data: data
+        data
     }
 };
 

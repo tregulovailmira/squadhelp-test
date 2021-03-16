@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 
 const DialogBox = (props) => {
-    const {chatPreview, userId, getTimeStr, changeFavorite, changeBlackList, catalogOperation, goToExpandedDialog, chatMode, interlocutor} = props;
+    const {chatPreview, userId, getTimeStr, changeFavorite, changeBlackList, catalogOperation, goToExpandedDialog, chatMode, interlocutor, interlocutor: { id } } = props;
     const {favoriteList, participants, blackList, _id, text, createAt} = chatPreview;
     const isFavorite = favoriteList[participants.indexOf(userId)];
     const isBlocked = blackList[participants.indexOf(userId)];
@@ -29,11 +29,13 @@ const DialogBox = (props) => {
                     <span className={styles.time}>{getTimeStr(createAt)}</span>
                     <i onClick={(event) => changeFavorite({
                         participants,
-                        favoriteFlag: !isFavorite
+                        favoriteFlag: !isFavorite,
+                        interlocutorId: id
                     }, event)} className={classNames({['far fa-heart']: !isFavorite, ['fas fa-heart']: isFavorite})}/>
                     <i onClick={(event) => changeBlackList({
                         participants,
-                        blackListFlag: !isBlocked
+                        blackListFlag: !isBlocked,
+                        interlocutorId: id
                     }, event)}
                        className={classNames({['fas fa-user-lock']: !isBlocked, ['fas fa-unlock']: isBlocked})}/>
                     <i onClick={(event) => catalogOperation(event, _id)} className={classNames({
