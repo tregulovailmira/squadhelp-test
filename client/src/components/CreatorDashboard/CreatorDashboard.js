@@ -107,23 +107,12 @@ class CreatorDashboard extends React.Component {
             return true;
     };
 
-    getPredicateOfRequest = () => {
-        const obj = {};
-        const {creatorFilter} = this.props;
-        Object.keys(creatorFilter).forEach((el) => {
-            if (creatorFilter[el]) {
-                obj[el] = creatorFilter[el];
-            }
-        });
-        obj.ownEntries = creatorFilter.ownEntries;
-        return obj;
-    };
-
     loadMore = (startFrom) => {
+        const { creatorFilter } = this.props;
         this.props.getContests(Object.assign({}, {
             limit: 8,
             offset: startFrom
-        }, this.getPredicateOfRequest()));
+        }, creatorFilter));
     };
 
     setContestList = () => {
@@ -141,8 +130,9 @@ class CreatorDashboard extends React.Component {
     };
 
     tryLoadAgain = () => {
+        const { creatorFilter } = this.props;
         this.props.clearContestsList();
-        this.props.getContests({limit: 8, offset: 0, ...this.getPredicateOfRequest()});
+        this.props.getContests({limit: 8, offset: 0, ...creatorFilter});
     };
 
 
