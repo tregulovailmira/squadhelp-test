@@ -69,7 +69,7 @@ const UpdateUserInfoForm = (props) => {
                   imgStyle: styles.imgStyle
                 }}
             />
-            <button type='submit' disabled={submitting}>
+            <button type='submit' disabled={submitting} style={{ marginTop:"10px" }}>
                 Submit
             </button>
         </form>
