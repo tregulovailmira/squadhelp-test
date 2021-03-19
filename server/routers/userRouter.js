@@ -18,14 +18,14 @@ userRouter.get(
   '/contests',
   checkToken.checkToken,
   basicMiddlewares.convertingQueryParams,
-  contestController.getCustomersContests,
+  contestController.getCustomersContests
 );
 
 userRouter.post(
   '/cashout',
   checkToken.checkToken,
   basicMiddlewares.onlyForCreative,
-  userController.cashout,
+  userController.cashout
 );
 
 module.exports = userRouter;

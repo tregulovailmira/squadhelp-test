@@ -8,8 +8,8 @@ let chatController;
 module.exports.createConnection = (httpServer) => {
   const io = new Server(httpServer, {
     cors: {
-      origin: 'http://localhost:3000',
-    },
+      origin: 'http://localhost:3000'
+    }
   });
   notificationController = new NotificationController();
   notificationController.connect('/api/notifications', io);

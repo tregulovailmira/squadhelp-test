@@ -5,16 +5,16 @@ module.exports = {
       type: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
       describe: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING,
-      },
+        type: Sequelize.STRING
+      }
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Selects');
-  },
+  }
 };

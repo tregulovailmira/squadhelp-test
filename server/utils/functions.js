@@ -3,9 +3,9 @@ const CONSTANTS = require('../constants');
 
 module.exports.createWhereForAllContests = (
   typeIndex, contestId, industry, awardSort) => {
-  let object = {
+  const object = {
     where: {},
-    order: [],
+    order: []
   };
   if (typeIndex) {
     Object.assign(object.where, { contestType: getPredicateTypes(typeIndex) });
@@ -21,18 +21,18 @@ module.exports.createWhereForAllContests = (
   }
   Object.assign(object.where, {
     status: {
-      [ bd.Sequelize.Op.or ]: [
+      [bd.Sequelize.Op.or]: [
         CONSTANTS.CONTEST_STATUS_FINISHED,
-        CONSTANTS.CONTEST_STATUS_ACTIVE,
-      ],
-    },
+        CONSTANTS.CONTEST_STATUS_ACTIVE
+      ]
+    }
   });
   object.order.push(['id', 'desc']);
   return object;
 };
 
 function getPredicateTypes (index) {
-  return { [ bd.Sequelize.Op.or ]: [types[ index ].split(',')] };
+  return { [bd.Sequelize.Op.or]: [types[index].split(',')] };
 }
 
 const types = [

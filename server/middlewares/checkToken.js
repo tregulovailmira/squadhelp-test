@@ -19,7 +19,7 @@ module.exports.checkAuth = async (req, res, next) => {
       avatar: foundUser.avatar,
       displayName: foundUser.displayName,
       balance: foundUser.balance,
-      email: foundUser.email,
+      email: foundUser.email
     });
   } catch (err) {
     next(new TokenError());

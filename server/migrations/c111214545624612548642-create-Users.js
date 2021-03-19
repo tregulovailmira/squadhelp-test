@@ -6,63 +6,63 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       firstName: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       lastName: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       displayName: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
       },
       avatar: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: 'anon.png',
+        defaultValue: 'anon.png'
       },
       role: {
         type: Sequelize.ENUM('customer', 'creator'),
-        allowNull: false,
+        allowNull: false
       },
       balance: {
         type: Sequelize.DECIMAL,
         allowNull: false,
-        defaultValue: 0,
+        defaultValue: 0
       },
       accessToken: {
         type: Sequelize.TEXT,
-        allowNull: true,
+        allowNull: true
       },
       rating: {
         type: Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0,
-      },
+        defaultValue: 0
+      }
     })
       .then(() => queryInterface.addConstraint('Users', ['balance'], {
         type: 'check',
         where: {
           balance: {
-            [ Sequelize.Op.gte ]: 0,
-          },
-        },
+            [Sequelize.Op.gte]: 0
+          }
+        }
       }));
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Users');
-  },
+  }
 };

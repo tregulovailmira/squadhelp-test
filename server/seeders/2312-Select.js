@@ -3,145 +3,145 @@ module.exports = {
     return queryInterface.bulkInsert('Selects', [
       {
         type: 'typeOfName',
-        describe: 'Company',
+        describe: 'Company'
 
       },
       {
         type: 'typeOfName',
-        describe: 'Product',
+        describe: 'Product'
 
       },
       {
         type: 'typeOfName',
-        describe: 'Project',
+        describe: 'Project'
 
       },
       {
         type: 'nameStyle',
-        describe: 'Classic',
+        describe: 'Classic'
 
       },
       {
         type: 'nameStyle',
-        describe: 'Fun',
+        describe: 'Fun'
 
       },
       {
         type: 'nameStyle',
-        describe: 'Professional',
+        describe: 'Professional'
 
       },
       {
         type: 'nameStyle',
-        describe: 'Descriptive',
+        describe: 'Descriptive'
 
       },
       {
         type: 'nameStyle',
-        describe: 'Youthful',
+        describe: 'Youthful'
 
       },
       {
         type: 'nameStyle',
-        describe: 'Any',
+        describe: 'Any'
 
       },
       {
         type: 'typeOfTagline',
-        describe: 'Classic',
+        describe: 'Classic'
 
       },
       {
         type: 'typeOfTagline',
-        describe: 'Fun',
+        describe: 'Fun'
 
       },
       {
         type: 'typeOfTagline',
-        describe: 'Powerful',
+        describe: 'Powerful'
 
       },
       {
         type: 'typeOfTagline',
-        describe: 'Descriptive',
+        describe: 'Descriptive'
 
       },
       {
         type: 'typeOfTagline',
-        describe: 'Modern',
+        describe: 'Modern'
 
       },
       {
         type: 'typeOfTagline',
-        describe: 'Any',
+        describe: 'Any'
 
       },
       {
         type: 'brandStyle',
-        describe: 'Techy',
+        describe: 'Techy'
 
       },
       {
         type: 'brandStyle',
-        describe: 'Fun',
+        describe: 'Fun'
 
       },
       {
         type: 'brandStyle',
-        describe: 'Fancy',
+        describe: 'Fancy'
 
       },
       {
         type: 'brandStyle',
-        describe: 'Minimal',
+        describe: 'Minimal'
 
       },
       {
         type: 'brandStyle',
-        describe: 'Brick & Mortar',
+        describe: 'Brick & Mortar'
 
       },
       {
         type: 'brandStyle',
-        describe: 'Photo-based',
+        describe: 'Photo-based'
 
       },
       {
         type: 'industry',
-        describe: 'Creative Agency',
+        describe: 'Creative Agency'
       },
       {
         type: 'industry',
-        describe: 'Consulting Firm',
+        describe: 'Consulting Firm'
       },
       {
         type: 'industry',
-        describe: 'Skin care',
+        describe: 'Skin care'
       },
       {
         type: 'industry',
-        describe: 'Biotech',
+        describe: 'Biotech'
       },
       {
         type: 'industry',
-        describe: 'Publisher',
+        describe: 'Publisher'
       },
       {
         type: 'industry',
-        describe: 'Education',
+        describe: 'Education'
       },
       {
         type: 'industry',
-        describe: 'Footwear',
+        describe: 'Footwear'
       },
       {
         type: 'industry',
-        describe: 'Medical',
+        describe: 'Medical'
       },
       {
         type: 'industry',
-        describe: 'Builders',
-      },
+        describe: 'Builders'
+      }
     ], {});
-  },
+  }
 };

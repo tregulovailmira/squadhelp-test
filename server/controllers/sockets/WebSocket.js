@@ -1,6 +1,6 @@
 const CONSTANTS = require('../../constants');
 
-class WebSocket{
+class WebSocket {
   connect (namespace, io) {
     this.io = io.of(namespace);
     this.listen();

@@ -9,19 +9,19 @@ const authRouter = Router();
 authRouter.post(
   '/login',
   validators.validateLogin,
-  userController.login,
+  userController.login
 );
 
 authRouter.post(
   '/registration',
   validators.validateRegistrationData,
   hashPass,
-  userController.registration,
+  userController.registration
 );
 
 authRouter.get(
   '/authUser',
-  checkToken.checkAuth,
+  checkToken.checkAuth
 );
 
 module.exports = authRouter;

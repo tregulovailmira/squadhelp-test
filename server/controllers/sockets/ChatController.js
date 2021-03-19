@@ -1,8 +1,7 @@
 const WebSocket = require('./WebSocket');
 const CONSTANTS = require('../../constants');
 
-class ChatController extends WebSocket{
-
+class ChatController extends WebSocket {
   anotherSubscribes (socket) {
     this.onSubscribeChat(socket);
     this.onUnsubscribeChat(socket);

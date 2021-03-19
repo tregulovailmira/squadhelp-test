@@ -9,7 +9,7 @@ offerRouter.put(
   '/:offerId/rating',
   checkToken.checkToken,
   basicMiddlewares.onlyForCustomer,
-  userController.changeMark,
+  userController.changeMark
 );
 
 module.exports = offerRouter;

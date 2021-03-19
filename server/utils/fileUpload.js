@@ -11,7 +11,7 @@ const filePath = env === 'production'
 
 if (!fs.existsSync(filePath)) {
   fs.mkdirSync(filePath, {
-    recursive: true,
+    recursive: true
   });
 }
 
@@ -21,7 +21,7 @@ const storageContestFiles = multer.diskStorage({
   },
   filename (req, file, cb) {
     cb(null, Date.now() + file.originalname);
-  },
+  }
 });
 
 const uploadAvatars = multer({ storage: storageContestFiles }).single('file');
@@ -75,4 +75,3 @@ module.exports.uploadLogoFiles = (req, res, next) => {
     return next();
   });
 };
-

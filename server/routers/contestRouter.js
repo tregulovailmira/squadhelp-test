@@ -15,13 +15,13 @@ contestRouter.post(
   upload.uploadContestFiles,
   basicMiddlewares.parseBody,
   validators.validateContestCreation,
-  userController.payment,
+  userController.payment
 );
 
 contestRouter.get(
   '/data',
   checkToken.checkToken,
-  contestController.dataForContest,
+  contestController.dataForContest
 );
 
 contestRouter
@@ -30,7 +30,7 @@ contestRouter
     checkToken.checkToken,
     basicMiddlewares.onlyForCreative,
     basicMiddlewares.convertingQueryParams,
-    contestController.getContests,
+    contestController.getContests
   );
 
 contestRouter
@@ -38,19 +38,18 @@ contestRouter
   .get(
     checkToken.checkToken,
     basicMiddlewares.canGetContest,
-    contestController.getContestById,
+    contestController.getContestById
   )
   .put(
     checkToken.checkToken,
     upload.updateContestFile,
-    contestController.updateContest,
+    contestController.updateContest
   );
-
 
 contestRouter.get(
   '/files/:fileName',
   checkToken.checkToken,
-  contestController.downloadFile,
+  contestController.downloadFile
 );
 
 contestRouter.post(
@@ -58,14 +57,14 @@ contestRouter.post(
   checkToken.checkToken,
   upload.uploadLogoFiles,
   basicMiddlewares.canSendOffer,
-  contestController.setNewOffer,
+  contestController.setNewOffer
 );
 
 contestRouter.put(
   '/:contestId/offers/:offerId',
   checkToken.checkToken,
   basicMiddlewares.onlyForCustomerWhoCreateContest,
-  contestController.setOfferStatus,
+  contestController.setOfferStatus
 );
 
 module.exports = contestRouter;

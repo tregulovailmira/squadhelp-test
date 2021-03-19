@@ -8,8 +8,8 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'Offers',
-          key: 'id',
-        },
+          key: 'id'
+        }
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -17,8 +17,8 @@ module.exports = {
         primaryKey: true,
         references: {
           model: 'Users',
-          key: 'id',
-        },
+          key: 'id'
+        }
       },
       mark: {
         type: Sequelize.FLOAT,
@@ -26,12 +26,12 @@ module.exports = {
         defaultValue: 0,
         validate: {
           min: 0,
-          max: 5,
-        },
-      },
+          max: 5
+        }
+      }
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Ratings');
-  },
+  }
 };

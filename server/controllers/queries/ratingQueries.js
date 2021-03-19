@@ -12,10 +12,9 @@ module.exports.updateRating = async (data, predicate, transaction) => {
 
 module.exports.createRating = async (data, transaction) => {
   const result = await bd.Ratings.create(data, { transaction });
-  if ( !result) {
+  if (!result) {
     throw new ServerError('cannot mark offer');
   } else {
     return result.get({ plain: true });
   }
 };
-

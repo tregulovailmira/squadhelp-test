@@ -14,7 +14,7 @@ module.exports.updateUser = async (data, userId, transaction) => {
 
 module.exports.findUser = async (predicate, transaction) => {
   const result = await bd.Users.findOne({ where: predicate, transaction });
-  if ( !result) {
+  if (!result) {
     throw new NotFound('user with this data didn`t exist');
   } else {
     return result.get({ plain: true });
@@ -23,7 +23,7 @@ module.exports.findUser = async (predicate, transaction) => {
 
 module.exports.userCreation = async (data) => {
   const newUser = await bd.Users.create(data);
-  if ( !newUser) {
+  if (!newUser) {
     throw new ServerError('server error on user creation');
   } else {
     return newUser.get({ plain: true });
@@ -32,7 +32,7 @@ module.exports.userCreation = async (data) => {
 
 module.exports.passwordCompare = async (pass1, pass2) => {
   const passwordCompare = await bcrypt.compare(pass1, pass2);
-  if ( !passwordCompare) {
+  if (!passwordCompare) {
     throw new NotFound('Wrong password');
   }
 };

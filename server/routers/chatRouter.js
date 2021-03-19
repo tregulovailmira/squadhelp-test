@@ -7,46 +7,46 @@ const chatRouter = Router();
 chatRouter.get(
   '/preview',
   checkToken.checkToken,
-  chatController.getPreview,
+  chatController.getPreview
 );
 
 chatRouter.post(
   '/messages',
   checkToken.checkToken,
-  chatController.addMessage,
+  chatController.addMessage
 );
 
 chatRouter
   .route('/conversations/:interlocutorId')
   .get(
     checkToken.checkToken,
-    chatController.getChat,
+    chatController.getChat
   )
   .patch(
     checkToken.checkToken,
-    chatController.toggleBlackAndFavoriteList,
+    chatController.toggleBlackAndFavoriteList
   );
 
 chatRouter
   .route('/catalogs')
   .post(
     checkToken.checkToken,
-    chatController.createCatalog,
+    chatController.createCatalog
   )
   .get(
     checkToken.checkToken,
-    chatController.getCatalogs,
+    chatController.getCatalogs
   );
 
 chatRouter
   .route('/catalogs/:catalogId')
   .patch(
     checkToken.checkToken,
-    chatController.updateCatalog,
+    chatController.updateCatalog
   )
   .delete(
     checkToken.checkToken,
-    chatController.deleteCatalog,
+    chatController.deleteCatalog
   );
 
 module.exports = chatRouter;
