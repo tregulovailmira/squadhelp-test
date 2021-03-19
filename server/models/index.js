@@ -21,29 +21,11 @@ fs
     db[model.name] = model;
   });
 
-db.Contests.belongsTo(db.Users,
-  { foreignKey: 'userId', sourceKey: 'id' });
-db.Contests.hasMany(db.Offers,
-  { foreignKey: 'contestId', targetKey: 'id' });
-
-db.Users.hasMany(db.Offers,
-  { foreignKey: 'userId', targetKey: 'id' });
-db.Users.hasMany(db.Contests,
-  { foreignKey: 'userId', targetKey: 'id' });
-db.Users.hasMany(db.Ratings,
-  { foreignKey: 'userId', targetKey: 'id' });
-
-db.Offers.belongsTo(db.Users,
-  { foreignKey: 'userId', sourceKey: 'id' });
-db.Offers.belongsTo(db.Contests,
-  { foreignKey: 'contestId', sourceKey: 'id' });
-db.Offers.hasOne(db.Ratings,
-  { foreignKey: 'offerId', targetKey: 'id' });
-
-db.Ratings.belongsTo(db.Users,
-  { foreignKey: 'userId', targetKey: 'id' });
-db.Ratings.belongsTo(db.Offers,
-  { foreignKey: 'offerId', targetKey: 'id' });
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
