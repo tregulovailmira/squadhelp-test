@@ -113,7 +113,7 @@ module.exports.changeMark = async (req, res, next) => {
 };
 
 module.exports.payment = async (req, res, next) => {
-  const { body: { number, cvc, expiry, price, contests }, tokenData: { userId } } = req;
+  const { body: { number, cvc, expiry, contests }, tokenData: { userId } } = req;
   let transaction;
   try {
     transaction = await bd.sequelize.transaction();
@@ -123,12 +123,12 @@ module.exports.payment = async (req, res, next) => {
             "cardNumber"='${ number.replace(/ /g, '') }' 
             AND "cvc"='${ cvc }' 
             AND "expiry"='${ expiry }'
-          THEN "balance"-${ price }
+          THEN "balance"-${ CONSTANTS.CONTEST_PRICE }
           WHEN 
             "cardNumber"='${ CONSTANTS.SQUADHELP_BANK_NUMBER }' 
             AND "cvc"='${ CONSTANTS.SQUADHELP_BANK_CVC }' 
             AND "expiry"='${ CONSTANTS.SQUADHELP_BANK_EXPIRY }'
-          THEN "balance"+${ price } 
+          THEN "balance"+${ CONSTANTS.CONTEST_PRICE } 
           END
         `),
     },
@@ -146,8 +146,8 @@ module.exports.payment = async (req, res, next) => {
     const orderId = uuid();
     contests.forEach((contest, index) => {
       const prize = index === contests.length - 1
-        ? Math.ceil(price / contests.length)
-        : Math.floor(price / contests.length);
+        ? Math.ceil(CONSTANTS.CONTEST_PRICE / contests.length)
+        : Math.floor(CONSTANTS.CONTEST_PRICE / contests.length);
       contest = Object.assign(contest, {
         status: index === 0 ? 'active' : 'pending',
         userId,

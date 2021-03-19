@@ -24,7 +24,6 @@ const Payment = (props) => {
         data.append('expiry', expiry);
         data.append('cvc', cvc);
         data.append('contests', JSON.stringify(contestArray));
-        data.append('price', '100');
         props.pay({
             formData: data
         });
