@@ -12,15 +12,14 @@
     justify-content: space-around
     align-items: center
     border-bottom: 1px solid #ebebeb
-    @media(max-width: 920px)
-      justify-content: center
     @media(max-width: 700px)
+      flex-direction: column
+      align-items: flex-start
       justify-content: flex-start
 
     .logo
       align-self: flex-end
-      @media(max-width: 920px)
-        display: none
+      margin: 5px
 
     .startContestBtn
       text-align: center
@@ -66,7 +65,8 @@
             display: flex
             align-items: center
             justify-content: flex-start
-            margin-right: 30px
+            margin: 0 20px 0
+            text-align: center
             @media(max-width: 700px)
               width: 100%
               padding: 0 15px
@@ -129,7 +129,6 @@
     align-items: center
     justify-content: space-around
     border: 1px solid #ebebeb
-    margin-bottom: 13px
 
     .userButtonsContainer
       margin-left: 100px
@@ -203,29 +202,29 @@
         font-size: 14px
         border-right: 1px solid #ebebeb
 
-    .numberContainer
+    a
       text-decoration: none
-      color: inherit
-      display: flex
-      justify-content: center
-      align-items: center
-      padding: 0 15px
-      border-right: 1px solid #ebebeb
-      border-left: 1px solid #ebebeb
-      margin-left: 120px
-      height: 40px
-      @media(max-width: 600px)
-        margin-left: 10px
-      @media(max-width: 360px)
-        padding: 0 5px
-        margin-left: 0
+      color: #337ab7
+      font-size: 16px
+      margin-left: 10px
 
-      span
-        color: #337ab7
-        font-size: 14px
-        margin-left: 10px
+      .numberContainer
+        display: flex
+        align-items: center
+        padding: 0 15px
+        border-right: 1px solid #ebebeb
+        border-left: 1px solid #ebebeb
+        text-align: center
+        @media(max-width: 600px)
+          margin-left: 10px
         @media(max-width: 360px)
-          font-size: 12px
+          padding: 0 5px
+          margin-left: 0
+      
+        .phoneLogo
+          margin-right: 5px
+      
+
 
   .fixedHeader
     z-index: 500
