@@ -3,16 +3,39 @@ import styles from './Header.module.sass';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import CONSTANTS from '../../constants';
-import {getUserAction, clearUserStore, headerRequest} from '../../actions/actionCreator';
+import { clearUserStore, headerRequest } from '../../actions/actionCreator';
+import { controller } from '../../api/ws/socketController';
 
 
 class Header extends React.Component{
   componentDidMount () {
-    if ( !this.props.data) {
+    const { data } = this.props;
+    if ( !data ) {
       this.props.getUser();
+    } else {
+      controller.subscribe(data.id);
     }
   }
 
+  componentWillUnmount() {
+    const { data } = this.props;
+    if( data ) {
+        controller.unsubscribe(data.id);
+    };
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    const { data } = this.props;
+
+    if( !prevProps.data && data) {
+        controller.subscribe(data.id);
+    };
+
+    if( prevProps.data && !data) {
+        controller.unsubscribe(data.id);
+    };
+  }
+  
   logOut = () => {
     localStorage.clear();
     this.props.clearUserStore();

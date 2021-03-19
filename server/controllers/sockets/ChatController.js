@@ -16,7 +16,7 @@ class ChatController extends WebSocket{
 
   onUnsubscribeChat (socket) {
     socket.on('unsubscribeChat', (id) => {
-      socket.join(id);
+      socket.leave(id);
     });
   }
 
