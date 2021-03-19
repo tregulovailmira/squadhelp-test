@@ -1,9 +1,10 @@
-import React from 'react';
-import styles from "./ContestInfo.module.sass";
+/* eslint-disable react/prop-types */
+import React from 'react'
+import styles from './ContestInfo.module.sass'
 
 const LogoContestSpecialInfo = props => {
-    const {nameVenture, brandStyle} = props;
-    return (
+  const { nameVenture, brandStyle } = props
+  return (
         <>
             {nameVenture && <div className={styles.dataContainer}>
                 <span className={styles.label}>Name ventrure</span>
@@ -14,7 +15,7 @@ const LogoContestSpecialInfo = props => {
                 <span className={styles.data}>{brandStyle}</span>
             </div>
         </>
-    );
-};
+  )
+}
 
-export default LogoContestSpecialInfo;
+export default LogoContestSpecialInfo

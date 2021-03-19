@@ -1,38 +1,38 @@
-import React from 'react';
-import Cards from 'react-credit-cards';
-import styles from './PayForm.module.sass';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
-import { connect } from 'react-redux';
-import { changeFocusOnCard } from '../../actions/actionCreator';
-import PayInput from '../InputComponents/PayInput/PayInput';
-import customValidator from '../../validators/validator';
-import Schems from '../../validators/validationSchems';
+/* eslint-disable react/prop-types */
+import React from 'react'
+import Cards from 'react-credit-cards'
+import styles from './PayForm.module.sass'
+import { Field, reduxForm, formValueSelector } from 'redux-form'
+import { connect } from 'react-redux'
+import { changeFocusOnCard } from '../../actions/actionCreator'
+import PayInput from '../InputComponents/PayInput/PayInput'
+import customValidator from '../../validators/validator'
+import Schems from '../../validators/validationSchems'
 
-import 'react-credit-cards/es/styles-compiled.css';
+import 'react-credit-cards/es/styles-compiled.css'
 
-let isPayForOrder;
+let isPayForOrder
 
 const PayForm = (props) => {
-
   const changeFocusOnCard = (name) => {
-    props.changeFocusOnCard(name);
-  };
+    props.changeFocusOnCard(name)
+  }
 
   const pay = (values) => {
-    props.sendRequest(values);
-  };
+    props.sendRequest(values)
+  }
 
-  isPayForOrder = props.isPayForOrder;
-  const { handleSubmit, focusOnElement, name, number, expiry, cvc } = props;
+  isPayForOrder = props.isPayForOrder
+  const { handleSubmit, focusOnElement, name, number, expiry, cvc } = props
   return (
     <div className={ styles.payFormContainer }>
       <span className={ styles.headerInfo }>Payment Information</span>
       <div className={ styles.cardContainer }>
         <Cards
-          number={ number ? number : '' }
-          name={ name ? name : '' }
-          expiry={ expiry ? expiry : '' }
-          cvc={ cvc ? cvc : '' }
+          number={ number || '' }
+          name={ name || '' }
+          expiry={ expiry || '' }
+          cvc={ cvc || '' }
           focused={ focusOnElement }
         />
       </div>
@@ -46,7 +46,7 @@ const PayForm = (props) => {
               container: styles.inputContainer,
               input: styles.input,
               notValid: styles.notValid,
-              error: styles.error,
+              error: styles.error
             } }
             component={ PayInput }
             type='text'
@@ -62,7 +62,7 @@ const PayForm = (props) => {
               container: styles.inputContainer,
               input: styles.input,
               notValid: styles.notValid,
-              error: styles.error,
+              error: styles.error
             } }
             component={ PayInput }
             type='text'
@@ -79,7 +79,7 @@ const PayForm = (props) => {
               container: styles.inputContainer,
               input: styles.input,
               notValid: styles.notValid,
-              error: styles.error,
+              error: styles.error
             } }
             component={ PayInput }
             type='text'
@@ -98,7 +98,7 @@ const PayForm = (props) => {
                 container: styles.inputContainer,
                 input: styles.input,
                 notValid: styles.notValid,
-                error: styles.error,
+                error: styles.error
               } }
               component={ PayInput }
               type='text'
@@ -116,7 +116,7 @@ const PayForm = (props) => {
                 container: styles.inputContainer,
                 input: styles.input,
                 notValid: styles.notValid,
-                error: styles.error,
+                error: styles.error
               } }
               component={ PayInput }
               type='text'
@@ -136,26 +136,25 @@ const PayForm = (props) => {
           <span>Back</span></div> }
       </div>
     </div>
-  );
-
-};
+  )
+}
 
 const mapStateToProps = (state) => {
-  const selector = formValueSelector('payForm');
-  const { focusOnElement } = state.payment;
+  const selector = formValueSelector('payForm')
+  const { focusOnElement } = state.payment
   const { name, number, cvc, expiry } = selector(state, 'name', 'number', 'cvc',
-    'expiry');
-  return { focusOnElement, name, number, cvc, expiry };
-};
+    'expiry')
+  return { focusOnElement, name, number, cvc, expiry }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeFocusOnCard: (data) => dispatch(changeFocusOnCard(data)),
-  };
-};
+    changeFocusOnCard: (data) => dispatch(changeFocusOnCard(data))
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'payForm',
   validate: customValidator(
-    isPayForOrder ? Schems.PaymentSchema : Schems.CashoutSchema),
-})(PayForm));
+    isPayForOrder ? Schems.PaymentSchema : Schems.CashoutSchema)
+})(PayForm))

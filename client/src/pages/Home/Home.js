@@ -1,38 +1,39 @@
-import React, {useState, useEffect} from 'react';
-import Header from '../../components/Header/Header';
-import {Link} from "react-router-dom";
-import CONSTANTS from '../../constants';
-import SlideBar from '../../components/SlideBar/SlideBar';
-import Footer from '../../components/Footer/Footer';
-import styles from './Home.module.sass';
-import carouselConstants from '../../carouselConstants';
-import {connect} from 'react-redux';
-import Spinner from '../../components/Spinner/Spinner';
-
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from 'react'
+import Header from '../../components/Header/Header'
+import { Link } from 'react-router-dom'
+import CONSTANTS from '../../constants'
+import SlideBar from '../../components/SlideBar/SlideBar'
+import Footer from '../../components/Footer/Footer'
+import styles from './Home.module.sass'
+import carouselConstants from '../../carouselConstants'
+import { connect } from 'react-redux'
+import Spinner from '../../components/Spinner/Spinner'
 
 const Home = (props) => {
-    const [index, setIndex] = useState(0);
-    const [styleName, setStyle] = useState(styles.headline__static);
-    let timeout;
+  const [index, setIndex] = useState(0)
+  const [styleName, setStyle] = useState(styles.headline__static)
+  let timeout
 
-    useEffect(() => {
-        timeout = setInterval(() => {
-            setIndex(index + 1);
-            setStyle(styles.headline__isloading);
-        }, 3000);
-        return () => {
-            setStyle(styles.headline__static);
-            clearInterval(timeout);
-        };
-    });
+  useEffect(() => {
+    timeout = setInterval(() => {
+      setIndex(index + 1)
+      setStyle(styles.headline__isloading)
+    }, 3000)
+    return () => {
+      setStyle(styles.headline__static)
+      clearInterval(timeout)
+    }
+  })
 
-
-    const {isFetching} = props;
-    const text = CONSTANTS.HEADER_ANIMATION_TEXT[index % CONSTANTS.HEADER_ANIMATION_TEXT.length];
-    return (
+  const { isFetching } = props
+  const text = CONSTANTS.HEADER_ANIMATION_TEXT[index % CONSTANTS.HEADER_ANIMATION_TEXT.length]
+  return (
         <>
             <Header/>
-            {isFetching ? <Spinner/> : (<>
+            {isFetching
+              ? <Spinner/>
+              : (<>
                 <div className={styles.container}>
                     <div className={styles.headerBar}>
                         <div className={styles.headline}>
@@ -58,7 +59,7 @@ const Home = (props) => {
                                 <img src={`${CONSTANTS.STATIC_IMAGES_PATH}more-benifits-world-icon.png`} alt="globe"/>
                                 <h3>Largest Naming Community</h3>
                                 <p>Our unique approach allows you to receive an unmatched breadth of business
-                                    name ideas from world's largest community of naming experts.
+                                    name ideas from world&apos;s largest community of naming experts.
                                     With 75,000+ creatives and 15,000+ successful naming projects,
                                     Squadhelp is by far the largest naming platform across the globe .</p>
                             </div>
@@ -75,7 +76,7 @@ const Home = (props) => {
                                 <img src={`${CONSTANTS.STATIC_IMAGES_PATH}more-benifits-trademark-icon.png`}
                                      alt="cards"/>
                                 <h3>Agency-Level Features</h3>
-                                <p>Squadhelp's high end Audience Testing service allows you to poll your target
+                                <p>Squadhelp&apos;s high end Audience Testing service allows you to poll your target
                                     demographics to get unbiased feedback on your favorite names.
                                     Also receive Trademark support from our team of Licensed Trademark Attorneys,
                                     so you can pick your name with confidence.</p>
@@ -190,12 +191,12 @@ const Home = (props) => {
                 <Footer/>
             </>)}
         </>
-    )
-};
+  )
+}
 
 const mapStateToProps = (state) => {
-    const {isFetching} = state.userStore;
-    return {isFetching};
-};
+  const { isFetching } = state.userStore
+  return { isFetching }
+}
 
-export default connect(mapStateToProps, null)(Home);
+export default connect(mapStateToProps, null)(Home)

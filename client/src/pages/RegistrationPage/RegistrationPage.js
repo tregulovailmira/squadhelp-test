@@ -1,28 +1,29 @@
-import React from 'react';
-import Logo from '../../components/Logo';
+/* eslint-disable react/prop-types */
+import React from 'react'
+import Logo from '../../components/Logo'
 import RegistrationForm
-  from '../../components/RegistrationForm/RegistrationForm';
-import styles from './RegistrationPage.module.sass';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { clearErrorSignUpAndLogin } from '../../actions/actionCreator';
-import CONSTANTS from '../../constants';
+  from '../../components/RegistrationForm/RegistrationForm'
+import styles from './RegistrationPage.module.sass'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { clearErrorSignUpAndLogin } from '../../actions/actionCreator'
+import CONSTANTS from '../../constants'
 
 const RegistrationPage = (props) => {
-  props.clearError();
+  props.clearError()
 
   const changeRoute = () => {
-    props.history.replace('/');
-  };
+    props.history.replace('/')
+  }
 
   return (
     <div className={ styles.signUpPage }>
       <div className={ styles.signUpContainer }>
         <div className={ styles.headerSignUpPage }>
-          <Logo src={ `${ CONSTANTS.STATIC_IMAGES_PATH }logo.png` }/>
+          <Logo src={ `${CONSTANTS.STATIC_IMAGES_PATH}logo.png` }/>
           <div className={ styles.linkLoginContainer }>
             <Link to='/login'
-                  style={ {textDecoration: 'none'} }><span>Login</span></Link>
+                  style={ { textDecoration: 'none' } }><span>Login</span></Link>
           </div>
         </div>
         <RegistrationForm changeRoute={ changeRoute }/>
@@ -67,7 +68,7 @@ const RegistrationPage = (props) => {
               receive an unmatched
               breadth of name ideas from dozens of unique, creative minds while
               working with
-              the world's largest branding community.
+              the world&apos;s largest branding community.
               Quality and Collaboration: Using an advanced Quality Scoring
               Algorithm, we ensure
               that you receive more ideas from our top-quality creatives, and we
@@ -154,13 +155,13 @@ const RegistrationPage = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    clearError: () => dispatch(clearErrorSignUpAndLogin()),
-  };
-};
+    clearError: () => dispatch(clearErrorSignUpAndLogin())
+  }
+}
 
-export default connect(null, mapDispatchToProps)(RegistrationPage);
+export default connect(null, mapDispatchToProps)(RegistrationPage)

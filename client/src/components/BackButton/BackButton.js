@@ -1,20 +1,18 @@
-import React from 'react';
-import {withRouter} from 'react-router-dom';
+/* eslint-disable react/prop-types */
+import React from 'react'
+import { withRouter } from 'react-router-dom'
 import styles from './BackButton.module.sass'
 
-const BackButton=(props)=>{
+const BackButton = (props) => {
+  function clickHandler () {
+    props.history.goBack()
+  }
 
-    function clickHandler(){
-        props.history.goBack();
-    }
-
-    return (
+  return (
         <div onClick={clickHandler} className={styles.buttonContainer}>
             <span>Back</span>
         </div>
-    )
-};
+  )
+}
 
-export default withRouter(BackButton);
-
-
+export default withRouter(BackButton)

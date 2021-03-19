@@ -1,15 +1,15 @@
-import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
-
+/* eslint-disable react/prop-types */
+import React from 'react'
+import { Modal, Button } from 'react-bootstrap'
 
 const ModalSubmit = (props) => {
-    const {closeModal,denied, submit, show} = props;
-    return (
+  const { closeModal, denied, submit, show } = props
+  return (
         <Modal show={show} onHide={closeModal}>
             <Modal.Header closeButton onClick={closeModal}>
                 <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+            <Modal.Body>Woohoo, you&apos;re reading this text in a modal!</Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={denied}>
                     Close
@@ -19,8 +19,7 @@ const ModalSubmit = (props) => {
                 </Button>
             </Modal.Footer>
         </Modal>
-    )
-};
-
+  )
+}
 
 export default ModalSubmit

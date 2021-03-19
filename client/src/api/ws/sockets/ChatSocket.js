@@ -12,6 +12,7 @@ class ChatSocket extends WebSocket {
         this.onNewMessage();
         this.onChangeBlockStatus();
     };
+
     onChangeBlockStatus = () => {
         this.socket.on(CONTANTS.CHANGE_BLOCK_STATUS, (data) => {
             const {message} = data;

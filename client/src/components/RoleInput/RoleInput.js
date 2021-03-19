@@ -1,9 +1,9 @@
-import React from 'react';
-import styles from './RoleInput.module.sass';
+/* eslint-disable react/prop-types */
+import React from 'react'
+import styles from './RoleInput.module.sass'
 
-
-const RoleInput = ({label, id, strRole, infoRole, input, type}) => {
-    return (
+const RoleInput = ({ label, id, strRole, infoRole, input, type }) => {
+  return (
         <label htmlFor={id}>
             <div className={styles.roleContainer}>
                 <input {...input} type={type} id={id}/>
@@ -13,7 +13,7 @@ const RoleInput = ({label, id, strRole, infoRole, input, type}) => {
                 </div>
             </div>
         </label>
-    )
-};
+  )
+}
 
-export default RoleInput;
+export default RoleInput

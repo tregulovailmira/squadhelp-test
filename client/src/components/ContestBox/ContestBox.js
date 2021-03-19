@@ -1,39 +1,30 @@
-import React from 'react';
-import styles from './ContestBox.module.sass';
-import moment from 'moment';
-import CONSTANTS from '../../constants';
-
+/* eslint-disable react/prop-types */
+import React from 'react'
+import styles from './ContestBox.module.sass'
+import moment from 'moment'
+import CONSTANTS from '../../constants'
 
 const ContestBox = (props) => {
+  const getTimeStr = () => {
+    const diff = (moment.duration(moment().diff(moment(props.data.createdAt))))
+    let str = ''
+    if (diff._data.days !== 0) { str = `${diff._data.days}d ` }
+    if (diff._data.hours !== 0) { str += `${diff._data.hours}h` }
+    if (str.length === 0) { str = 'less than one hour' }
+    return str
+  }
 
-    const getTimeStr = () => {
-        const diff = (moment.duration(moment().diff(moment(props.data.createdAt))));
-        let str = '';
-        if (diff._data.days !== 0)
-            str = `${diff._data.days}d `;
-        if (diff._data.hours !== 0)
-            str += `${diff._data.hours}h`;
-        if (str.length === 0)
-            str = 'less than one hour';
-        return str;
-    };
+  const getPreferenceContest = () => {
+    const data = props.data
+    if (data.contestType === CONSTANTS.NAME_CONTEST) { return data.typeOfName } else if (data.contestType === CONSTANTS.LOGO_CONTEST) { return data.brandStyle } else { return data.typeOfTagline }
+  }
 
-    const getPreferenceContest = () => {
-        const data = props.data;
-        if (data.contestType === CONSTANTS.NAME_CONTEST)
-            return data.typeOfName;
-        else if (data.contestType === CONSTANTS.LOGO_CONTEST)
-            return data.brandStyle;
-        else
-            return data.typeOfTagline;
-    };
+  const ucFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
 
-    const ucFirstLetter = (string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    };
-
-    const {id, title, contestType, prize, count, goToExtended} = props.data;
-    return (
+  const { id, title, contestType, prize, count } = props.data
+  return (
         <div className={styles.contestBoxContainer} onClick={() => props.goToExtended(id)}>
             <div className={styles.mainContestInfo}>
                 <div className={styles.titleAndIdContainer}>
@@ -73,7 +64,7 @@ const ContestBox = (props) => {
                 </div>
             </div>
         </div>
-    )
-};
+  )
+}
 
-export default ContestBox;
+export default ContestBox

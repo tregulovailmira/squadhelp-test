@@ -1,6 +1,6 @@
-const env = process.env.NODE_ENV || 'development';
-const serverIP = 'localhost';
-const serverPort = env === 'production' ? 3000 : 9632;
+const env = process.env.NODE_ENV || 'development'
+const serverIP = 'localhost'
+const serverPort = env === 'production' ? 3000 : 9632
 export default {
   CUSTOMER: 'customer',
   CREATOR: 'creator',
@@ -15,11 +15,11 @@ export default {
   OFFER_STATUS_PENDING: 'pending',
   STATIC_IMAGES_PATH: '/staticImages/',
   ANONYM_IMAGE_PATH: '/staticImages/anonym.png',
-  BASE_URL: `http://${ serverIP }:${ serverPort }/api`,
+  BASE_URL: `http://${serverIP}:${serverPort}/api`,
   ACCESS_TOKEN: 'accessToken',
   publicURL: env === 'production'
-    ? `http://${ serverIP }:80/images/`
-    : `http://${ serverIP }:${ serverPort }/public/images/`,
+    ? `http://${serverIP}:80/images/`
+    : `http://${serverIP}:${serverPort}/public/images/`,
   NORMAL_PREVIEW_CHAT_MODE: 'NORMAL_PREVIEW_CHAT_MODE',
   FAVORITE_PREVIEW_CHAT_MODE: 'FAVORITE_PREVIEW_CHAT_MODE',
   BLOCKED_PREVIEW_CHAT_MODE: 'BLOCKED_PREVIEW_CHAT_MODE',
@@ -38,7 +38,7 @@ export default {
     'a Business',
     'an App',
     'a Product',
-    'a Startup',
+    'a Startup'
   ],
   FooterItems: [
     {
@@ -48,8 +48,8 @@ export default {
         'Contact',
         'How It Works?',
         'Testimonials',
-        'Our Work',
-      ],
+        'Our Work'
+      ]
     },
     {
       title: 'RESOURCES',
@@ -61,8 +61,8 @@ export default {
         'Blog',
         'Download eBook',
         'Pricing',
-        'Help & FAQs',
-      ],
+        'Help & FAQs'
+      ]
     },
     {
       title: 'OUR SERVICES',
@@ -74,16 +74,16 @@ export default {
         'Creative Owned Names For Sale',
         'Audience Testing',
         'Trademark Research & Filling',
-        'Managed Agency Service',
-      ],
+        'Managed Agency Service'
+      ]
     },
     {
       title: 'LEGAL',
       items: [
         'Terms of Service',
         'Privacy Policy',
-        'Cookie Policy',
-      ],
-    },
-  ],
-};
+        'Cookie Policy'
+      ]
+    }
+  ]
+}
