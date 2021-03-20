@@ -43,7 +43,7 @@ class RegistrationForm extends React.Component{
     return (
       <div className={ styles.signUpFormContainer }>
         { error && <Error data={ error.data } status={ error.status }
-                          clearError={ authClear }/> }
+                          clearError={ authClear } stylesClasses={styles.errorPosition}/> }
         <div className={ styles.headerFormContainer }>
           <h2>
             CREATE AN ACCOUNT

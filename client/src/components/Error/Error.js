@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import styles from './Error.module.sass'
+import React from 'react';
+import cx from 'classnames';
+import styles from './Error.module.sass';
 
 const Error = props => {
   const getMessage = () => {
@@ -21,9 +22,12 @@ const Error = props => {
     }
   }
 
-  const { clearError } = props
+  const { clearError, stylesClasses } = props;
+
+  const errorStyles = cx(stylesClasses, styles.errorContainer);
+
   return (
-        <div className={styles.errorContainer}>
+        <div className={errorStyles}>
             <span>{getMessage()}</span>
             <i className="far fa-times-circle" onClick={() => clearError()}/>
         </div>

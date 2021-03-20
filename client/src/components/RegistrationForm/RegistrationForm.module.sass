@@ -45,6 +45,7 @@
     color: white
 
   .termsOfService
+    position: relative
     text-align: center
     color: white
     font-size: 16px
@@ -56,17 +57,29 @@
 
 
     .fieldWarning
-      font-size: 15px
+      position: absolute
+      left: 50%
+      transform: translate(-50%)
+      font-size: 17px
       display: flex
       flex-direction: row
       justify-content: center
       align-items: center
       color: white
-      border: 1px solid #b72522
-      margin-bottom: 15px
-      padding-bottom: 5px
-      padding-top: 5px
+      background-color: #b72522
+      padding: 5px
       text-align: center
+
+      &::before
+        content: ''
+        position: absolute
+        width: 0
+        height: 0
+        border-style: solid
+        border-width: 0 6px 10px 6px
+        border-color: transparent transparent #b72422 transparent
+        top: -10px
+        left: 50
 
     @media(max-width: 850px)
       align-self: auto
@@ -74,24 +87,6 @@
     a
       color: white
       font-size: 16px
-
-
-  .error
-    text-align: center
-    color: white
-    font-size: 20px
-    min-width: 260px
-    align-self: stretch
-    margin-right: 20px
-    margin-left: 20px
-    border: 1px solid white
-    background-color: red
-    padding-top: 5px
-    padding-bottom: 5px
-    border-radius: 6px
-    margin-bottom: 10px
-    @media(max-width: 850px)
-      align-self: auto
 
   .row
     width: 100%
@@ -105,6 +100,7 @@
       width: auto
 
     .inputContainer
+      position: relative
       display: flex
       flex-direction: column
       justify-content: center
@@ -114,21 +110,33 @@
       flex: 1 1
 
       .fieldWarning
-        font-size: 15px
+        position: absolute
+        z-index: 100
+        bottom: -22px
+        font-size: 17px
         display: flex
         flex-direction: row
         justify-content: center
         align-items: center
         color: white
-        border: 1px solid #b72522
-        margin-bottom: 15px
-        padding-bottom: 5px
-        padding-top: 5px
+        background-color:  #b72522
+        padding: 5px
         text-align: center
+
+        &::before
+          content: ''
+          position: absolute
+          top: -10px
+          left: 20px
+          width: 0
+          height: 0
+          border-style: solid
+          border-width: 0 6px 10px 6px
+          border-color: transparent transparent #b72422 transparent
 
     .input
       background-color: white
-      border: none
+      border: 2px solid white
       border-radius: 4px
       color: #9ca8b7
       font-size: 18px
@@ -154,7 +162,6 @@
     margin-bottom: 18px
     text-align: center
 
-
     h2
       color: white
       font-size: 42px
@@ -174,3 +181,7 @@
       margin-bottom: 13px
       text-align: center
       line-height: 27px
+
+  .errorPosition
+    position: absolute
+    top: 160px
