@@ -10,9 +10,11 @@ const bankQueries = require('./queries/bankQueries');
 const ratingQueries = require('./queries/ratingQueries');
 
 module.exports.login = async (req, res, next) => {
+  const { body: { email, password } } = req;
   try {
-    const foundUser = await userQueries.findUser({ email: req.body.email });
-    await userQueries.passwordCompare(req.body.password, foundUser.password);
+    const foundUser = await userQueries.findUser({ email });
+    await userQueries.passwordCompare(password, foundUser.password);
+
     const accessToken = jwt.sign({
       firstName: foundUser.firstName,
       userId: foundUser.id,
@@ -24,16 +26,22 @@ module.exports.login = async (req, res, next) => {
       email: foundUser.email,
       rating: foundUser.rating
     }, CONSTANTS.JWT_SECRET, { expiresIn: CONSTANTS.ACCESS_TOKEN_TIME });
+
     await userQueries.updateUser({ accessToken }, foundUser.id);
-    res.send({ token: accessToken });
+
+    return res.send({ token: accessToken });
   } catch (err) {
     next(err);
   }
 };
+
 module.exports.registration = async (req, res, next) => {
+  const { body, hashPass } = req;
   try {
     const newUser = await userQueries.userCreation(
-      Object.assign(req.body, { password: req.hashPass }));
+      Object.assign(body, { password: hashPass })
+    );
+
     const accessToken = jwt.sign({
       firstName: newUser.firstName,
       userId: newUser.id,
@@ -45,8 +53,10 @@ module.exports.registration = async (req, res, next) => {
       email: newUser.email,
       rating: newUser.rating
     }, CONSTANTS.JWT_SECRET, { expiresIn: CONSTANTS.ACCESS_TOKEN_TIME });
+
     await userQueries.updateUser({ accessToken }, newUser.id);
-    res.send({ token: accessToken });
+
+    return res.send({ token: accessToken });
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
       next(new NotUniqueEmail());
@@ -56,20 +66,18 @@ module.exports.registration = async (req, res, next) => {
   }
 };
 
-function getQuery (offerId, userId, mark, isFirst, transaction) {
-  const getCreateQuery = () => ratingQueries.createRating({
-    offerId,
-    mark,
-    userId
-  }, transaction);
-  const getUpdateQuery = () => ratingQueries.updateRating({ mark },
-    { offerId, userId }, transaction);
-  return isFirst ? getCreateQuery : getUpdateQuery;
-}
+const getCreateRatingQuery = (offerId, userId, mark, transaction) => ratingQueries.createRating({
+  offerId,
+  mark,
+  userId
+}, transaction);
+
+const getUpdateRaringQuery = (offerId, userId, mark, transaction) => ratingQueries.updateRating({ mark },
+  { offerId, userId }, transaction);
 
 module.exports.changeMark = async (req, res, next) => {
-  let sum = 0;
-  let avg = 0;
+  let sumOfRatings = 0;
+  let rating = 0;
   let transaction;
   const {
     body: { isFirst, mark, creatorId },
@@ -79,9 +87,12 @@ module.exports.changeMark = async (req, res, next) => {
 
   try {
     transaction = await bd.sequelize.transaction(
-      { isolationLevel: bd.Sequelize.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED });
-    const query = getQuery(offerId, userId, mark, isFirst, transaction);
-    await query();
+      { isolationLevel: bd.Sequelize.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED }
+    );
+    isFirst
+      ? await getCreateRatingQuery(offerId, userId, mark, isFirst, transaction)
+      : await getUpdateRaringQuery(offerId, userId, mark, isFirst, transaction);
+
     const offersArray = await bd.Ratings.findAll({
       include: [
         {
@@ -92,17 +103,17 @@ module.exports.changeMark = async (req, res, next) => {
       ],
       transaction
     });
-    for (let i = 0; i < offersArray.length; i++) {
-      sum += offersArray[i].dataValues.mark;
-    }
-    avg = sum / offersArray.length;
 
-    await userQueries.updateUser({ rating: avg }, creatorId, transaction);
-    transaction.commit();
+    offersArray.forEach((offer) => { sumOfRatings += offer.dataValues.mark; });
+    rating = sumOfRatings / offersArray.length;
+
+    await userQueries.updateUser({ rating }, creatorId, transaction);
+    await transaction.commit();
+
     controller.getNotificationController().emitChangeMark(creatorId);
-    res.send({ userId: creatorId, rating: avg });
+    return res.send({ userId: creatorId, rating });
   } catch (err) {
-    transaction.rollback();
+    await transaction.rollback();
     next(err);
   }
 };
@@ -155,7 +166,7 @@ module.exports.payment = async (req, res, next) => {
 
     await bd.Contests.bulkCreate(contests, transaction);
     await transaction.commit();
-    res.send();
+    return res.send();
   } catch (err) {
     await transaction.rollback();
     next(err);
@@ -163,22 +174,15 @@ module.exports.payment = async (req, res, next) => {
 };
 
 module.exports.updateUser = async (req, res, next) => {
+  const { body, tokenData: { userId } } = req;
   try {
     if (req.file) {
-      req.body.avatar = req.file.filename;
+      const { file: { filename } } = req;
+      req.body.avatar = filename;
     }
-    const updatedUser = await userQueries.updateUser(req.body,
-      req.tokenData.userId);
-    res.send({
-      firstName: updatedUser.firstName,
-      lastName: updatedUser.lastName,
-      displayName: updatedUser.displayName,
-      avatar: updatedUser.avatar,
-      email: updatedUser.email,
-      balance: updatedUser.balance,
-      role: updatedUser.role,
-      id: updatedUser.id
-    });
+
+    const { firstName, lastName, displayName, avatar, email, balance, role, id } = await userQueries.updateUser(body, userId);
+    return res.send({ firstName, lastName, displayName, avatar, email, balance, role, id });
   } catch (err) {
     next(err);
   }
