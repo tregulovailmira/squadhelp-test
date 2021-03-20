@@ -51,6 +51,13 @@ class CustomerDashboard extends React.Component {
         return array;
     };
 
+    setCustomerFilter = (newCustomerFilter) => {
+        const { customerFilter, setNewFilter } = this.props;
+        if (customerFilter !== newCustomerFilter) {
+            setNewFilter(newCustomerFilter);
+        }
+    }
+
     componentWillUnmount() {
         this.props.clearContestsList();
     }
@@ -67,19 +74,19 @@ class CustomerDashboard extends React.Component {
         return (
             <div className={styles.mainContainer}>
                 <div className={styles.filterContainer}>
-                    <div onClick={() => this.props.newFilter(CONSTANTS.CONTEST_STATUS_ACTIVE)}
+                    <div onClick={() => this.setCustomerFilter(CONSTANTS.CONTEST_STATUS_ACTIVE)}
                          className={classNames({
                              [styles.activeFilter]: CONSTANTS.CONTEST_STATUS_ACTIVE === customerFilter,
                              [styles.filter]: CONSTANTS.CONTEST_STATUS_ACTIVE !== customerFilter
                          })}>Active Contests
                     </div>
-                    <div onClick={() => this.props.newFilter(CONSTANTS.CONTEST_STATUS_FINISHED)}
+                    <div onClick={() => this.setCustomerFilter(CONSTANTS.CONTEST_STATUS_FINISHED)}
                          className={classNames({
                              [styles.activeFilter]: CONSTANTS.CONTEST_STATUS_FINISHED === customerFilter,
                              [styles.filter]: CONSTANTS.CONTEST_STATUS_FINISHED !== customerFilter
                          })}>Completed contests
                     </div>
-                    <div onClick={() => this.props.newFilter(CONSTANTS.CONTEST_STATUS_PENDING)}
+                    <div onClick={() => this.setCustomerFilter(CONSTANTS.CONTEST_STATUS_PENDING)}
                          className={classNames({
                              [styles.activeFilter]: CONSTANTS.CONTEST_STATUS_PENDING === customerFilter,
                              [styles.filter]: CONSTANTS.CONTEST_STATUS_PENDING !== customerFilter
@@ -113,7 +120,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getContests: (data) => dispatch(getContestsForCustomer(data)),
         clearContestsList: () => dispatch(clearContestList()),
-        newFilter: (filter) => dispatch(setNewCustomerFilter(filter))
+        setNewFilter: (filter) => dispatch(setNewCustomerFilter(filter))
     }
 };
 
