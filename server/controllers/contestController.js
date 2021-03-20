@@ -188,7 +188,7 @@ const resolveOffer = async (contestId, creatorId, orderId, offerId, priority, tr
             THEN '${CONSTANTS.CONTEST_STATUS_FINISHED}'
             WHEN 
               "orderId"='${orderId}' 
-              AND "priority"=${priority + 1}  
+              AND "priority"=${Number(priority) + 1}  
             THEN '${CONSTANTS.CONTEST_STATUS_ACTIVE}'
             ELSE '${CONSTANTS.CONTEST_STATUS_PENDING}'
             END
