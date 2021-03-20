@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import cx from 'classnames'
 import styles from './ContestBox.module.sass'
 import moment from 'moment'
 import CONSTANTS from '../../constants'
@@ -22,14 +23,19 @@ const ContestBox = (props) => {
   const ucFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
   }
+  const contestStatusStyles = cx(styles.contestStatus, {
+      [styles.activeContest]: props.data.status === 'active',
+      [styles.finishedContest]: props.data.status === 'finished'}
+    );
 
-  const { id, title, contestType, prize, count } = props.data
+  const { id, title, contestType, prize, count } = props.data;
   return (
         <div className={styles.contestBoxContainer} onClick={() => props.goToExtended(id)}>
             <div className={styles.mainContestInfo}>
-                <div className={styles.titleAndIdContainer}>
+                <div className={styles.contestHeaderContainer}>
                     <span className={styles.title}>{title}</span>
                     <span className={styles.id}>{`(#${id})`}</span>
+                    <span className={contestStatusStyles}>{props.data.status}</span>
                 </div>
                 <div className={styles.contestType}>
                     <span>{`${ucFirstLetter(contestType)} / ${getPreferenceContest()}`}</span>
