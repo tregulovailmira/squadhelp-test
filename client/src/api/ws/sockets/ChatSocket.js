@@ -4,9 +4,6 @@ import {addMessage, changeBlockStatusInStore} from "../../../actions/actionCreat
 import isEqual from 'lodash/isEqual';
 
 class ChatSocket extends WebSocket {
-    constructor(dispatch, getState, room) {
-        super(dispatch, getState, room);
-    }
 
     anotherSubscribes = () => {
         this.onNewMessage();

@@ -4,9 +4,6 @@ import Notification from '../../../components/Notification/Notification';
 import {toast} from 'react-toastify';
 
 class NotificationSocket extends WebSocket {
-    constructor(dispatch, getState, room) {
-        super(dispatch, getState, room);
-    }
 
     anotherSubscribes = () => {
         this.onEntryCreated();

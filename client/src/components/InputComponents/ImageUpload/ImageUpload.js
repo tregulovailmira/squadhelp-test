@@ -34,7 +34,7 @@ const ImageUpload = (props) => {
                 />
                 <label htmlFor="fileInput">Chose file</label>
             </div>
-            <img id='imagePreview' className={classNames({ [imgStyle]: !!value })}/>
+            <img id='imagePreview' alt="preview" className={classNames({ [imgStyle]: !!value })}/>
         </div>
   )
 }

@@ -38,6 +38,7 @@ class ContestForm extends React.Component{
         this.props.getData({characteristic1: 'brandStyle'});
         break;
       }
+      default: return <></>
     }
   };
 
@@ -140,12 +141,13 @@ class ContestForm extends React.Component{
           </>
         );
       }
+      default: return <></>
     }
   };
 
   render () {
     const {isFetching, error} = this.props.dataForContest;
-    const {handleSubmit, submitting} = this.props;
+    const {handleSubmit} = this.props;
     if (error) {
       return <TryAgain getData={ this.getPreference }/>;
     } else {
