@@ -36,7 +36,7 @@ const ImageUpload = (props) => {
             </div>
             <img 
               id='imagePreview' 
-              alt="image preview" 
+              alt="preview" 
               className={classNames({ [imgStyle]: !!value })} 
               style={{ display:!value ? 'none' : 'inline' }}
             />

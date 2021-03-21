@@ -48,7 +48,7 @@
       .nav
         display: flex
 
-        ul
+        &> ul
           margin: 0
           list-style: none
           display: flex
@@ -64,14 +64,17 @@
             ul
               width: 200px
 
-          li
+          &> li
             display: flex
+            position: relative
             align-items: center
             justify-content: flex-start
             margin: 0 20px 0
             text-align: center
             cursor: pointer
+            height: 55px
             @media(max-width: 700px)
+              height: 100%
               width: 100%
               padding: 0 15px
 
@@ -84,13 +87,13 @@
                 position: absolute
                 border: 1px solid #eee
                 z-index: 1000
-                top: 130px
+                top: 55px
                 background-color: white
                 @media(max-width: 700px)
-                  top: auto
-                  left: 145px
+                  top: 37px
+                  left: 13px
 
-            ul
+            &> ul
               padding: 0
               margin: 0
               width: 160px
@@ -102,12 +105,13 @@
                 box-sizing: border-box
                 border-top: 1px solid aquamarine
 
-              li
+              &> li
                 box-sizing: border-box
                 width: 100%
                 padding: 10px 15px
                 display: flex
                 justify-content: flex-start
+                text-align: start
 
                 &:hover
                   background: #f9fafb
