@@ -15,13 +15,13 @@ const ImageUpload = (props) => {
       onChange(file)
       const reader = new FileReader()
       reader.onload = () => {
-        node.src = reader.result
+        node.src = reader.result;
       }
       reader.readAsDataURL(file)
     }
   }
-  const { input: { value } } = props
-  const { uploadContainer, inputContainer, imgStyle } = props.classes
+  const { input: { value } } = props;
+  const { uploadContainer, inputContainer, imgStyle } = props.classes;
   return (
         <div className={uploadContainer}>
             <div className={inputContainer}>
@@ -34,7 +34,12 @@ const ImageUpload = (props) => {
                 />
                 <label htmlFor="fileInput">Chose file</label>
             </div>
-            <img id='imagePreview' alt="preview" className={classNames({ [imgStyle]: !!value })}/>
+            <img 
+              id='imagePreview' 
+              alt="image preview" 
+              className={classNames({ [imgStyle]: !!value })} 
+              style={{ display:!value ? 'none' : 'inline' }}
+            />
         </div>
   )
 }
