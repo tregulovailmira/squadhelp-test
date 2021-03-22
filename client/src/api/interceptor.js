@@ -4,7 +4,9 @@ import history from '../browserHistory'
 
 const instance = axios.create({
   baseURL: CONTANTS.BASE_URL
-})
+});
+
+const allowLinksForNotAuth = ['/login', '/registration', '/howitworks', '/']
 
 instance.interceptors.request.use(config => {
   const token = window.localStorage.getItem(CONTANTS.ACCESS_TOKEN)
@@ -20,7 +22,8 @@ instance.interceptors.response.use(response => {
   }
   return response
 }, err => {
-  if (err.response.status === 408 && history.location.pathname !== '/login' && history.location.pathname !== '/registration' && history.location.pathname !== '/') {
+  const isAllowLink = allowLinksForNotAuth.some(element => element === history.location.pathname);
+  if (err.response.status === 408 && !isAllowLink) {
     history.replace('/login')
   }
   return Promise.reject(err)

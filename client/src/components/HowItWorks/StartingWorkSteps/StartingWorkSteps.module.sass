@@ -1,0 +1,27 @@
+.mainContainer
+    display: grid
+    justify-items: center
+
+    .stepsContainer
+        display: grid
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+        align-items: start
+
+        .stepWrapper
+            display: grid
+            grid-template-areas: 'number' 'header' 'description'
+            justify-items: center
+            text-align: center
+
+            .stepNumber
+                grid-area: number
+                border-radius: 50%
+                background-color: #ebebeb
+                width: 90px 
+                height: 90px
+
+            .stepHeader
+                grid-area: header
+
+            .stepDescription
+                grid-area: description
