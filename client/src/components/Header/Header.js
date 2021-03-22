@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Header.module.sass';
 import { connect } from 'react-redux';
+import cx from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
 import CONSTANTS from '../../constants';
 import { clearUserStore, headerRequest } from '../../actions/actionCreator';
@@ -97,11 +98,14 @@ class Header extends React.Component{
     };
 
     render() {
+        const { classContainer } = this.props;
+        const headerClasses = cx(classContainer, styles.headerContainer);
+
         if (this.props.isFetching) {
             return null;
         }
         return (
-            <div className={styles.headerContainer}>
+            <div className={headerClasses}>
                 <div className={styles.fixedHeader}>
                     <span className={styles.info}>Squadhelp recognized as one of the Most Innovative Companies by Inc Magazine.</span>
                     <a href="/">Read Announcement</a>

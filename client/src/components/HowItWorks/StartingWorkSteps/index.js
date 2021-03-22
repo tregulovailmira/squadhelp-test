@@ -1,23 +1,30 @@
 import React from 'react';
+import cx from 'classnames';
 import stepsDescription from './stepsDescription.json';
 import styles from './StartingWorkSteps.module.sass'
 
 function StartingWorkSteps() {
 
     const renderSteps = () => {
-        return stepsDescription.map((step, index)=>
-            <li key={index} className={styles.stepWrapper}>            
-                <div className={styles.stepNumber}>
-                    {index + 1}
-                </div>
-                <h4 className={styles.stepHeader}>
-                    {step.header}
-                </h4>
-                <div className={styles.stepDescription}>
-                    {step.description}
-                </div>
-            </li>
-        )
+        return stepsDescription.map((step, index) => {
+            const stepClasses = cx(styles.stepNumber, {
+                [styles.firstStep]: index === 0
+            });
+
+            return (
+                <li key={index} className={styles.stepWrapper}>            
+                    <div className={stepClasses}>
+                        {index + 1}
+                    </div>
+                    <h4 className={styles.stepHeader}>
+                        {step.header}
+                    </h4>
+                    <div className={styles.stepDescription}>
+                        {step.description}
+                    </div>
+                </li>
+            )
+        });
     };
 
     return (

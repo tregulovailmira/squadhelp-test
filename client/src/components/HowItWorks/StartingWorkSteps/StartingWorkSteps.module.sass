@@ -1,27 +1,73 @@
-.mainContainer
+$main-theme-color: #28d2d0
+$inactive-steps-color: #ebebeb
+$light-font-color: #ffffff
+$main-font-color: #515b5f
+
+%grid
     display: grid
     justify-items: center
 
+%chekedStep
+    background-color: $main-theme-color !important
+    color: $light-font-color 
+
+    
+.mainContainer
+    @extend %grid
+    grid-row-gap: 50px
+    grid-template-columns: 30px repeat(5, 1fr) 30px
+    font-family: 'Raleway'
+    color: $main-font-color
+    line-height: 1.3
+
+    .mainHeader
+        align-self: center
+        grid-column: 1/8
+        font-size: 36px
+        font-weight: bold
+        text-align: center
+
     .stepsContainer
-        display: grid
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+        @extend %grid
+        grid-column: 2/7
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))
         align-items: start
+        justify-content: center
 
         .stepWrapper
-            display: grid
+            @extend %grid
+            grid-template-rows: 90px 60px 1fr
             grid-template-areas: 'number' 'header' 'description'
-            justify-items: center
             text-align: center
 
             .stepNumber
                 grid-area: number
+                background-color: $inactive-steps-color
                 border-radius: 50%
-                background-color: #ebebeb
                 width: 90px 
                 height: 90px
+                font-size: 30px
+                font-weight: bold
+                cursor: pointer 
+
+                display: flex
+                justify-content: center
+                align-items: center
+                
+                &:hover
+                    @extend %chekedStep
+  
+
+            .firstStep
+                @extend %chekedStep 
 
             .stepHeader
                 grid-area: header
+                align-self: center
+                font-weight: bold
+                font-size: 16px
 
             .stepDescription
                 grid-area: description
+                font-size: 14px
+                padding: 0 10px
