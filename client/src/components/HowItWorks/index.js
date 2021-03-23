@@ -2,7 +2,6 @@ import React from 'react';
 import StartingWorkSteps from './StartingWorkSteps';
 import Button from './Button';
 import Faq from './Faq';
-import ContactUs from './ContactUs';
 import styles from './HowItWorks.module.sass';
 
 export default function HowItWorks() {
@@ -24,7 +23,6 @@ export default function HowItWorks() {
                 <Button to="/" text="start a contest"/>
             </div>
             <Faq/>
-            <ContactUs/>
         </div>
     )
 }

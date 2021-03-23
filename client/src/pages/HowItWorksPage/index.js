@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import HowItWorks from '../../components/HowItWorks';
+import ContactUs from '../../components/HowItWorks/ContactUs';
 import Footer from '../../components/Footer/Footer';
 import styles from './HowItWorksPage.module.sass'
 
@@ -11,7 +12,10 @@ function HowItWorksPage() {
             <div className={styles.mainContent}>
                 <HowItWorks/>
             </div>
-            <Footer/>
+            <div>
+                <ContactUs/>
+                <Footer/>
+            </div>
         </div>
     )
 }
