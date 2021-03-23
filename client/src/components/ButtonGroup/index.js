@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Button from './Button';
+import styles from './ButtonGroup.module.sass';
 
 export default function ButtonGroup() {
 
@@ -10,7 +11,7 @@ export default function ButtonGroup() {
     };
 
     return (
-        <div>
+        <div className={styles.container}>
             <Button value='match name' checkedValue={checkedValue} handleClick={handleClick} iconText='yes'>
                 The Domain should exactly match the name
             </Button>

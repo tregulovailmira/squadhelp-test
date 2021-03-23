@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap')
+    
+$not-checked-border-color: #dbdee6
+$not-checked-icon-color: #77838f
+$checked-border-color: rgba(44,185,183,.5)
+$checked-icon-color: #2cb9b7
+$checked-button-shadow: 0px 0px 15px 0px rgba(0,0,0,0.05)
+$hover-shadow: 0px 0px 15px 0px rgba(0,0,0,0.07)
+    
+.buttonContainer
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    font-family: 'Raleway'
+    font-size: 14px
+
+    border: 1px solid $not-checked-border-color
+    border-radius: 5px
+    box-sizing: border-box
+    
+    padding: 20px
+
+    transition: 0.3s
+
+    &:hover
+        border-color: $checked-border-color
+        box-shadow: $hover-shadow
+
+    .buttonIcon
+        padding: 5px 15px
+        margin-bottom: 20px
+        color: white
+        background-color: $not-checked-icon-color
+        border-radius: 15px
+        text-transform: capitalize
+
+    .description
+        font-size: 13px
+        text-align: center
+
+.checkedButton
+    border: 3px solid $checked-border-color
+    box-shadow: $checked-button-shadow
+
+    .checkedIcon
+        background-color: $checked-icon-color
