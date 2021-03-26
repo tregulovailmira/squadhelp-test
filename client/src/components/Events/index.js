@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import useEvents from '../hooks/Events/useEvents';
 import EventsList from './EventsList';
 import AddEventForm from './AddEventForm';
 
 export default function Events() {
+
+    const [events, addEvent] = useEvents();
 
     const [isShownAddEventForm, setIsShownAddEventForm] = useState(false);
 
@@ -17,7 +20,7 @@ export default function Events() {
     return (
         <div>
             <button onClick={openAddEventForm}>New event</button>
-            <AddEventForm isShown={isShownAddEventForm} closeForm={closeAddEventForm} onSubmit={()=>{}}/>
+            <AddEventForm isShown={isShownAddEventForm} closeForm={closeAddEventForm} onSubmit={addEvent}/>
             <EventsList events={events}/>
         </div>
     )
