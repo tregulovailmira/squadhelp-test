@@ -37,7 +37,7 @@ class Header extends React.Component{
   }
   
   logOut = () => {
-    localStorage.clear();
+    localStorage.removeItem(CONSTANTS.ACCESS_TOKEN);
     this.props.clearUserStore();
   };
 
