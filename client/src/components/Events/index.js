@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EventsList from './EventsList';
+import AddEventForm from './AddEventForm';
 
 export default function Events() {
 
+    const [isShownAddEventForm, setIsShownAddEventForm] = useState(false);
+
+    const openAddEventForm = () => {
+        setIsShownAddEventForm(true);
+    }
+
+    const closeAddEventForm = () => {
+        setIsShownAddEventForm(false);
+    }
+
     return (
         <div>
+            <button onClick={openAddEventForm}>New event</button>
+            <AddEventForm isShown={isShownAddEventForm} closeForm={closeAddEventForm} onSubmit={()=>{}}/>
             <EventsList events={events}/>
         </div>
     )
