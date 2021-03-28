@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { formatISO } from 'date-fns';
 
 export default function useEvents() {
 
@@ -24,6 +25,7 @@ export default function useEvents() {
     const addEvent = (eventBody, eventDate, reminderDate, userId) => {
         const event = {
             id: Date.now(),
+            createdAt: formatISO(new Date()),
             eventBody,
             eventDate,
             reminderDate

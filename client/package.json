@@ -8,6 +8,7 @@
     "card-validator": "^6.1.0",
     "chalk": "^2.4.2",
     "classnames": "^2.2.6",
+    "date-fns": "^2.19.0",
     "flickity": "^2.2.0",
     "formik": "^2.2.6",
     "history": "^4.9.0",
