@@ -28,8 +28,8 @@ function AddEventForm(props) {
             <Formik initialValues={initialValues} onSubmit={onSubmitHandler}>
                 <Form>
                     <Field name='eventName' placeholder='Add new event'/> 
-                    <DatePickerField name='eventDate' label='Set event date'/>                  
-                    <DatePickerField name='reminderDate' label='Set reminder date'/> 
+                    <DatePickerField name='eventDate'/>                  
+                    <DatePickerField name='reminderDate'/> 
                     <button onClick={closeForm}>Close form</button>
                     <button type='submit'>Add event</button>                  
                 </Form>            

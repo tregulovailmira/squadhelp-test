@@ -16,7 +16,6 @@ export default function useEvents() {
         const timerId = setTimeout(() => {
             calculateProgress();
         }, 1000);
-        console.log(timerId);
 
         if(events.every(isFinshedAllEvents)){
             clearTimeout(timerId);
@@ -40,7 +39,7 @@ export default function useEvents() {
             const persentProgress = (currentProgress / totalInterval) * 100;
             const timeToStart = intervalToDuration({
                 start: new Date(), 
-                end: parseISO(eventDate)
+                end: eventDate
             });
 
             const isFinished = persentProgress >= 100 ? true : false;
