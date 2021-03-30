@@ -2,10 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Event(props) {
-    const { event: { id, eventBody, eventDate, timeToStart = {} } } = props;
+    const { event: { id, eventBody, eventDate, timeToStart = {}, isRemindTime, isViewed }, closeNotification } = props;
     const { years, months, weeks, days, hours, minutes, seconds } = timeToStart;
+
+    const handleClose = (e) => {
+        e.stopPropagation();
+        closeNotification(id);
+    }
     return (
         <li>
+            { 
+                isRemindTime && !isViewed &&
+                <div>
+                   <span>Soon the beginning of the event</span>
+                   <button onClick={handleClose}>Close reminding</button>
+                </div> 
+            }
             <div>
                 {eventBody}
             </div>

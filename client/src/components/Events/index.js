@@ -5,7 +5,7 @@ import AddEventForm from './AddEventForm';
 
 export default function Events() {
 
-    const [events, addEvent] = useEvents();
+    const [events, addEvent, closeRemindingNotification] = useEvents();
 
     const [isShownAddEventForm, setIsShownAddEventForm] = useState(false);
 
@@ -21,7 +21,7 @@ export default function Events() {
         <div>
             <button onClick={openAddEventForm}>New event</button>
             <AddEventForm isShown={isShownAddEventForm} closeForm={closeAddEventForm} onSubmit={addEvent}/>
-            <EventsList events={events}/>
+            <EventsList events={events} closeNotification={closeRemindingNotification}/>
         </div>
     )
 }

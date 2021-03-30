@@ -4,11 +4,11 @@ import Event from './Event';
 
 function EventsList(props) {
 
-    const { events } = props;
+    const { events, closeNotification } = props;
     
     return (
         <ul>
-            {events.map(event => <Event key={event.id} event={event}/>)}
+            {events.map(event => <Event key={event.id} event={event} closeNotification={closeNotification}/>)}
         </ul>
     )
 }

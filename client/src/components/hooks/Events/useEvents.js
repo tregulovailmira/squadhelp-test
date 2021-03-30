@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { formatISO, intervalToDuration, parseISO } from 'date-fns';
+import { formatISO, intervalToDuration, isBefore } from 'date-fns';
 
 export default function useEvents() {
 
@@ -43,15 +43,27 @@ export default function useEvents() {
             });
 
             const isFinished = persentProgress >= 100 ? true : false;
-
+            const isRemindTime = isBefore(new Date(event.reminderDate), new Date()) && !isFinished;
             return { 
                 ...event, 
                 persentProgress: persentProgress >= 100 ? 100 : persentProgress, 
                 timeToStart: persentProgress >= 100 ? {} : timeToStart,
-                isFinished
+                isFinished,
+                isRemindTime,                
             }
         });
         setEvents(newEvents);
+    };
+
+    const closeRemindingNotification = (eventId) => {
+
+        const newEvents = events.map(event => 
+            eventId === event.id
+                ? { ...event, isViewed: true }
+                : event
+        );
+        setEvents(newEvents);
+
     }
 
     const getCurrentUserEvents = () => {
@@ -103,5 +115,5 @@ export default function useEvents() {
         };
     }
 
-    return [events, addEvent];
+    return [events, addEvent, closeRemindingNotification];
 }
