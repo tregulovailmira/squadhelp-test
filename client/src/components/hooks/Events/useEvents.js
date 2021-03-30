@@ -39,7 +39,7 @@ export default function useEvents() {
             const persentProgress = (currentProgress / totalInterval) * 100;
             const timeToStart = intervalToDuration({
                 start: new Date(), 
-                end: eventDate
+                end: new Date(eventDate)
             });
 
             const isFinished = persentProgress >= 100 ? true : false;
