@@ -23,7 +23,9 @@ export default function DatePickerField (props) {
         {...field}
         {...props}
         selected={value ? new Date(value) : new Date()}
-        showTimeInput
+        showMonthDropdown
+        showYearDropdown
+        showTimeSelect
         minDate={new Date()}
         dateFormat="MMMM d, yyyy h:mm aa"
         onChange={(value) => {

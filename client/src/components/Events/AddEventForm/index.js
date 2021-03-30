@@ -11,8 +11,8 @@ function AddEventForm(props) {
     const { isShown, onSubmit, closeForm } = props;
     const initialValues = {
         eventName: '',
-        eventDate: '2021-05-24T10:30',
-        reminderDate: '2021-05-23T09:30'
+        eventDate: new Date(),
+        reminderDate: new Date()
     }
 
     const onSubmitHandler = (values, formikBag) => {
@@ -20,19 +20,37 @@ function AddEventForm(props) {
         onSubmit(eventName, eventDate, reminderDate, userId);
         formikBag.resetForm();
         closeForm();
+    };
+
+    const restrictEventTime = (time) => {
+        const selectedDate = new Date(time);
+        const currentDate = new Date();
+
+        return currentDate.getTime() < selectedDate.getTime();
+
     }
+
+    const restrictReminderTime = (eventDate, time) => {
+        const selectedDate = new Date(time);
+        const startEvent = new Date();
+        const endEvent = new Date(eventDate);
+
+        return startEvent.getTime() < selectedDate.getTime() && endEvent.getTime() > selectedDate.getTime();
+    };
 
     return (
         isShown && 
         <>
             <Formik initialValues={initialValues} onSubmit={onSubmitHandler}>
-                <Form>
-                    <Field name='eventName' placeholder='Add new event'/> 
-                    <DatePickerField name='eventDate'/>                  
-                    <DatePickerField name='reminderDate'/> 
-                    <button onClick={closeForm}>Close form</button>
-                    <button type='submit'>Add event</button>                  
-                </Form>            
+                {({values})=>
+                    <Form>
+                        <Field name='eventName' placeholder='Add new event'/>
+                        <DatePickerField name='eventDate' maxDate={new Date('2100-12-31 23:59:59')} filterTime={restrictEventTime}/>                  
+                        <DatePickerField name='reminderDate' maxDate={values.eventDate} filterTime={(time)=>restrictReminderTime(values.eventDate, time)}/>
+                        <button onClick={closeForm}>Close form</button>
+                        <button type='submit'>Add event</button>                  
+                    </Form>
+                }            
             </Formik>
         </>
     )
