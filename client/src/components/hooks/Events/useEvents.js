@@ -43,7 +43,7 @@ export default function useEvents() {
             });
 
             const isFinished = persentProgress >= 100 ? true : false;
-            const isRemindTime = isBefore(new Date(event.reminderDate), new Date()) && !isFinished;
+            const isRemindTime = isBefore(new Date(event.reminderDate), new Date());
             return { 
                 ...event, 
                 persentProgress: persentProgress >= 100 ? 100 : persentProgress, 
@@ -53,6 +53,7 @@ export default function useEvents() {
             }
         });
         setEvents(newEvents);
+        updateEventsAtLocalStorage(newEvents);
     };
 
     const closeRemindingNotification = (eventId) => {
@@ -64,6 +65,26 @@ export default function useEvents() {
         );
         setEvents(newEvents);
 
+        updateEventsAtLocalStorage(newEvents);
+
+    };
+
+    const updateEventsAtLocalStorage = (events) => {
+
+        const eventsForStorage = events.map(({timeToStart, persentProgress, ...event}) => {
+            return { ...event}
+        });
+
+        const usersEvents = JSON.parse(localStorage.getItem('events'));
+
+        const newUsersEvents = usersEvents.filter(userEvents => userEvents.userId !== userId);
+        const newEventsOfCurrentUser = {
+            userId,
+            events: eventsForStorage
+        };
+
+        localStorage.setItem('events', JSON.stringify([...newUsersEvents, newEventsOfCurrentUser]));
+        
     }
 
     const getCurrentUserEvents = () => {
