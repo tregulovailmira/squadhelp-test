@@ -56,7 +56,7 @@ function AddEventForm(props) {
                         </Field>
                         <DatePickerField name='eventDate' maxDate={new Date('2100-12-31 23:59:59')} filterTime={restrictEventTime}/>                  
                         <DatePickerField name='reminderDate' maxDate={values.eventDate} filterTime={(time)=>restrictReminderTime(values.eventDate, time)}/>
-                        <button onClick={closeForm}>Close form</button>
+                        <button type='button' onClick={closeForm}>Close form</button>
                         <button type='submit'>Add event</button>                  
                     </Form>
                 }            
