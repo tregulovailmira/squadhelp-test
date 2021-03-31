@@ -7,8 +7,6 @@ import DatePickerField from './DatePickerField';
 
 function AddEventForm(props) {
 
-    const { data: { id: userId }} = useSelector(state => state.userStore);
-
     const { isShown, onSubmit, closeForm } = props;
     const initialValues = {
         eventName: '',
@@ -22,7 +20,7 @@ function AddEventForm(props) {
 
     const onSubmitHandler = (values, formikBag) => {
         const { eventName, eventDate, reminderDate } = values;
-        onSubmit(eventName, eventDate, reminderDate, userId);
+        onSubmit(eventName, eventDate, reminderDate);
         formikBag.resetForm();
         closeForm();
     };

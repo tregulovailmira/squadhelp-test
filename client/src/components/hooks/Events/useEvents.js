@@ -98,7 +98,7 @@ export default function useEvents() {
         }
     }
 
-    const addEvent = (eventBody, eventDate, reminderDate, userId) => {
+    const addEvent = (eventBody, eventDate, reminderDate) => {
         const event = {
             id: Date.now(),
             createdAt: formatISO(new Date()),
