@@ -36,18 +36,18 @@ export default function useEvents() {
             const { createdAt, eventDate } = event;
             const totalInterval = Date.parse(eventDate) - Date.parse(createdAt);
             const currentProgress = Date.parse(new Date()) - Date.parse(createdAt);
-            const persentProgress = (currentProgress / totalInterval) * 100;
+            const percentProgress = (currentProgress / totalInterval) * 100;
             const timeToStart = intervalToDuration({
                 start: new Date(), 
                 end: new Date(eventDate)
             });
 
-            const isFinished = persentProgress >= 100 ? true : false;
+            const isFinished = percentProgress >= 100 ? true : false;
             const isRemindTime = isBefore(new Date(event.reminderDate), new Date());
             return { 
                 ...event, 
-                persentProgress: persentProgress >= 100 ? 100 : persentProgress, 
-                timeToStart: persentProgress >= 100 ? {} : timeToStart,
+                percentProgress: percentProgress >= 100 ? 100 : percentProgress, 
+                timeToStart: percentProgress >= 100 ? {} : timeToStart,
                 isFinished,
                 isRemindTime,                
             }
@@ -71,7 +71,7 @@ export default function useEvents() {
 
     const updateEventsAtLocalStorage = (events) => {
 
-        const eventsForStorage = events.map(({timeToStart, persentProgress, ...event}) => {
+        const eventsForStorage = events.map(({timeToStart, percentProgress, ...event}) => {
             return { ...event}
         });
 
