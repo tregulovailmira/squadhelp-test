@@ -103,8 +103,8 @@ export default function useEvents() {
             id: Date.now(),
             createdAt: formatISO(new Date()),
             eventBody,
-            eventDate,
-            reminderDate
+            eventDate: formatISO(eventDate),
+            reminderDate: formatISO(reminderDate)
         };
 
         setEvents([...events, event]);
