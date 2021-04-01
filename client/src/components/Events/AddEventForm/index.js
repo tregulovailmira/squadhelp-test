@@ -1,13 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Modal, Button, Container, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { Form, Formik, Field } from 'formik';
 import DatePickerField from './DatePickerField';
+import styles from './AddEventForm.module.sass'
 
 function AddEventForm(props) {
 
-    const { isShown, onSubmit, closeForm } = props;
+    const { onSubmit, onHide } = props;
     const initialValues = {
         eventName: '',
         eventDate: new Date(),
@@ -22,7 +24,7 @@ function AddEventForm(props) {
         const { eventName, eventDate, reminderDate } = values;
         onSubmit(eventName, eventDate, reminderDate);
         formikBag.resetForm();
-        closeForm();
+        onHide();
     };
 
     const restrictEventTime = (time) => {
@@ -41,34 +43,66 @@ function AddEventForm(props) {
     };
 
     return (
-        isShown && 
-        <>
-            <Formik initialValues={initialValues} onSubmit={onSubmitHandler} validationSchema={validationSchema}>
-                {({values})=>
-                    <Form>
-                        <Field name='eventName'>
-                            {({ field, meta }) => 
-                                <label>
-                                    <input {...field} placeholder='Add new event'/>
-                                    {meta.touched && meta.error && <span>{meta.error}</span>}
-                                </label>
-                            }
-                        </Field>
-                        <DatePickerField name='eventDate' maxDate={new Date('2100-12-31 23:59:59')} filterTime={restrictEventTime}/>                  
-                        <DatePickerField name='reminderDate' maxDate={values.eventDate} filterTime={(time)=>restrictReminderTime(values.eventDate, time)}/>
-                        <button type='button' onClick={closeForm}>Close form</button>
-                        <button type='submit'>Add event</button>                  
-                    </Form>
-                }            
-            </Formik>
-        </>
+            <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
+
+                <Formik initialValues={initialValues} onSubmit={onSubmitHandler} validationSchema={validationSchema}>
+                    {({values})=>
+                        <Form>
+                                <Modal.Header closeButton>
+                                    <Modal.Title id="contained-modal-title-vcenter">
+                                        Add new event
+                                    </Modal.Title>
+                                </Modal.Header>
+
+                                <Modal.Body className="show-grid">
+                                    <Container>
+                                        <Row className='justify-content-md-center'>
+                                            <Field name='eventName'>
+                                                {({ field, meta }) => 
+                                                    <label style={{width: '100%'}}>
+                                                        <input {...field} placeholder='Add new event' className={styles.nameInput}/>
+                                                        {meta.touched && meta.error && <span className={styles.validationWarning}>{meta.error}</span>}
+                                                    </label>
+                                                }
+                                            </Field>                                         
+                                        </Row>
+
+                                        <Row md={1} xs={1} sm={1}>                                            
+                                            <DatePickerField 
+                                                name='eventDate' 
+                                                maxDate={new Date('2100-12-31 23:59:59')} 
+                                                filterTime={restrictEventTime}
+                                            />   
+                                        </Row>
+                                        <Row md={1} xs={1} sm={1}>                                            
+                                            <DatePickerField 
+                                                name='reminderDate' 
+                                                maxDate={values.eventDate} 
+                                                filterTime={(time)=>restrictReminderTime(values.eventDate, time)}
+                                            />     
+                                        </Row>
+                                    </Container>
+                                </Modal.Body>
+
+                                <Modal.Footer>
+                                    <Button variant='secondary' type='button' onClick={onHide}>
+                                        <span class="fas fa-times"></span>
+                                    </Button>
+                                    <Button variant='primary' type='submit'>
+                                        <span class="fas fa-check"></span>
+                                    </Button> 
+                                </Modal.Footer>
+                        </Form>
+                    }            
+                </Formik>
+            </Modal>
     )
+
 }
 
 AddEventForm.propTypes = {
-    isShown: PropTypes.bool.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    closeForm: PropTypes.func.isRequired
+    onHide: PropTypes.func.isRequired
 }
 
 export default AddEventForm

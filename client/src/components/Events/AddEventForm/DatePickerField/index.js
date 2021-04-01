@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import { useField, useFormikContext } from "formik";
 import DatePicker from "react-datepicker";
+import styles from './DatePickerField.module.sass';
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function DatePickerField (props) {
@@ -11,7 +12,7 @@ export default function DatePickerField (props) {
 
   const DatePickerButton = forwardRef(
     ({ value, onClick }, ref) => (
-      <button type='button' onClick={onClick} ref={ref}>
+      <button type='button' onClick={onClick} ref={ref} className={styles.pickerButton}>
         {value}
       </button>
     ),
