@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './Event.module.sass';
 
 function Event(props) {
-    const { event: { id, eventBody, eventDate, timeToStart = {}, isRemindTime, isViewed }, closeNotification } = props;
+    const { event: { id, eventBody, percentProgress = 0, timeToStart = {}, isRemindTime, isViewed }, closeNotification } = props;
     const { years, months, weeks, days, hours, minutes, seconds } = timeToStart;
-
+    
     const handleClose = (e) => {
         e.stopPropagation();
         closeNotification(id);
     }
+
     return (
-        <li>
+        <li className={styles.eventContainer} style={{background: `linear-gradient(0.25turn, #d1e9cf ${percentProgress}%, #eeeeee 0% )`}}>
             { 
                 isRemindTime && !isViewed &&
                 <div>
@@ -21,7 +23,7 @@ function Event(props) {
             <div>
                 {eventBody}
             </div>
-            <div>
+            <div className={styles.timer}>
                 {years > 0 && <span>{years}y&nbsp;</span>}
                 {months > 0 && <span>{months}m&nbsp;</span>}
                 {weeks > 0 && <span>{weeks}w&nbsp;</span>}

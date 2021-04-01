@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import cx from 'classnames';
 import useEvents from '../hooks/Events/useEvents';
 import EventsList from './EventsList';
 import AddEventForm from './AddEventForm';
+import styles from './Events.module.sass'
 
-export default function Events() {
+export default function Events(props) {
+
+    const { classContainer } = props;
 
     const [events, addEvent, closeRemindingNotification] = useEvents();
 
@@ -17,11 +21,14 @@ export default function Events() {
         setIsShownAddEventForm(false);
     }
 
+    const eventsClasses = cx(classContainer, styles.mainContainer);
     return (
-        <div>
-            <button onClick={openAddEventForm}>New event</button>
+        <div className={eventsClasses}>
+            <div onClick={openAddEventForm} className={styles.addEventButton} title="New event">
+                <span className="fas fa-plus"></span>
+            </div>
             <AddEventForm isShown={isShownAddEventForm} closeForm={closeAddEventForm} onSubmit={addEvent}/>
-            <EventsList events={events} closeNotification={closeRemindingNotification}/>
+            <EventsList events={events} closeNotification={closeRemindingNotification} classContainer={styles.listPosition}/>
         </div>
     )
 }
