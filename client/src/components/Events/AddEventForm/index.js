@@ -45,7 +45,7 @@ function AddEventForm(props) {
     return (
             <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
 
-                <Formik initialValues={initialValues} onSubmit={onSubmitHandler} validationSchema={validationSchema}>
+                <Formik initialValues={initialValues} onSubmit={onSubmitHandler} validationSchema={validationSchema} validateOnBlur={false}>
                     {({values})=>
                         <Form>
                                 <Modal.Header closeButton>
@@ -86,10 +86,10 @@ function AddEventForm(props) {
 
                                 <Modal.Footer>
                                     <Button variant='secondary' type='button' onClick={onHide}>
-                                        <span class="fas fa-times"></span>
+                                        <span className="fas fa-times"></span>
                                     </Button>
                                     <Button variant='primary' type='submit'>
-                                        <span class="fas fa-check"></span>
+                                        <span className="fas fa-check"></span>
                                     </Button> 
                                 </Modal.Footer>
                         </Form>

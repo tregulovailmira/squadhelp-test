@@ -12,7 +12,13 @@ export default function DatePickerField (props) {
 
   const DatePickerButton = forwardRef(
     ({ value, onClick }, ref) => (
-      <button type='button' onClick={onClick} ref={ref} className={styles.pickerButton}>
+      <button 
+        type='button' 
+        onClick={onClick} 
+        ref={ref} 
+        className={styles.pickerButton} 
+        onMouseDown={(e)=>e.preventDefault()}
+      >
         {value}
       </button>
     ),
