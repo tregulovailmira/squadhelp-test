@@ -32,6 +32,7 @@ export default function useEvents() {
     }
 
     const calculateProgress = () => {
+        let needSort = false;
         const newEvents = events.map((event) => {
             const { createdAt, eventDate } = event;
             const totalInterval = Date.parse(eventDate) - Date.parse(createdAt);
@@ -44,6 +45,10 @@ export default function useEvents() {
 
             const isFinished = percentProgress >= 100 ? true : false;
             const isRemindTime = isBefore(new Date(event.reminderDate), new Date());
+
+            if(isFinished) {
+                needSort = true;
+            }
             return { 
                 ...event, 
                 percentProgress: percentProgress >= 100 ? 100 : percentProgress, 
@@ -52,6 +57,11 @@ export default function useEvents() {
                 isRemindTime,                
             }
         });
+        
+        if(needSort){
+            sortEvents(newEvents);
+        };
+        
         setEvents(newEvents);
         updateEventsAtLocalStorage(newEvents);
     };
@@ -63,6 +73,9 @@ export default function useEvents() {
                 ? { ...event, isViewed: true }
                 : event
         );
+
+        sortEvents(newEvents);
+
         setEvents(newEvents);
 
         updateEventsAtLocalStorage(newEvents);
@@ -107,7 +120,11 @@ export default function useEvents() {
             reminderDate: formatISO(reminderDate)
         };
 
-        setEvents([...events, event]);
+        const newEvents = [...events, event];
+
+        sortEvents(newEvents);
+
+        setEvents(newEvents);
         
         const usersEvents = JSON.parse(localStorage.getItem('events'));
         if(usersEvents) {
@@ -134,6 +151,39 @@ export default function useEvents() {
             };
             localStorage.setItem('events', JSON.stringify([newUserEvents]));
         };
+    }
+
+    const sortEvents = (events) => {
+        events.sort((firstEvent, secondEvent) => {
+            const firstDate = new Date(firstEvent.eventDate);
+            const secondDate = new Date(secondEvent.eventDate);
+
+            if(firstEvent.isFinished && !firstEvent.isViewed){
+                if(secondEvent.isFinished && !secondEvent.isViewed) {
+                    return isBefore(firstDate, secondDate) ? -1 : 1;
+                } else {
+                    return -1;
+                }
+            }
+
+            if(secondEvent.isFinished && !secondEvent.isViewed){
+                if(firstEvent.isFinished && !firstEvent.isViewed) {
+                    return isBefore(firstDate, secondDate) ? -1 : 1;
+                } else {
+                    return 1;
+                }
+            }
+
+            if(firstEvent.isFinished && !secondEvent.isFinished) {
+                return 1;
+            }
+            if(secondEvent.isFinished && !firstEvent.isFinished) {
+                return -1;
+            }
+
+            return isBefore(firstDate, secondDate) ? -1 : 1;
+            
+        });
     }
 
     return [events, addEvent, closeRemindingNotification];
