@@ -8,6 +8,9 @@ $light-color: #ffffff
     grid-row-gap: 10px 
     color: $main-font-color
 
+    @media screen and ( max-width: 1024px )
+        grid-template: 36px 1fr / 1fr 90% 1fr
+        
     .addEventButton
         grid-column: 2 / 3
         justify-self: start

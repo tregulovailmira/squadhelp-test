@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import styles from './Event.module.sass';
 
 function Event(props) {
@@ -9,15 +10,17 @@ function Event(props) {
     const handleClose = (e) => {
         e.stopPropagation();
         closeNotification(id);
-    }
+    };
+
+    const closeRemindingClasses = cx("fas fa-times", styles.closeButton);
 
     return (
         <li className={styles.eventContainer} style={{background: `linear-gradient(0.25turn, #d1e9cf ${percentProgress}%, #eeeeee 0% )`}}>
             { 
                 isRemindTime && !isViewed &&
-                <div>
-                   <span>Soon the beginning of the event</span>
-                   <button onClick={handleClose}>Close reminding</button>
+                <div className={styles.eventReminding}>
+                   <span>Starting soon</span>
+                   <span onClick={handleClose} className={closeRemindingClasses}></span>
                 </div> 
             }
             <div>
