@@ -4,7 +4,7 @@ import cx from 'classnames';
 import styles from './Event.module.sass';
 
 function Event(props) {
-    const { event: { id, eventBody, percentProgress = 0, timeToStart = {}, isRemindTime, isViewed }, closeNotification } = props;
+    const { event: { id, eventBody, percentProgress = 0, timeToStart = {}, isRemindTime, isViewed, isFinished }, closeNotification } = props;
     const { years, months, weeks, days, hours, minutes, seconds } = timeToStart;
     
     const handleClose = (e) => {
@@ -14,8 +14,10 @@ function Event(props) {
 
     const closeRemindingClasses = cx("fas fa-times", styles.closeButton);
 
+    const linearProgress = isFinished ? 100 : percentProgress; 
+
     return (
-        <li className={styles.eventContainer} style={{background: `linear-gradient(0.25turn, #d1e9cf ${percentProgress}%, #eeeeee 0% )`}}>
+        <li className={styles.eventContainer} style={{background: `linear-gradient(0.25turn, #d1e9cf ${linearProgress}%, #eeeeee 0% )`}}>
             { 
                 isRemindTime && !isViewed &&
                 <div className={styles.eventReminding}>

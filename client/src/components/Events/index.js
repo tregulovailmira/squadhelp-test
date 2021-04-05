@@ -33,10 +33,3 @@ export default function Events(props) {
         </div>
     )
 }
-
-const events = [{
-    id: 1,
-    eventBody: 'test', 
-    eventDate: '22-11-2021 19:30',
-    reminderDate: '22-11-2021 18:30'
-}];

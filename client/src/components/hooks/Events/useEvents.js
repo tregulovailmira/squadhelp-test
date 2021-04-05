@@ -5,6 +5,7 @@ import { formatISO, intervalToDuration, isBefore } from 'date-fns';
 export default function useEvents() {
 
     const [events, setEvents] = useState([]);
+    const [firstCalculate, setFirstCalculate] = useState(false);
     const { data: { id: userId }} = useSelector(state => state.userStore);
     
     useEffect(() => {
@@ -12,15 +13,20 @@ export default function useEvents() {
     }, []);
 
     useEffect(() => {
-
-        const timerId = setTimeout(() => {
-            calculateProgress();
-        }, 1000);
-
-        if(events.every(isFinshedAllEvents)){
-            clearTimeout(timerId);
-        };
-
+        let timerId;
+        if (events.length) {
+            timerId = setTimeout(() => {
+                calculateProgress();
+            }, 1000);
+            if (!firstCalculate) {
+                calculateProgress();
+                setFirstCalculate(true)
+            }
+            if(events.every(isFinshedAllEvents)){
+                clearTimeout(timerId);
+            }; 
+        }
+        
         return () => {
             clearTimeout(timerId);
         }
@@ -33,7 +39,11 @@ export default function useEvents() {
 
     const calculateProgress = () => {
         let needSort = false;
+        let needUpdateLocalStorage = false;
         const newEvents = events.map((event) => {
+            if(event.isFinished) {
+                return event;
+            }
             const { createdAt, eventDate } = event;
             const totalInterval = Date.parse(eventDate) - Date.parse(createdAt);
             const currentProgress = Date.parse(new Date()) - Date.parse(createdAt);
@@ -49,6 +59,10 @@ export default function useEvents() {
             if(isFinished) {
                 needSort = true;
             }
+
+            if((!event.isRemindTime && isRemindTime) || isFinished) {
+                needUpdateLocalStorage = true;
+            }
             return { 
                 ...event, 
                 percentProgress: percentProgress >= 100 ? 100 : percentProgress, 
@@ -63,7 +77,10 @@ export default function useEvents() {
         };
         
         setEvents(newEvents);
-        updateEventsAtLocalStorage(newEvents);
+
+        if(needUpdateLocalStorage) {
+            updateEventsAtLocalStorage(newEvents);
+        };
     };
 
     const closeRemindingNotification = (eventId) => {
@@ -88,7 +105,7 @@ export default function useEvents() {
             return { ...event}
         });
 
-        const usersEvents = JSON.parse(localStorage.getItem('events'));
+        const usersEvents = JSON.parse(localStorage.getItem('events')) || [];
 
         const newUsersEvents = usersEvents.filter(userEvents => userEvents.userId !== userId);
         const newEventsOfCurrentUser = {
@@ -117,7 +134,10 @@ export default function useEvents() {
             createdAt: formatISO(new Date()),
             eventBody,
             eventDate: formatISO(eventDate),
-            reminderDate: formatISO(reminderDate)
+            reminderDate: formatISO(reminderDate),
+            isFinished: false,
+            isRemindTime: false,
+            isViewed: false
         };
 
         const newEvents = [...events, event];

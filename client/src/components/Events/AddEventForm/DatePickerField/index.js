@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function DatePickerField (props) {
 
   const { setFieldValue } = useFormikContext();
-  const [field] = useField(props);
+  const [field, meta] = useField(props);
   const { value } = field;
 
   const DatePickerButton = forwardRef(
@@ -20,7 +20,13 @@ export default function DatePickerField (props) {
         onMouseDown={(e)=>e.preventDefault()}
       >
         {value}
+        {meta.touched && meta.error && 
+          <span className={styles.validationWarning}>
+            {meta.error}
+          </span>
+        }
       </button>
+      
     ),
   );
   

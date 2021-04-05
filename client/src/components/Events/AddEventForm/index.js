@@ -1,6 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Modal, Button, Container, Row, Col } from 'react-bootstrap';
+import { Modal, Button, Container, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { Form, Formik, Field } from 'formik';
@@ -17,7 +16,9 @@ function AddEventForm(props) {
     }
 
     const validationSchema = yup.object({
-        eventName: yup.string().min(2).max(256).required('This is a required field!')
+        eventName: yup.string().min(2, 'Must be at least 2 characters').max(256, 'Must be at most 256 characters').required('This is a required field!'),
+        eventDate: yup.date().min(new Date(), `Must be later that ${new Date().toLocaleString()}`).required(),
+        reminderDate: yup.date().min(new Date(), `Must be later that ${new Date().toLocaleString()}`).required()
     })
 
     const onSubmitHandler = (values, formikBag) => {
@@ -67,14 +68,16 @@ function AddEventForm(props) {
                                             </Field>                                         
                                         </Row>
 
-                                        <Row md={1} xs={1} sm={1}>                                            
-                                            <DatePickerField 
+                                        <Row md={1} xs={1} sm={1}> 
+                                            <div className={styles.pickerTitle}>Enter event date</div>                                           
+                                            <DatePickerField
                                                 name='eventDate' 
                                                 maxDate={new Date('2100-12-31 23:59:59')} 
                                                 filterTime={restrictEventTime}
                                             />   
                                         </Row>
-                                        <Row md={1} xs={1} sm={1}>                                            
+                                        <Row md={1} xs={1} sm={1}>    
+                                            <div className={styles.pickerTitle}>Enter reminder date</div>                                                                                   
                                             <DatePickerField 
                                                 name='reminderDate' 
                                                 maxDate={values.eventDate} 
