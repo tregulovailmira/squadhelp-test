@@ -6,10 +6,10 @@ import Event from './Event';
 import styles from './EventsList.module.sass'
 function EventsList(props) {
 
-    const { events, closeNotification, classContainer = {} } = props;
+    const { events, closeNotification, classContainer = '' } = props;
 
     const eventListStyles = cx(classContainer, styles.mainContainer)
-    
+
     return (
         <div className={eventListStyles}>
             <div className={styles.headerContainer}>
@@ -30,7 +30,9 @@ function EventsList(props) {
 }
 
 EventsList.propTypes = {
-
+    events: PropTypes.array.isRequired,
+    classContainer: PropTypes.string,
+    closeNotification: PropTypes.func.isRequired
 }
 
 export default EventsList
