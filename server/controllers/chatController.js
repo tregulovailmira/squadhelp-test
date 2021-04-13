@@ -116,7 +116,8 @@ module.exports.getPreview = async (req, res, next) => {
 module.exports.toggleBlackAndFavoriteList = async (req, res, next) => {
   const {
     body,
-    body: { interlocutorId, participants },
+    body: { participants },
+    params: { interlocutorId },
     tokenData: { userId }
   } = req;
 

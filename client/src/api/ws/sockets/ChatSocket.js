@@ -1,7 +1,6 @@
 import WebSocket from './WebSocket';
 import CONTANTS from "../../../constants";
 import {addMessage, changeBlockStatusInStore} from "../../../actions/actionCreator";
-import isEqual from 'lodash/isEqual';
 
 class ChatSocket extends WebSocket {
 
@@ -12,10 +11,10 @@ class ChatSocket extends WebSocket {
 
     onChangeBlockStatus = () => {
         this.socket.on(CONTANTS.CHANGE_BLOCK_STATUS, (data) => {
-            const {message} = data;
-            const {messagesPreview} = this.getState().chatStore;
+            const { message } = data;
+            const { messagesPreview } = this.getState().chatStore;
             messagesPreview.forEach(preview => {
-                if (isEqual(preview.participants, message.participants))
+                if (preview._id === message._id)
                     preview.blackList = message.blackList
             });
             this.dispatch(changeBlockStatusInStore({chatData: message, messagesPreview}));
