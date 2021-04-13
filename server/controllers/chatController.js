@@ -85,7 +85,6 @@ module.exports.getPreview = async (req, res, next) => {
 
   try {
     const conversations = await chatQueries.getConversationsForPreview(userId);
-    console.log('conversations', conversations);
     const preview = conversations.map(conversation => {
       return functions.getConversationPreview(conversation);
     });
