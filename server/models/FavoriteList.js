@@ -1,7 +1,5 @@
 'use strict';
 
-const { model } = require('./mongoModels/conversation');
-
 module.exports = (sequelize, DataTypes) => {
   const FavoriteLists = sequelize.define('FavoriteLists', {
     userId: {
