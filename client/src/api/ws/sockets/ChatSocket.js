@@ -27,11 +27,11 @@ class ChatSocket extends WebSocket {
             const {message, preview} = data.message;
             const {messagesPreview} = this.getState().chatStore;
             let isNew = true;
-            messagesPreview.forEach(preview => {
-                if (isEqual(preview.participants, message.participants)) {
-                    preview.text = message.body;
-                    preview.sender = message.sender;
-                    preview.createAt = message.createdAt;
+            messagesPreview.forEach(item => {
+                if (item._id === preview._id) {
+                    item.text = message.body;
+                    item.sender = message.sender;
+                    item.createAt = message.createdAt;
                     isNew = false;
                 }
             });
