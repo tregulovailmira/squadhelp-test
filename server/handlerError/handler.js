@@ -1,5 +1,8 @@
+const { logErrorToFile } = require('../utils/errorsLogger');
+
 module.exports = (err, req, res, next) => {
   console.log(err);
+  logErrorToFile(err);
   if (err.message ===
     'new row for relation "Banks" violates check constraint "Banks_balance_ck"' ||
     err.message ===
