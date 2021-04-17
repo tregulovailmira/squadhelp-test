@@ -1,14 +1,17 @@
 const { promisify } = require('util');
 const fs = require('fs');
 const path = require('path');
+const { Transform, pipeline } = require('stream');
 
 const mkdir = promisify(fs.mkdir);
 const writeFile = promisify(fs.writeFile);
 const access = promisify(fs.access);
 const stat = promisify(fs.stat);
+const pipelineAsync = promisify(pipeline);
 
 const logDirPath = path.resolve('log');
 const logFilePath = path.resolve('log', 'log.json');
+const dailyReportPath = path.resolve('log', `${new Date()}.json`);
 
 const createDirIfNotExist = async (path) => {
   try {
@@ -68,6 +71,32 @@ const addDataToLogFile = async (filePath, data, start, flags) => {
   }
 };
 
+const createObjectForDailyErrorsReport = async (mainReportPath, dailyReportPath) => {
+  try {
+    const transformStream = new Transform({ objectMode: true });
+    transformStream._transform = function (data, encoding, callback) {
+      const dailyErrors = JSON.parse(data);
+      const preparedErrors = dailyErrors.map(({ time, code, message }) => {
+        return { time, code, message };
+      });
+
+      this.push(JSON.stringify(preparedErrors));
+      callback();
+    };
+
+    await pipelineAsync(
+      fs.createReadStream(mainReportPath),
+      transformStream,
+      fs.createWriteStream(dailyReportPath)
+    );
+
+    transformStream.end();
+  } catch (error) {
+    console.log(error);
+    throw (error);
+  }
+};
+
 module.exports.logErrorToFile = async (error) => {
   await createDirIfNotExist(logDirPath);
   await createFileIfNotExist(logFilePath);
@@ -81,4 +110,15 @@ module.exports.logErrorToFile = async (error) => {
     : `${preparedError}]`;
 
   await addDataToLogFile(logFilePath, dataForLog, start, 'r+');
+};
+
+module.exports.dailyErrorsReport = async () => {
+  try {
+    await createFileIfNotExist(dailyReportPath);
+    await createObjectForDailyErrorsReport(logFilePath, dailyReportPath);
+    await addDataToLogFile(logFilePath, '[]', 0, 'w');
+  } catch (error) {
+    console.log(error);
+    throw (error);
+  }
 };
