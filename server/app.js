@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const handlerError = require('./handlerError/handler');
 const router = require('./router');
-const { reportTimer } = require('./utils/errorsLogger');
+const { reportTimer } = require('./utils/logger');
 
 const app = express();
 
