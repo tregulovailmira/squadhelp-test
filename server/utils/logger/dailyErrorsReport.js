@@ -35,7 +35,8 @@ const copyErrorsToDailyReport = async (mainReportPath, dailyReportPath) => {
 
 module.exports.createDailyReport = async (logFilePath) => {
   try {
-    const dailyReportPath = path.resolve(CONSTANTS.LOG_DIR_NAME, `${moment().format('DD-MM-YYYY HH:mm:ss')}.json`);
+    const currentTimestamp = moment().subtract(1, 'day').endOf('day').format('DD-MM-YYYY HH:mm:ss');
+    const dailyReportPath = path.resolve(CONSTANTS.LOG_DIR_NAME, `${currentTimestamp}.json`);
     await createFileIfNotExist(dailyReportPath);
     await copyErrorsToDailyReport(logFilePath, dailyReportPath);
     await addDataToLogFile(logFilePath, '[]', 0, 'w');
