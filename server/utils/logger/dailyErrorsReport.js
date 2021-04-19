@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { Transform, pipeline } = require('stream');
 const moment = require('moment');
-const { createFileIfNotExist } = require('./fileAndDirCreating');
+const { createFileIfNotExist, createDirIfNotExist } = require('./fileAndDirCreating');
 const { addDataToLogFile } = require('./logErrors');
 const CONSTANTS = require('../../constants');
 
@@ -33,11 +33,15 @@ const copyErrorsToDailyReport = async (mainReportPath, dailyReportPath) => {
   }
 };
 
-module.exports.createDailyReport = async (logFilePath) => {
+module.exports.createDailyReport = async (logFilePath, logDirPath) => {
   try {
     const currentTimestamp = moment().subtract(1, 'day').endOf('day').format('DD-MM-YYYY HH:mm:ss');
     const dailyReportPath = path.resolve(CONSTANTS.LOG_DIR_NAME, `${currentTimestamp}.json`);
+
+    await createDirIfNotExist(logDirPath);
+    await createFileIfNotExist(logFilePath);
     await createFileIfNotExist(dailyReportPath);
+
     await copyErrorsToDailyReport(logFilePath, dailyReportPath);
     await addDataToLogFile(logFilePath, '[]', 0, 'w');
   } catch (error) {

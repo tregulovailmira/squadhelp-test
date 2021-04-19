@@ -29,9 +29,9 @@ module.exports.reportTimer = () => {
   const wait = startTime.diff(moment());
 
   setTimeout(() => {
-    createDailyReport(logFilePath);
+    createDailyReport(logFilePath, logDirPath);
     setInterval(() => {
-      createDailyReport(logFilePath);
+      createDailyReport(logFilePath, logDirPath);
     }, CONSTANTS.DAY_LENGTH);
   }, wait);
 };
