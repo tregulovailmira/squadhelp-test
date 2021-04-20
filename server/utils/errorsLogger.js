@@ -2,6 +2,7 @@ const { promisify } = require('util');
 const fs = require('fs');
 const path = require('path');
 const { Transform, pipeline } = require('stream');
+const moment = require('moment');
 
 const mkdir = promisify(fs.mkdir);
 const writeFile = promisify(fs.writeFile);
@@ -11,7 +12,6 @@ const pipelineAsync = promisify(pipeline);
 
 const logDirPath = path.resolve('log');
 const logFilePath = path.resolve('log', 'log.json');
-const dailyReportPath = path.resolve('log', `${new Date()}.json`);
 
 const createDirIfNotExist = async (path) => {
   try {
@@ -71,7 +71,7 @@ const addDataToLogFile = async (filePath, data, start, flags) => {
   }
 };
 
-const createObjectForDailyErrorsReport = async (mainReportPath, dailyReportPath) => {
+const copyErrorsToDailyReport = async (mainReportPath, dailyReportPath) => {
   try {
     const transformStream = new Transform({ objectMode: true });
     transformStream._transform = function (data, encoding, callback) {
@@ -97,6 +97,18 @@ const createObjectForDailyErrorsReport = async (mainReportPath, dailyReportPath)
   }
 };
 
+const createDailyReport = async () => {
+  try {
+    const dailyReportPath = path.resolve('log', `${moment().format('DD-MM-YYYY HH:mm:ss')}.json`);
+    await createFileIfNotExist(dailyReportPath);
+    await copyErrorsToDailyReport(logFilePath, dailyReportPath);
+    await addDataToLogFile(logFilePath, '[]', 0, 'w');
+  } catch (error) {
+    console.log(error);
+    throw (error);
+  }
+};
+
 module.exports.logErrorToFile = async (error) => {
   await createDirIfNotExist(logDirPath);
   await createFileIfNotExist(logFilePath);
@@ -112,13 +124,15 @@ module.exports.logErrorToFile = async (error) => {
   await addDataToLogFile(logFilePath, dataForLog, start, 'r+');
 };
 
-module.exports.dailyErrorsReport = async () => {
-  try {
-    await createFileIfNotExist(dailyReportPath);
-    await createObjectForDailyErrorsReport(logFilePath, dailyReportPath);
-    await addDataToLogFile(logFilePath, '[]', 0, 'w');
-  } catch (error) {
-    console.log(error);
-    throw (error);
-  }
+module.exports.reportTimer = () => {
+  const startTime = moment().add(1, 'day').startOf('day');
+
+  const wait = startTime.diff(moment());
+
+  setTimeout(() => {
+    createDailyReport();
+    setInterval(() => {
+      createDailyReport();
+    }, 86400000);
+  }, wait);
 };
