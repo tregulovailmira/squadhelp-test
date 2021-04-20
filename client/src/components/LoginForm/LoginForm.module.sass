@@ -7,80 +7,6 @@
   justify-content: center
   padding: 10px 20px 30px
 
-  .submitContainer
-    align-self: stretch
-    min-width: 260px
-    border-radius: 5px
-    display: flex
-    justify-content: center
-    align-items: center
-    background-color: #28d2d0
-    height: 64px
-    padding: 0
-    border: 0
-    width: stretch
-    margin: 10px 20px 0 20px
-    @media(max-width: 850px)
-      align-self: auto
-
-
-  .inscription
-    font-size: 16px
-    color: white
-
-  .inputContainer
-    position: relative
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-self: stretch
-    margin-right: 20px
-    margin-left: 20px
-
-    .fieldWarning
-      position: absolute
-      z-index: 100
-      bottom: -22px
-      font-size: 17px
-      display: flex
-      flex-direction: row
-      justify-content: center
-      align-items: center
-      color: white
-      background-color:  #b72522
-      padding: 5px
-      text-align: center
-
-      &::before
-        content: ''
-        position: absolute
-        top: -10px
-        left: 20px
-        width: 0
-        height: 0
-        border-style: solid
-        border-width: 0 6px 10px 6px
-        border-color: transparent transparent #b72422 transparent
-
-    .input
-      background-color: white
-      border: 2px solid white
-      border-radius: 4px
-      color: #9ca8b7
-      font-size: 18px
-      padding: 23px 20px 23px 20px
-      outline: none
-      margin-bottom: 15px
-      flex: 1
-      @media(max-width: 1400px)
-        align-self: normal
-
-    .notValid
-      border: 2px solid red !important
-
-    .valid
-      border: 2px solid green
-
   h2
     text-align: center
     font-size: 34px
@@ -88,6 +14,81 @@
     color: white
     margin-top: 20px
     margin-bottom: 28px
+
+.submitContainer
+  align-self: stretch
+  min-width: 260px
+  border-radius: 5px
+  display: flex
+  justify-content: center
+  align-items: center
+  background-color: #28d2d0
+  color: #ffffff
+  height: 64px
+  padding: 0
+  border: 0
+  width: stretch
+  margin: 10px 20px 0 20px
+  @media(max-width: 850px)
+    align-self: auto
+
+
+  .inscription
+    font-size: 16px
+    color: white
+
+.inputContainer
+  position: relative
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-self: stretch
+  margin-right: 20px
+  margin-left: 20px
+
+  .fieldWarning
+    position: absolute
+    z-index: 100
+    bottom: -22px
+    font-size: 17px
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    color: white
+    background-color:  #b72522
+    padding: 5px
+    text-align: center
+
+    &::before
+      content: ''
+      position: absolute
+      top: -10px
+      left: 20px
+      width: 0
+      height: 0
+      border-style: solid
+      border-width: 0 6px 10px 6px
+      border-color: transparent transparent #b72422 transparent
+
+  .input
+    background-color: white
+    border: 2px solid white
+    border-radius: 4px
+    color: #9ca8b7
+    font-size: 18px
+    padding: 23px 20px 23px 20px
+    outline: none
+    margin-bottom: 15px
+    flex: 1
+    @media(max-width: 1400px)
+      align-self: normal
+
+  .notValid
+    border: 2px solid red !important
+
+  .valid
+    border: 2px solid green
 
   .errorPosition
     position: absolute

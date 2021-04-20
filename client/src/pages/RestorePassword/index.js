@@ -19,7 +19,11 @@ const RestorePassword = () => {
                     </Link>
                 </div>
             </div>
-            <RestorePasswordForm />
+            <div className={styles.formContainer}>
+                <h2>RESTORE YOUR PASSWORD</h2>
+                <RestorePasswordForm />
+            </div>
+            
         </div>
     )
 }
