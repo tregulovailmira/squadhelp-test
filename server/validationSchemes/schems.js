@@ -1,4 +1,4 @@
-dependenciesconst yup = require('yup');
+const yup = require('yup');
 
 const emailScheme = yup.string().email().required().min(4);
 const passwordScheme = yup.string().required().min(1);
