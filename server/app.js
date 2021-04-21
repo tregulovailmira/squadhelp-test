@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const handlerError = require('./handlerError/handler');
 const router = require('./router');
+require('dotenv').config();
 
 const app = express();
 

@@ -1,3 +1,5 @@
+require('dotenv').config();
+const Mailgun = require('mailgun-js');
 const bd = require('../models/index');
 const CONSTANTS = require('../constants');
 
@@ -45,3 +47,25 @@ const types = [
   'logo,tagline',
   'name,logo'
 ];
+
+module.exports.sendEmail = async (email, subject, text, html) => {
+  try {
+    const apiKey = process.env.MAILGUN_KEY;
+    const domain = process.env.MAILGUN_DOMAIN;
+
+    const transporter = new Mailgun({ apiKey, domain });
+
+    const mailOptions = {
+      from: '"Squadhelp" <squadhelp@example.com>',
+      to: email,
+      subject,
+      text,
+      html
+    };
+
+    await transporter.messages().send(mailOptions);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

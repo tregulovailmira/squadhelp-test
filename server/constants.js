@@ -28,5 +28,7 @@ module.exports = {
   NOTIFICATION_CHANGE_MARK: 'changeMark',
   NOTIFICATION_CHANGE_OFFER_STATUS: 'changeOfferStatus',
   NEW_MESSAGE: 'newMessage',
-  CHANGE_BLOCK_STATUS: 'CHANGE_BLOCK_STATUS'
+  CHANGE_BLOCK_STATUS: 'CHANGE_BLOCK_STATUS',
+  BASE_URL: 'http://localhost:3000',
+  RESTORE_PASSWORD_ROUTE: '/restorePassword'
 };
