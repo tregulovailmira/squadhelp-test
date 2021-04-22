@@ -438,3 +438,24 @@ export const clearRestorePasswordAction = () => {
     type: ACTION.RESET_RESTORE_PASSWORD_STATE
   }
 }
+
+export const updatePasswordAction = (data) => {
+  return {
+    type: ACTION.UPDATE_PASSWORD_ACTION,
+    data
+  }
+}
+
+export const updatePasswordSuccess = (data) => {
+  return {
+    type: ACTION.UPDATE_PASSWORD_SUCCESS,
+    data
+  }
+}
+
+export const updatePasswordError = (error) => {
+  return {
+    type: ACTION.UPDATE_PASSWORD_ERROR,
+    error
+  }
+}
