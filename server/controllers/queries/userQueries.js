@@ -36,3 +36,15 @@ module.exports.passwordCompare = async (pass1, pass2) => {
     throw new NotFound('Wrong password');
   }
 };
+
+module.exports.updatePassword = async (email, password) => {
+  const [updatedCount] = await bd.Users.update({ password },
+    {
+      where: { email },
+      returning: true
+    }
+  );
+  if (updatedCount !== 1) {
+    throw new ServerError('Cannot update password!');
+  }
+};

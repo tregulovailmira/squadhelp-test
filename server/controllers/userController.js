@@ -90,6 +90,16 @@ module.exports.sendTokenForRestorePassword = async (req, res, next) => {
   }
 };
 
+module.exports.updateLostPassword = async (req, res, next) => {
+  const { tokenData: { email, hashPass } } = req;
+  try {
+    await userQueries.updatePassword(email, hashPass);
+    return res.status(200).send('Your password has been updated. Now you can login.');
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getCreateRatingQuery = (offerId, userId, mark, transaction) => ratingQueries.createRating({
   offerId,
   mark,
