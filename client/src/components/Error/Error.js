@@ -10,15 +10,15 @@ const Error = props => {
       case 404:
         return data
       case 400:
-        return 'Check the input data'
+        return data || 'Check the input data'
       case 409:
         return data
       case 403:
-        return 'Bank decline transaction'
+        return data || 'Bank decline transaction'
       case 406:
         return data
       default:
-        return 'Server Error'
+        return data || 'Server Error'
     }
   }
 
