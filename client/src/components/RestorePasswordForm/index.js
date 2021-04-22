@@ -13,7 +13,7 @@ const RestorePasswordForm = (props) => {
     const restorePassword = bindActionCreators(restorePasswordAction, dispatch);
     const clearState = bindActionCreators(clearRestorePasswordAction, dispatch);
 
-    const { isFetching, data, error } = useSelector(state => state.restorePassword);
+    const { isFetching, data } = useSelector(state => state.restorePassword);
     
     const { handleSubmit } = props;
 
