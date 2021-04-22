@@ -4,6 +4,7 @@ export const registerRequest = (data) => http.post('/auth/registration', data)
 export const loginRequest = (data) => http.post('/auth/login', data)
 export const getUser = () => http.get('/auth/authUser')
 export const restorePassword = (data) => http.post('/auth/password/forgot', data)
+export const updatePassword = (token) => http.patch('auth/password/forgot', {token})
 
 export const payMent = (data) => http.post('/contests/payment', data.formData)
 export const getActiveContests = ({ offset, limit, typeIndex, contestId, industry, awardSort, ownEntries }) =>
