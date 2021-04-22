@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import customValidator from '../../validators/validator';
+import Schems from '../../validators/validationSchems';
 import { restorePasswordAction, clearRestorePasswordAction } from '../../actions/actionCreator';
 import FormInput from '../FormInput/FormInput';
 import loginFormStyles from '../LoginForm/LoginForm.module.sass';
@@ -72,4 +74,5 @@ const RestorePasswordForm = (props) => {
 
 export default reduxForm({
     form: 'restorePassword',
+    validate: customValidator(Schems.RestorePasswordSchem)
 })(RestorePasswordForm)
