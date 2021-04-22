@@ -9,7 +9,8 @@ const initialState = {
 export default function (state = initialState, action) {
     const { type } = action;
     switch (type) {
-        case ACTION.RESTORE_PASSWORD_ACTION: {
+        case ACTION.RESTORE_PASSWORD_ACTION:
+        case ACTION.UPDATE_PASSWORD_ACTION: {
             return {
                 ...state,
                 isFetching: true,
@@ -17,7 +18,8 @@ export default function (state = initialState, action) {
             }
         }
 
-        case ACTION.RESTORE_PASSWORD_SUCCESS: {
+        case ACTION.RESTORE_PASSWORD_SUCCESS: 
+        case ACTION.UPDATE_PASSWORD_SUCCESS: {
             const { data } = action;
             return {
                 ...state,
@@ -27,7 +29,8 @@ export default function (state = initialState, action) {
             }
         }
 
-        case ACTION.RESTORE_PASSWORD_ERROR: {
+        case ACTION.RESTORE_PASSWORD_ERROR:
+        case ACTION.UPDATE_PASSWORD_ERROR: {
             const { error } = action;
             return {
                 ...state,
@@ -39,6 +42,7 @@ export default function (state = initialState, action) {
         case ACTION.RESET_RESTORE_PASSWORD_STATE: {
             return initialState;
         }
+
         default: return state;
     }
 }
