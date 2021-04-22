@@ -26,13 +26,18 @@ authRouter.get(
   checkToken.checkAuth
 );
 
-authRouter.post(
-  '/password/forgot',
-  validators.validateRestorePasswordData,
-  basicMiddlewares.checkUserByEmail,
-  hashPass,
-  createToken,
-  userController.sendTokenForRestorePassword
-);
+authRouter
+  .route('/password/forgot')
+  .post(
+    validators.validateRestorePasswordData,
+    basicMiddlewares.checkUserByEmail,
+    hashPass,
+    createToken,
+    userController.sendTokenForRestorePassword
+  )
+  .patch(
+    checkToken.checkRestorePasswordToken,
+    userController.updateLostPassword
+  );
 
 module.exports = authRouter;
