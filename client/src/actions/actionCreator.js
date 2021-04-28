@@ -411,3 +411,45 @@ export const changeModalShow = (data) => {
     data: data
   }
 }
+
+export const getAllOffersAction = (data) => {
+  return {
+    type: ACTION.GET_ALL_OFFERS_ACTION,
+    data
+  }
+}
+
+export const getAllOffersSuccess = (data) => {
+  return {
+    type: ACTION.GET_ALL_OFFERS_SUCCESS,
+    data
+  }
+}
+
+export const getAllOffersError = (error) => {
+  return {
+    type: ACTION.GET_ALL_OFFERS_ERROR,
+    error
+  }
+}
+
+export const setModerationStatusAction = (data) => {
+  return {
+    type: ACTION.SET_MODERATION_STATUS_ACTION,
+    data
+  }
+}
+
+export const setModerationStatusSuccess = (data) => {
+  return {
+    type: ACTION.SET_MODERATION_STATUS_SUCCESS,
+    data
+  }
+}
+
+export const setModerationStatusError = (error) => {
+  return {
+    type: ACTION.SET_MODERATION_STATUS_ERROR,
+    error
+  }
+}
