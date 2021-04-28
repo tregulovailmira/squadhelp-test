@@ -26,6 +26,8 @@ import {
   changeCatalogName
 } from './chatSagas'
 
+import { getAllOffersSaga, setModerationOfferStatusSaga } from './offerSagas'
+
 function * rootSaga () {
   yield takeLatest(ACTION.AUTH_ACTION_REGISTER, registerSaga)
   yield takeLatest(ACTION.AUTH_ACTION_LOGIN, loginSaga)
@@ -55,6 +57,8 @@ function * rootSaga () {
   yield takeLatest(ACTION.DELETE_CATALOG_REQUEST, deleteCatalog)
   yield takeLatest(ACTION.REMOVE_CHAT_FROM_CATALOG_REQUEST, removeChatFromCatalogSaga)
   yield takeLatest(ACTION.CHANGE_CATALOG_NAME_REQUEST, changeCatalogName)
+  yield takeLatest(ACTION.GET_ALL_OFFERS_ACTION, getAllOffersSaga)
+  yield takeLatest(ACTION.SET_MODERATION_STATUS_ACTION, setModerationOfferStatusSaga)
 }
 
 export default rootSaga
