@@ -14,6 +14,8 @@ export const setNewOffer = data => http.post(`/contests/${data.get('contestId')}
 export const setOfferStatus = ({ contestId, offerId, command, creatorId, orderId, priority }) =>
   http.put(`/contests/${contestId}/offers/${offerId}?command=${command}&creatorId=${creatorId}&orderId=${orderId}&priority=${priority}`)
 export const downloadContestFile = ({ fileName }) => http.get(`/contests/files/${fileName}`)
+export const getOffers = ({ limit, offset }) => http.get(`/offers?limit=${limit}&offset=${offset}`)
+export const setOfferModerationStatus = ({offerId, ...data}) => http.patch(`/offers/${offerId}`, data)
 
 export const changeMark = ({ offerId, ...data }) => http.put(`offers/${offerId}/rating`, data)
 
