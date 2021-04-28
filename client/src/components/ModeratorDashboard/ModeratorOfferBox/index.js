@@ -1,10 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { confirmAlert } from 'react-confirm-alert'
+import { confirmAlert } from 'react-confirm-alert';
+import cx from 'classnames';
 import { changeShowImage } from '../../../actions/actionCreator';
 import { setModerationStatusAction } from '../../../actions/actionCreator';
 import CONSTANTS from '../../../constants';
+import styles from './ModeratorOfferBox.module.sass';
 
 export default function ModeratorOfferBox(props) {
 
@@ -41,27 +43,31 @@ export default function ModeratorOfferBox(props) {
             ]
         })
     }
+
+    const approveButtonClasses = cx(styles.controls, styles.approveButton);
+    const declineButtonClasses = cx(styles.controls, styles.declineButton);
     
     return (
-        <div>
-            <div>
+        <div className={styles.offerContainer}>
+            <div className={styles.contestInfo}>
                 <span>Contest: {title}</span>
-                <span>#{contestId}</span>
+                <span>&nbsp;#{contestId}</span>
             </div>
 
-            <div>
+            <div className={styles.creator}>
                 <img
+                    className={styles.avatar}
                     src={avatar === 'anon.png' ? CONSTANTS.ANONYM_IMAGE_PATH : `${CONSTANTS.publicURL}${avatar}`}
                     alt='user'
                 />
-                <div>
+                <div className={styles.creatorInfo}>
                     <span>{firstName}</span>
                     <span>{lastName}</span>
                     <span>{creatorEmail}</span>
                 </div>
             </div>
 
-            <div>
+            <div className={styles.offerInfo}>
                 { contestType === CONSTANTS.LOGO_CONTEST
                     ? <img onClick={() => showImage({ imagePath: fileName, isShowOnFull: true })}
                             src={`${CONSTANTS.publicURL}${fileName}`} alt='logo'/>
@@ -69,10 +75,8 @@ export default function ModeratorOfferBox(props) {
                 }
             </div>
 
-            <div>
-                <div onClick={()=>moderateOffer('approve')}>Approve</div>
-                <div onClick={()=>moderateOffer('decline')}>Decline</div>
-            </div>
+            <div className={approveButtonClasses} onClick={()=>moderateOffer('approve')}>Approve</div>
+            <div className={declineButtonClasses} onClick={()=>moderateOffer('decline')}>Decline</div>
         </div>
     )
 }

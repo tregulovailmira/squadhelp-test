@@ -1,0 +1,27 @@
+.mainContainer 
+    display: grid
+    grid-template-columns: 1fr 80% 1fr
+    justify-items: center
+    color: #46568a
+    position: relative
+
+    .offersList
+        display: flex
+        flex-direction: column
+        gap: 15px
+        max-width: 1000px
+        width: 100%
+        padding: 40px 15px 15px
+        margin: 50px 0
+        box-shadow: 0px 7px 25px 0px rgba(0,0,0,0.16)
+
+        grid-column: 2/3
+
+    .loader
+        grid-column: 2/3 
+        font-size: 25px
+        font-weight: 500
+        position: absolute
+        top: 12px
+        
+

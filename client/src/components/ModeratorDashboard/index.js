@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllOffersAction } from '../../actions/actionCreator';
 import ModeratorOfferBox from './ModeratorOfferBox';
+import styles from './ModeratorDashboard.module.sass';
 
 export default function ModeratorDashboard() {
 
@@ -14,13 +15,13 @@ export default function ModeratorDashboard() {
         getOffers({limit: 8, offset: offers.length})
     }, [])
 
-    if(isFetching) {
-        return <div>LOADING...</div>
-    }
-
     return (
-        <div>
-           {offers.map(offer => <ModeratorOfferBox key={offer.id} offer={offer}/>)}
+        <div className={styles.mainContainer}>
+            { isFetching && <div className={styles.loader}>LOADING...</div> }
+            <div className={styles.offersList}>
+            {offers.map(offer => <ModeratorOfferBox key={offer.id} offer={offer}/>)}
+            </div>
         </div>
+
     )
 }
