@@ -8,10 +8,14 @@ module.exports = {
   SQUADHELP_BANK_EXPIRY: '11/22',
   CUSTOMER: 'customer',
   CREATOR: 'creator',
+  MODERATOR: 'moderator',
   CREATOR_ENTRIES: 'creator_entries',
   CONTEST_STATUS_ACTIVE: 'active',
   CONTEST_STATUS_FINISHED: 'finished',
   CONTEST_STATUS_PENDING: 'pending',
+  MODERATION_OFFER_STATUS_PENDING: 'pending',
+  MODERATION_OFFER_STATUS_APPROVE: 'approve',
+  MODERATION_OFFER_STATUS_DECLINE: 'decline',
   CONTEST_PRICE: 100,
   CONTESTS_DEFAULT_DIR: 'public/contestFiles/',
   NAME_CONTEST: 'name',
@@ -28,5 +32,6 @@ module.exports = {
   NOTIFICATION_CHANGE_MARK: 'changeMark',
   NOTIFICATION_CHANGE_OFFER_STATUS: 'changeOfferStatus',
   NEW_MESSAGE: 'newMessage',
-  CHANGE_BLOCK_STATUS: 'CHANGE_BLOCK_STATUS'
+  CHANGE_BLOCK_STATUS: 'CHANGE_BLOCK_STATUS',
+  BASE_URL: 'http://localhost:3000'
 };
