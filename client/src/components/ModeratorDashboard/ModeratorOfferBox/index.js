@@ -16,7 +16,7 @@ export default function ModeratorOfferBox(props) {
 
     const {
         offer: {
-            id, text, fileName, contestId, userId: creatorId,
+            id, text, fileName, contestId, userId: creatorId, moderationStatus,
             Contest: { title, contestType, userId: customerId }, 
             User: { firstName, lastName, avatar, email: creatorEmail }  
         }
@@ -25,14 +25,14 @@ export default function ModeratorOfferBox(props) {
     const moderateOffer = (status) => {
         const data = {
             offerId: id,
-            moderationStatus: status,
             creatorEmail,
             customerId,
             creatorId,
-            contestId
+            contestId,
+            moderationStatus: status
         };
         confirmAlert({
-            title: 'confirm',
+            title: 'Confirm',
             message: 'Are u sure?',
             buttons: [
                 {
@@ -44,11 +44,22 @@ export default function ModeratorOfferBox(props) {
         })
     }
 
+    const mooderationStatus = () => {
+        if(moderationStatus === CONSTANTS.MODERATION_STATUS_APPROVE) {
+           return <span className={cx('fas fa-check-circle', styles.status, styles.approve)}></span>
+        }
+
+        if(moderationStatus === CONSTANTS.MODERATION_STATUS_DECLINE) {
+           return <span className={cx('fas fa-times-circle', styles.status, styles.decline)}></span>
+        }
+    }
+
     const approveButtonClasses = cx(styles.controls, styles.approveButton);
     const declineButtonClasses = cx(styles.controls, styles.declineButton);
     
     return (
         <div className={styles.offerContainer}>
+            { mooderationStatus() }
             <div className={styles.contestInfo}>
                 <span>Contest: {title}</span>
                 <span>&nbsp;#{contestId}</span>
@@ -75,8 +86,12 @@ export default function ModeratorOfferBox(props) {
                 }
             </div>
 
-            <div className={approveButtonClasses} onClick={()=>moderateOffer('approve')}>Approve</div>
-            <div className={declineButtonClasses} onClick={()=>moderateOffer('decline')}>Decline</div>
+            { moderationStatus === CONSTANTS.MODERATION_STATUS_PENDING &&
+                <>
+                    <div className={approveButtonClasses} onClick={()=>moderateOffer('approve')}>Approve</div>
+                    <div className={declineButtonClasses} onClick={()=>moderateOffer('decline')}>Decline</div>
+                </>
+            }
         </div>
     )
 }
