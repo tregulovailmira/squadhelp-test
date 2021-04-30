@@ -11,7 +11,7 @@ module.exports.getUnmoderatedOffers = async (req, res, next) => {
     const unmoderatedOffers = await offerQueries.getUnmoderatedOffers(limit, offset);
 
     let haveMore = true;
-    if (unmoderatedOffers.lenght < limit) {
+    if (unmoderatedOffers.length < limit) {
       haveMore = false;
     }
 
