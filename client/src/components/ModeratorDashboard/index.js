@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllOffersAction } from '../../actions/actionCreator';
+import { getAllOffersAction, clearOfferStore } from '../../actions/actionCreator';
 import ModeratorOfferBox from './ModeratorOfferBox';
 import CONSTANTS from '../../constants';
 import styles from './ModeratorDashboard.module.sass';
@@ -11,9 +11,13 @@ export default function ModeratorDashboard() {
     const { isFetching, error, offers, haveMore } = useSelector(state => state.offersStore)
     const dispatch = useDispatch();
     const getOffers = bindActionCreators(getAllOffersAction, dispatch);
-    
+    const clearOffers = bindActionCreators(clearOfferStore, dispatch);
+
     useEffect(() => {
         getOffers({limit: 8, offset: 0});
+        return () => {
+            clearOffers();
+        }
     }, []);
 
     useEffect(() => {

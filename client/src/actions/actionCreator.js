@@ -453,3 +453,9 @@ export const setModerationStatusError = (error) => {
     error
   }
 }
+
+export const clearOfferStore = () => {
+  return {
+    type: ACTION.CLEAR_OFFERS_STORE
+  }
+}
