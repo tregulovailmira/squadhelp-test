@@ -1,25 +1,18 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { confirmAlert } from 'react-confirm-alert';
 import cx from 'classnames';
-import { changeShowImage } from '../../../actions/actionCreator';
-import { setModerationStatusAction } from '../../../actions/actionCreator';
 import CONSTANTS from '../../../constants';
 import styles from './ModeratorOfferBox.module.sass';
 
 export default function ModeratorOfferBox(props) {
-
-    const dispatch = useDispatch();
-    const showImage = bindActionCreators(changeShowImage, dispatch);
-    const setOfferStatus = bindActionCreators(setModerationStatusAction, dispatch);
 
     const {
         offer: {
             id, text, fileName, contestId, userId: creatorId, moderationStatus,
             Contest: { title, contestType, userId: customerId }, 
             User: { firstName, lastName, avatar, email: creatorEmail }  
-        }
+        },
+        showImage, setOfferStatus
     } = props;
 
     const moderateOffer = (status) => {
@@ -44,13 +37,15 @@ export default function ModeratorOfferBox(props) {
         })
     }
 
-    const mooderationStatus = () => {
-        if(moderationStatus === CONSTANTS.MODERATION_STATUS_APPROVE) {
-           return <span className={cx('fas fa-check-circle', styles.status, styles.approve)}></span>
-        }
+    const renderModerationStatus = () => {
+        switch(moderationStatus) {
+            case CONSTANTS.MODERATION_STATUS_APPROVE: 
+                return <span className={cx('fas fa-check-circle', styles.status, styles.approve)}></span>
+            
+            case CONSTANTS.MODERATION_STATUS_DECLINE:
+                return <span className={cx('fas fa-times-circle', styles.status, styles.decline)}></span>
 
-        if(moderationStatus === CONSTANTS.MODERATION_STATUS_DECLINE) {
-           return <span className={cx('fas fa-times-circle', styles.status, styles.decline)}></span>
+            default: return null
         }
     }
 
@@ -59,7 +54,8 @@ export default function ModeratorOfferBox(props) {
     
     return (
         <div className={styles.offerContainer}>
-            { mooderationStatus() }
+            { renderModerationStatus() }
+                
             <div className={styles.contestInfo}>
                 <span>Contest: {title}</span>
                 <span>&nbsp;#{contestId}</span>
