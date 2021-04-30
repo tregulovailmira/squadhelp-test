@@ -41,18 +41,29 @@ export default function (state = initialState, action) {
         }
 
         case ACTION.SET_MODERATION_STATUS_SUCCESS: {
-            const { data: { data } } = action;
+            const { data: { id, moderationStatus } } = action;
+            const { offers } = state;
+            
+            const newOffers = offers.map(offer => {
+                if(offer.id === id) {
+                    return {
+                        ...offer,
+                        moderationStatus
+                    }
+                }
+                return offer;
+            })
+
             return {
                 ...state,
                 isFetching: false,
                 error: null,
-                offers: [...state.offers, ...data]
+                offers: newOffers
             }
         }
 
         case ACTION.SET_MODERATION_STATUS_ERROR: {
-            console.log('action', action);
-            const {  error } = action;
+            const { error } = action;
             return {
                 ...state,
                 isFetching: false,

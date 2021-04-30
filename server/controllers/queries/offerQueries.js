@@ -30,12 +30,12 @@ module.exports.getUnmoderatedOffers = async (limit, offset) => {
 
 module.exports.setModerationOfferStatus = async (moderationStatus, id) => {
   try {
-    const [updatedResult, updatedOffer] = await Offers.update({ moderationStatus },
+    const [updatedResult, [updatedOffer]] = await Offers.update({ moderationStatus },
       { where: { id }, returning: true });
     if (updatedResult < 1) {
       throw new ServerError('Cannot update offer');
     }
-    console.log('updatedOffer', updatedOffer.dataValues);
+
     return updatedOffer.dataValues;
   } catch (error) {
     throw new ServerError(error);
