@@ -28,10 +28,9 @@ module.exports.moderateOffer = async (req, res, next) => {
   } = req;
   try {
     const updatedOffer = await offerQueries.setModerationOfferStatus(moderationStatus, offerId);
+
     if (moderationStatus === CONSTANTS.MODERATION_OFFER_STATUS_APPROVE) {
       controller.getNotificationController().emitEntryCreated(customerId);
-      controller.getNotificationController().emitChangeOfferStatus(creatorId,
-        'Someone of yours offers was appove by moderator', contestId);
 
       const textForCustomer = `You have new offer on contest №${contestId}`;
       const htlmBodyForCustomer = `
@@ -42,10 +41,10 @@ module.exports.moderateOffer = async (req, res, next) => {
           </a>
         </div>`;
       await sendEmail(customerEmail, 'New offer', textForCustomer, htlmBodyForCustomer);
-    } else {
-      controller.getNotificationController().emitChangeOfferStatus(creatorId,
-        'Someone of yours offers was decline by moderator', contestId);
     }
+
+    controller.getNotificationController().emitChangeOfferStatus(creatorId,
+      `Someone of yours offers was moderated. Status: ${moderationStatus}`, contestId);
 
     const textForCustomer = `Your offer has been moderated! Status: ${moderationStatus}. Contest ID: ${contestId}`;
     const htmlBodyForCreator = `
@@ -56,6 +55,7 @@ module.exports.moderateOffer = async (req, res, next) => {
         </a>
       </div>`;
     await sendEmail(creatorEmail, 'Offer moderation', textForCustomer, htmlBodyForCreator);
+
     return res.status(200).send(updatedOffer);
   } catch (error) {
     next(new ServerError(error));
