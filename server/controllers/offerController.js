@@ -1,7 +1,7 @@
 const ServerError = require('../errors/ServerError');
 const offerQueries = require('./queries/offerQueries');
 const controller = require('../socketInit');
-const { sendEmail } = require('../utils/functions');
+const { sendEmail, createModerationOfferMessages } = require('../utils/functions');
 const CONSTANTS = require('../constants');
 
 module.exports.getUnmoderatedOffers = async (req, res, next) => {
@@ -28,33 +28,18 @@ module.exports.moderateOffer = async (req, res, next) => {
   } = req;
   try {
     const updatedOffer = await offerQueries.setModerationOfferStatus(moderationStatus, offerId);
+    const { customerMessage, creatorMessage } = createModerationOfferMessages(contestId, moderationStatus);
 
     if (moderationStatus === CONSTANTS.MODERATION_OFFER_STATUS_APPROVE) {
       controller.getNotificationController().emitEntryCreated(customerId);
 
-      const textForCustomer = `You have new offer on contest №${contestId}`;
-      const htlmBodyForCustomer = `
-        <div>
-          You have new offer on 
-          <a href=${CONSTANTS.BASE_URL}/contest/${contestId}>
-            contest №${contestId}
-          </a>
-        </div>`;
-      await sendEmail(customerEmail, 'New offer', textForCustomer, htlmBodyForCustomer);
+      await sendEmail(customerEmail, 'New offer', customerMessage[0], customerMessage[1]);
     }
 
     controller.getNotificationController().emitChangeOfferStatus(creatorId,
       `Someone of yours offers was moderated. Status: ${moderationStatus}`, contestId);
 
-    const textForCustomer = `Your offer has been moderated! Status: ${moderationStatus}. Contest ID: ${contestId}`;
-    const htmlBodyForCreator = `
-      <div>
-        Your offer has been moderated! Status: ${moderationStatus}. 
-        <a href=${CONSTANTS.BASE_URL}/contest/${contestId}>
-          Contest ID: ${contestId}
-        </a>
-      </div>`;
-    await sendEmail(creatorEmail, 'Offer moderation', textForCustomer, htmlBodyForCreator);
+    await sendEmail(creatorEmail, 'Offer moderation', creatorMessage[0], creatorMessage[1]);
 
     return res.status(200).send(updatedOffer);
   } catch (error) {
