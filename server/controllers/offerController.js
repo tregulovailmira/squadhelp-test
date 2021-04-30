@@ -37,7 +37,7 @@ module.exports.moderateOffer = async (req, res, next) => {
       const htlmBodyForCustomer = `
         <div>
           You have new offer on 
-          <a href=${CONSTANTS.BASE_URL}/contests/${contestId}>
+          <a href=${CONSTANTS.BASE_URL}/contest/${contestId}>
             contest №${contestId}
           </a>
         </div>`;
@@ -51,7 +51,7 @@ module.exports.moderateOffer = async (req, res, next) => {
     const htmlBodyForCreator = `
       <div>
         Your offer has been moderated! Status: ${moderationStatus}. 
-        <a href=${CONSTANTS.BASE_URL}/contests/${contestId}>
+        <a href=${CONSTANTS.BASE_URL}/contest/${contestId}>
           Contest ID: ${contestId}
         </a>
       </div>`;

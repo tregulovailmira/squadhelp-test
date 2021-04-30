@@ -144,3 +144,15 @@ module.exports.convertingQueryParams = (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.findUserEmailById = async (req, res, next) => {
+  const { body: { customerId } } = req;
+
+  try {
+    const foundCustomer = await bd.Users.findOne({ where: { id: customerId } }, { attributes: ['email'] });
+    req.body.customerEmail = foundCustomer.email;
+    next();
+  } catch (error) {
+    next(new ServerError());
+  }
+};

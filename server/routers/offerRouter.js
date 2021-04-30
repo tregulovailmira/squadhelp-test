@@ -27,6 +27,7 @@ offerRouter
     '/:offerId',
     checkToken.checkToken,
     basicMiddlewares.onlyForModerator,
+    basicMiddlewares.findUserEmailById,
     offerController.moderateOffer
   );
 
