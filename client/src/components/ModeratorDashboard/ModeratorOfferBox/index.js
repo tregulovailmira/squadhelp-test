@@ -81,7 +81,7 @@ export default function ModeratorOfferBox(props) {
             <div className={styles.offerInfo}>
                 { contestType === CONSTANTS.LOGO_CONTEST
                     ? <img onClick={() => showImage({ imagePath: fileName, isShowOnFull: true })}
-                            src={`${CONSTANTS.publicURL}${fileName}`} alt='logo'/>
+                            src={`${CONSTANTS.publicURL}${fileName}`} alt='logo' className={styles.logo}/>
                     : <span>{text}</span>
                 }
             </div>

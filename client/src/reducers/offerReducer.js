@@ -4,7 +4,9 @@ const initialState = {
     isFetching: false,
     error: null,
     offers: [],
-    haveMore: true
+    haveMore: true,
+    isShowOnFull: false,
+    imagePath: null
 }
 
 export default function (state = initialState, action) {
@@ -68,6 +70,15 @@ export default function (state = initialState, action) {
                 ...state,
                 isFetching: false,
                 error
+            }
+        }
+
+        case ACTION.CHANGE_SHOW_IMAGE: {
+            const { data: { isShowOnFull, imagePath } } = action;
+            return {
+                ...state,
+                isShowOnFull,
+                imagePath
             }
         }
 
