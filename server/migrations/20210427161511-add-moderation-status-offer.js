@@ -8,7 +8,10 @@ module.exports = {
         allowNull: false,
         defaultValue: 'pending'
       }
-    );
+    )
+      .then(() => queryInterface.bulkUpdate('Offers', {
+        moderationStatus: 'approve'
+      }));
   },
 
   down: (queryInterface, Sequelize) => {
