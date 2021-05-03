@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { confirmAlert } from 'react-confirm-alert';
 import cx from 'classnames';
 import CONSTANTS from '../../../constants';
 import styles from './ModeratorOfferBox.module.sass';
 
-export default function ModeratorOfferBox(props) {
+function ModeratorOfferBox(props) {
 
     const {
         offer: {
@@ -91,3 +92,28 @@ export default function ModeratorOfferBox(props) {
         </div>
     )
 }
+
+ModeratorOfferBox.propTypes = {
+  offer: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      text: PropTypes.string.isRequired,
+      contestId: PropTypes.number.isRequired,
+      userId: PropTypes.number.isRequired,
+      moderationStatus: PropTypes.string.isRequired,
+      Contest: PropTypes.shape({
+          title: PropTypes.string.isRequired,
+          contestType: PropTypes.string.isRequired,
+          userId: PropTypes.number.isRequired
+      }),
+      User: PropTypes.shape({
+          firstName: PropTypes.string.isRequired,
+          lastName: PropTypes.string.isRequired,
+          avatar: PropTypes.string.isRequired,
+          email: PropTypes.string.isRequired
+      }),
+      showImage: PropTypes.func,
+      setOfferStatus: PropTypes.func
+  })
+};
+
+export default ModeratorOfferBox;
