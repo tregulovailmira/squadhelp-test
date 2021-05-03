@@ -33,7 +33,7 @@ export default function ModeratorDashboard() {
     }, [offers])
 
     const scrollHandler = () => {
-        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+        if (document.documentElement.getBoundingClientRect().bottom < document.documentElement.clientHeight + 100) {
             if (haveMore) {
                 loadMore();
             }
