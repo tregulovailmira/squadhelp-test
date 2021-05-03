@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import LightBox from 'react-image-lightbox';
 import { getAllOffersAction, clearOfferStore, changeShowImage, setModerationStatusAction } from '../../actions/actionCreator';
 import ModeratorOfferBox from './ModeratorOfferBox';
+import TryAgain from '../TryAgain/TryAgain';
+import Spinner from '../Spinner/Spinner';
 import CONSTANTS from '../../constants';
 import styles from './ModeratorDashboard.module.sass';
 
@@ -48,6 +50,10 @@ export default function ModeratorDashboard() {
         const offset = offers.length - moderatedOffersCount;
         getOffers({limit: 8, offset});
     };
+
+    if (isFetching && !offers.length) {
+        return <Spinner/>
+    }
     
     return (
         
@@ -56,11 +62,14 @@ export default function ModeratorDashboard() {
                 mainSrc={`${CONSTANTS.publicURL}${imagePath}`}
                 onCloseRequest={() => showImage({isShowOnFull: false, imagePath: null})}
             /> }
-            { isFetching && <div className={styles.loader}>LOADING...</div> }
-            <div className={styles.offersList}>
-                { offers.map(offer => <ModeratorOfferBox key={offer.id} offer={offer} 
-                    showImage={showImage} setOfferStatus={setOfferStatus} />) }
-            </div>
+            { error 
+                ? <TryAgain getData={loadMore} /> 
+                : <div className={styles.offersList}>
+                    { offers.map(offer => <ModeratorOfferBox key={offer.id} offer={offer} 
+                        showImage={showImage} setOfferStatus={setOfferStatus} />) }
+                </div>
+            }
+            { isFetching && <Spinner/> }
         </div>
 
     )
