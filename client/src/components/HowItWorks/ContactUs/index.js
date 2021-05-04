@@ -6,9 +6,9 @@ import CONSTANTS from '../../../constants';
 import Button from '../Button';
 import styles from './ContactUs.module.sass';
 
-function ContactUs(props) {
-    const iconStyles = cx("far fa-envelope", styles.icon);
-    return (
+function ContactUs (props) {
+  const iconStyles = cx('far fa-envelope', styles.icon);
+  return (
         <div className={styles.contactUsContainer}>
             <span className={iconStyles}></span>
             <div className={styles.textContainer}>
@@ -18,11 +18,11 @@ function ContactUs(props) {
             <Button to='/' text='get in touch' classContainer={styles.buttonPosition}/>
         </div>
 
-    )
+  );
 }
 
 ContactUs.propTypes = {
-    classContainer: PropTypes.string
-}
+  classContainer: PropTypes.string
+};
 
 export default ContactUs;
