@@ -5,26 +5,25 @@ import PropTypes from 'prop-types';
 import useEvents from '../hooks/Events/useEvents';
 import EventsList from './EventsList';
 import AddEventForm from './AddEventForm';
-import styles from './Events.module.sass'
+import styles from './Events.module.sass';
 
-export default function Events(props) {
+export default function Events (props) {
+  const { classContainer } = props;
 
-    const { classContainer } = props;
+  const [events, addEvent, closeRemindingNotification] = useEvents();
 
-    const [events, addEvent, closeRemindingNotification] = useEvents();
+  const [isShownAddEventForm, setIsShownAddEventForm] = useState(false);
 
-    const [isShownAddEventForm, setIsShownAddEventForm] = useState(false);
+  const openAddEventForm = () => {
+    setIsShownAddEventForm(true);
+  };
 
-    const openAddEventForm = () => {
-        setIsShownAddEventForm(true);
-    }
+  const closeAddEventForm = () => {
+    setIsShownAddEventForm(false);
+  };
 
-    const closeAddEventForm = () => {
-        setIsShownAddEventForm(false);
-    }
-
-    const eventsClasses = cx(classContainer, styles.mainContainer);
-    return (
+  const eventsClasses = cx(classContainer, styles.mainContainer);
+  return (
         <div className={eventsClasses}>
             <Button variant='primary' onClick={openAddEventForm} className={styles.addEventButton} title="New event">
                 <span className="fas fa-plus"></span>
@@ -32,9 +31,9 @@ export default function Events(props) {
             <AddEventForm show={isShownAddEventForm} onHide={closeAddEventForm} onSubmit={addEvent}/>
             <EventsList events={events} closeNotification={closeRemindingNotification} classContainer={styles.listPosition}/>
         </div>
-    )
+  );
 }
 
 Events.propTypes = {
-    classContainer: PropTypes.string
-}
+  classContainer: PropTypes.string
+};
