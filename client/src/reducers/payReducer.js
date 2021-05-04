@@ -1,10 +1,10 @@
-import ACTION from '../actions/actionTypes'
+import ACTION from '../actions/actionTypes';
 
 const initialState = {
   isFetching: false,
   error: null,
   focusOnElement: 'number'
-}
+};
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -12,26 +12,26 @@ export default function (state = initialState, action) {
       return {
         ...state,
         focusOnElement: action.data
-      }
+      };
     }
     case ACTION.PAYMENT_ACTION_REQUEST: {
       return {
         ...state,
         isFetching: true,
         error: null
-      }
+      };
     }
     case ACTION.PAYMENT_ACTION_ERROR: {
       return {
         ...state,
         isFetching: false,
         error: action.error
-      }
+      };
     }
     case ACTION.CLEAR_PAYMENT_STORE: {
-      return initialState
+      return initialState;
     }
     default :
-      return state
+      return state;
   }
 }

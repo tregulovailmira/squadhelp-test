@@ -1,9 +1,9 @@
-import React from 'react'
-import classNames from 'classnames'
-import InputMask from 'react-input-mask'
+import React from 'react';
+import classNames from 'classnames';
+import InputMask from 'react-input-mask';
 
 const PayInput = (props) => {
-  const { label, input: { name }, input, changeFocus, type, classes, meta: { touched, error }, isInputMask, mask } = props
+  const { label, input: { name }, input, changeFocus, type, classes, meta: { touched, error }, isInputMask, mask } = props;
   if (name === 'sum') {
     return (
             <div className={classes.container}>
@@ -11,7 +11,7 @@ const PayInput = (props) => {
                        className={classNames(classes.input, { [classes.notValid]: touched && error })}/>
                 {(touched && error) && <span className={classes.error}>{error}!</span>}
             </div>
-    )
+    );
   } else if (isInputMask) {
     return (
             <div className={classes.container}>
@@ -20,7 +20,7 @@ const PayInput = (props) => {
                            onFocus={() => changeFocus(name)}/>
                 {(touched && error) && <span className={classes.error}>{error}!</span>}
             </div>
-    )
+    );
   } else {
     return (
             <div className={classes.container}>
@@ -29,8 +29,8 @@ const PayInput = (props) => {
                        onFocus={() => changeFocus(name)}/>
                 {(touched && error) && <span className={classes.error}>{error}!</span>}
             </div>
-    )
+    );
   }
-}
+};
 
-export default PayInput
+export default PayInput;

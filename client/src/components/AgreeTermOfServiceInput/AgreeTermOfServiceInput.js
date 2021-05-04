@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 // eslint-disable-next-line react/prop-types
 const AgreeTermOfServiceInput = ({ label, id, input, type, classes, meta: { touched, error } }) => {
@@ -15,7 +15,7 @@ const AgreeTermOfServiceInput = ({ label, id, input, type, classes, meta: { touc
             {touched && (error && <span className={classes.warning}>{error}</span>)}
         </div>
 
-  )
-}
+  );
+};
 
-export default AgreeTermOfServiceInput
+export default AgreeTermOfServiceInput;

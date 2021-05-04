@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import styles from '../../Brief/Brief.module.sass'
-import CONSTANTS from '../../../constants'
-import LogoContestSpecialInfo from './LogoContestSpecialInfo'
-import NameContestSpecialInfo from './NameContestSpecialInfo'
-import TaglineContestSpecialInfo from './TaglineContestSpecialInfo'
+import React from 'react';
+import styles from '../../Brief/Brief.module.sass';
+import CONSTANTS from '../../../constants';
+import LogoContestSpecialInfo from './LogoContestSpecialInfo';
+import NameContestSpecialInfo from './NameContestSpecialInfo';
+import TaglineContestSpecialInfo from './TaglineContestSpecialInfo';
 
 const ContestInfo = (props) => {
-  const { changeEditContest, userId, contestData, role, goChat } = props
+  const { changeEditContest, userId, contestData, role, goChat } = props;
   const {
     typeOfTagline, brandStyle, typeOfName, styleName, contestType,
     title, focusOfWork, targetCustomer, industry, originalFileName,
     fileName, User, status
-  } = contestData
+  } = contestData;
   return (
         <div className={styles.mainContestInfoContainer}>
             <div className={styles.infoContainer}>
@@ -58,13 +58,13 @@ const ContestInfo = (props) => {
                 </div>
                 {originalFileName && <div className={styles.dataContainer}>
                     <span className={styles.label}>Additional File</span>
-                    <a target="_blank" rel='noreferrer' className={styles.file}
+                    <a target="_blank" rel='noopener noreferrer' className={styles.file}
                        href={`${CONSTANTS.publicURL}${fileName}`}
                        download={originalFileName}>{originalFileName}</a>
                 </div>}
             </div>
         </div>
-  )
-}
+  );
+};
 
-export default ContestInfo
+export default ContestInfo;
