@@ -1,5 +1,5 @@
-import * as yup from 'yup'
-import valid from 'card-validator'
+import * as yup from 'yup';
+import valid from 'card-validator';
 
 const passwordSchem = yup.string().test('test-password', 'min 6 symbols', value => (value && value.trim().length >= 6)).required('required');
 const confirmPasswordSchem = yup.string().required('confirm password is required').oneOf([yup.ref('password')], 'confirmation pass must match password');
@@ -69,4 +69,4 @@ export default {
     displayName: yup.string().test('test-displayName', 'required', value => (value && value.trim().length >= 1)).required('required'),
     file: yup.mixed()
   })
-}
+};

@@ -1,4 +1,3 @@
-require('./dbMongo/mongoose');
 const http = require('http');
 const app = require('./app');
 const controller = require('./socketInit');

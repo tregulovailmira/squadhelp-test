@@ -30,5 +30,8 @@ module.exports = {
   NEW_MESSAGE: 'newMessage',
   CHANGE_BLOCK_STATUS: 'CHANGE_BLOCK_STATUS',
   BASE_URL: 'http://localhost:3000',
-  RESTORE_PASSWORD_ROUTE: '/restorePassword'
+  RESTORE_PASSWORD_ROUTE: '/restorePassword',
+  LOG_DIR_NAME: 'log',
+  LOG_FILE_NAME: 'log.json',
+  DAY_LENGTH: 86400000
 };

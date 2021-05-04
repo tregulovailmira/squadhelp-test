@@ -1,9 +1,9 @@
-import React from 'react'
-import { ClipLoader } from 'react-spinners'
-import { css } from '@emotion/core'
-import styles from './Spinner.module.sass'
+import React from 'react';
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/core';
+import styles from './Spinner.module.sass';
 
-const override = css`border-color: #46568a;`
+const override = css`border-color: #46568a;`;
 
 const SpinnerLoader = () => {
   return (
@@ -16,7 +16,7 @@ const SpinnerLoader = () => {
                 loading={true}
             />
         </div>
-  )
-}
+  );
+};
 
-export default SpinnerLoader
+export default SpinnerLoader;

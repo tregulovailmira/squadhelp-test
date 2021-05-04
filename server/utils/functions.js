@@ -69,3 +69,62 @@ module.exports.sendEmail = async (email, subject, text, html) => {
     throw error;
   }
 };
+
+module.exports.getConversationPreview = (conversation) => {
+  const { id, BlackLists, FavoriteLists, Messages, interlocutorId, userId } = conversation;
+
+  const { sender, body, createdAt } = Messages[0];
+  const participants = [userId, interlocutorId];
+
+  const blackList = participants.map(participant =>
+    BlackLists.map(({ userId }) => userId).includes(participant));
+
+  const favoriteList = participants.map(participant =>
+    FavoriteLists.map(({ userId }) => userId).includes(participant)
+  );
+
+  return {
+    _id: id,
+    sender: sender,
+    text: body,
+    createAt: createdAt,
+    participants,
+    blackList,
+    favoriteList
+  };
+};
+
+module.exports.prepareConversation = (conversation) => {
+  const { id, userId, interlocutorId, BlackLists, FavoriteLists, createdAt, updatedAt } = conversation;
+
+  const participants = [userId, interlocutorId];
+
+  const blackList = participants.map(participant =>
+    BlackLists.map(({ userId }) => userId).includes(participant));
+
+  const favoriteList = participants.map(participant =>
+    FavoriteLists.map(({ userId }) => userId).includes(participant)
+  );
+
+  return {
+    _id: id,
+    participants,
+    createdAt,
+    updatedAt,
+    blackList,
+    favoriteList
+  };
+};
+
+module.exports.prepareCatalog = (catalog) => {
+  const { id, catalogName, userId, CatalogsToConversations } = catalog;
+
+  const chats = CatalogsToConversations.map(item => item.conversationId);
+
+  return {
+    _id: id,
+    catalogName,
+    userId,
+    chats
+  };
+};
