@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import style from './SlideBar.module.sass'
-import Flickity from 'react-flickity-component'
-import carouselConstants from '../../carouselConstants'
-import './flickity.css'
+import React from 'react';
+import style from './SlideBar.module.sass';
+import Flickity from 'react-flickity-component';
+import carouselConstants from '../../carouselConstants';
+import './flickity.css';
 
 const SliderBar = props => {
   const options = {
@@ -14,23 +14,23 @@ const SliderBar = props => {
     autoPlay: true,
     groupCells: true,
     lazyLoad: true
-  }
+  };
 
   const getStyleName = () => {
-    const { carouselType } = props
+    const { carouselType } = props;
     switch (carouselType) {
       case carouselConstants.MAIN_SLIDER:
-        return style.mainCarousel
+        return style.mainCarousel;
       case carouselConstants.EXAMPLE_SLIDER:
-        return style.exampleCarousel
+        return style.exampleCarousel;
       case carouselConstants.FEEDBACK_SLIDER:
-        return style.feedbackCarousel
-      default: return
+        return style.feedbackCarousel;
+      default:
     }
-  }
+  };
 
   const renderSlides = () => {
-    const { carouselType } = props
+    const { carouselType } = props;
     switch (carouselType) {
       case carouselConstants.MAIN_SLIDER: {
         return Object.keys(props.images).map((key, index) => {
@@ -40,8 +40,8 @@ const SliderBar = props => {
                              key={index}
                              className={style['carousel-cell']}
                         />
-          )
-        })
+          );
+        });
       }
       case carouselConstants.EXAMPLE_SLIDER: {
         return Object.keys(props.images).map((key, index) => {
@@ -51,8 +51,8 @@ const SliderBar = props => {
                             <p>{carouselConstants.EXAMPLE_SLIDER_TEXT[index]}</p>
                         </div>
 
-          )
-        })
+          );
+        });
       }
       case carouselConstants.FEEDBACK_SLIDER: {
         return Object.keys(props.images).map((key, index) => {
@@ -62,12 +62,12 @@ const SliderBar = props => {
                             <p>{carouselConstants.FEEDBACK_SLIDER_TEXT[index].feedback}</p>
                             <span>{carouselConstants.FEEDBACK_SLIDER_TEXT[index].name}</span>
                         </div>
-          )
-        })
+          );
+        });
       }
-      default: return <></>
+      default: return <></>;
     }
-  }
+  };
   return (
         <Flickity className={getStyleName()}
                   elementType={'div'}
@@ -76,7 +76,7 @@ const SliderBar = props => {
                 renderSlides()
             }
         </Flickity>
-  )
-}
+  );
+};
 
-export default SliderBar
+export default SliderBar;

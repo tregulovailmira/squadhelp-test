@@ -1,25 +1,25 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import classNames from 'classnames'
+import React from 'react';
+import classNames from 'classnames';
 
 const ImageUpload = (props) => {
   const onChange = (e) => {
-    const node = window.document.getElementById('imagePreview')
+    const node = window.document.getElementById('imagePreview');
     // eslint-disable-next-line react/prop-types
-    const { input: { onChange } } = props
-    const file = e.target.files[0]
-    const imageType = /image.*/
+    const { input: { onChange } } = props;
+    const file = e.target.files[0];
+    const imageType = /image.*/;
     if (!file.type.match(imageType)) {
-      e.target.value = ''
+      e.target.value = '';
     } else {
-      onChange(file)
-      const reader = new FileReader()
+      onChange(file);
+      const reader = new FileReader();
       reader.onload = () => {
         node.src = reader.result;
-      }
-      reader.readAsDataURL(file)
+      };
+      reader.readAsDataURL(file);
     }
-  }
+  };
   const { input: { value } } = props;
   const { uploadContainer, inputContainer, imgStyle } = props.classes;
   return (
@@ -34,14 +34,14 @@ const ImageUpload = (props) => {
                 />
                 <label htmlFor="fileInput">Chose file</label>
             </div>
-            <img 
-              id='imagePreview' 
-              alt="preview" 
-              className={classNames({ [imgStyle]: !!value })} 
-              style={{ display:!value ? 'none' : 'inline' }}
+            <img
+              id='imagePreview'
+              alt="preview"
+              className={classNames({ [imgStyle]: !!value })}
+              style={{ display: !value ? 'none' : 'inline' }}
             />
         </div>
-  )
-}
+  );
+};
 
-export default ImageUpload
+export default ImageUpload;

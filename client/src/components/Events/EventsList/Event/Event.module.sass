@@ -1,0 +1,20 @@
+.eventContainer
+    display: grid
+    grid-column-gap: 15px
+    position: relative
+    grid-template-columns: 3fr 1fr
+    padding: 15px 10px
+    border-radius: 5px
+
+    @media screen and ( max-width: 768px )
+        grid-template: 1fr 25px /1fr
+        justify-items: center
+        text-align: center
+
+    .timer
+        justify-self: end
+        color: #8a8a8a
+        font-weight: 500
+
+        @media screen and ( max-width: 768px )
+            justify-self: center

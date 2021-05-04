@@ -1,0 +1,71 @@
+$main-theme-color: #28d2d0
+$border-color: #ebebeb
+$question-background: #fafafa
+$main-font-color: #515b5f
+
+%grid
+    display: grid
+    align-items: center
+
+
+.faqContainer
+    display: grid
+    grid-row-gap: 40px
+    font-family: 'Raleway'
+    color: $main-font-color
+    line-height: 1.3
+    padding: 0 10px
+
+    .mainHeader
+        @extend %grid
+        grid-template-columns: 60px 1fr
+        grid-column-gap: 15px
+        font-size: 30px
+        font-weight: bold
+        border-bottom: 2px solid $border-color
+        padding-bottom: 40px
+        
+        @media screen and ( max-width: 335px )
+            font-size: 25px
+
+        .questionIcon
+            @extend %grid
+            justify-content: center
+            border: 2px solid $main-theme-color
+            border-radius: 50%
+            font-size: 40px
+            font-weight: 300
+            color: $main-theme-color
+    
+    .questionsContainer
+        @extend %grid
+        grid-row-gap: 50px
+    
+        .questionWrapper
+            @extend %grid
+            grid-row-gap: 30px
+
+            .questionHeader
+                font-weight: bold
+                font-size: 18px
+
+            .questionBody
+                font-weight: 400
+                
+                p
+                    margin: 10px 0
+                
+                    span
+                        font-weight: bold
+
+                li
+                    margin-left: 20px
+
+                a
+                    color: $main-theme-color
+
+            &:nth-child(2n)
+                background-color: $question-background
+            
+
+    

@@ -1,20 +1,22 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import Logo from '../../components/Logo'
+import React, { useEffect } from 'react';
+import Logo from '../../components/Logo';
 import RegistrationForm
-  from '../../components/RegistrationForm/RegistrationForm'
-import styles from './RegistrationPage.module.sass'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { clearErrorSignUpAndLogin } from '../../actions/actionCreator'
-import CONSTANTS from '../../constants'
+  from '../../components/RegistrationForm/RegistrationForm';
+import styles from './RegistrationPage.module.sass';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { clearErrorSignUpAndLogin } from '../../actions/actionCreator';
+import CONSTANTS from '../../constants';
 
 const RegistrationPage = (props) => {
-  props.clearError()
+  useEffect(() => {
+    props.clearError();
+  }, []);
 
   const changeRoute = () => {
-    props.history.replace('/')
-  }
+    props.history.replace('/');
+  };
 
   return (
     <div className={ styles.signUpPage }>
@@ -155,13 +157,13 @@ const RegistrationPage = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     clearError: () => dispatch(clearErrorSignUpAndLogin())
-  }
-}
+  };
+};
 
-export default connect(null, mapDispatchToProps)(RegistrationPage)
+export default connect(null, mapDispatchToProps)(RegistrationPage);

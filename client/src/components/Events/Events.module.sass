@@ -1,0 +1,41 @@
+$main-font-color: #363636
+$hover-color: #007bff
+$light-color: #ffffff
+    
+.mainContainer
+    display: grid
+    grid-template: 36px 1fr / 1fr 3fr 1fr 
+    grid-row-gap: 10px 
+    color: $main-font-color
+    position: relative
+
+    @media screen and ( max-width: 1024px )
+        grid-template: 36px 1fr / 1fr 90% 1fr
+        
+    .addEventButton
+        grid-column: 2 / 3
+        justify-self: start
+        align-self: center
+        cursor: pointer
+        outline: none
+        background-color: $light-color
+        color: $main-font-color
+        border: none
+
+        transition: .3s
+
+        &:focus
+            color: inherit
+            background-color: inherit
+            border-color: inherit
+            box-shadow: none
+            
+        &:hover
+            color: $light-color
+            background-color: $hover-color
+
+    .listPosition
+        grid-column: 2 / 3
+        grid-row: 2 / 3
+
+    
