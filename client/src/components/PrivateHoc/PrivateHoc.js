@@ -24,9 +24,8 @@ const PrivateHoc = (Component, props) => {
 
     render () {
       return (<>
-                {this.props.isFetching
-                  ? <Spinner/>
-                  : <Component history={this.props.history} match={this.props.match} {...props}/>}
+                { this.props.isFetching && <Spinner/> }
+                { this.props.data && <Component history={this.props.history} match={this.props.match} {...props}/> }
             </>);
     }
   }
