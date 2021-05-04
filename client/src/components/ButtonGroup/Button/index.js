@@ -3,34 +3,35 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import styles from './Button.module.sass';
 
-function Button(props) {
-    const { value, handleClick, iconText, children: description, checkedValue } = props;
+function Button (props) {
+  const { value, handleClick, iconText, children: description, checkedValue } = props;
 
-    const onClickHandle = () => {
-        handleClick(value);
-    }
+  const onClickHandle = () => {
+    handleClick(value);
+  };
 
-    const buttonStyles = cx(styles.buttonContainer, {
-        [styles.checkedButton]: checkedValue === value
-    });
+  const buttonStyles = cx(styles.buttonContainer, {
+    [styles.checkedButton]: checkedValue === value
+  });
 
-    const iconStyles = cx(styles.buttonIcon, {
-        [styles.checkedIcon]: checkedValue === value
-    })
+  const iconStyles = cx(styles.buttonIcon, {
+    [styles.checkedIcon]: checkedValue === value
+  });
 
-    return (
+  return (
         <div className={buttonStyles} onClick={onClickHandle}>
             <div className={iconStyles}>{iconText}</div>
             <div className={styles.description}>{description}</div>
         </div>
-    )
+  );
 }
 
 Button.propTypes = {
-    value: PropTypes.string.isRequired,
-    handleClick: PropTypes.func.isRequired,
-    iconText: PropTypes.string.isRequired,
-}
+  value: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  iconText: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
+  checkedValue: PropTypes.string.isRequired
+};
 
-export default Button
-
+export default Button;
