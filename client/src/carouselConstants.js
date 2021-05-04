@@ -1,4 +1,4 @@
-import CONSTANTS from './constants'
+import CONSTANTS from './constants';
 
 export default {
   MAIN_SLIDER: 'MAIN_SLIDER',
@@ -114,4 +114,4 @@ export default {
     }
 
   ]
-}
+};

@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './Header.module.sass';
 import { connect } from 'react-redux';
+import cx from 'classnames';
 import { Link, withRouter } from 'react-router-dom';
 import CONSTANTS from '../../constants';
-import { clearUserStore, headerRequest } from '../../actions/actionCreator';
+import { clearUserStore, headerRequest, clearContestList } from '../../actions/actionCreator';
 import { controller } from '../../api/ws/socketController';
 import Logo from '../Logo';
 
@@ -39,6 +40,7 @@ class Header extends React.Component{
   logOut = () => {
     localStorage.removeItem(CONSTANTS.ACCESS_TOKEN);
     this.props.clearUserStore();
+    this.props.clearContestList()    
   };
 
     startContests = () => {
@@ -105,11 +107,14 @@ class Header extends React.Component{
     };
 
     render() {
+        const { classContainer } = this.props;
+        const headerClasses = cx(classContainer, styles.headerContainer);
+
         if (this.props.isFetching) {
             return null;
         }
         return (
-            <div className={styles.headerContainer}>
+            <div className={headerClasses}>
                 <div className={styles.fixedHeader}>
                     <span className={styles.info}>Squadhelp recognized as one of the Most Innovative Companies by Inc Magazine.</span>
                     <a href="/">Read Announcement</a>
@@ -149,7 +154,7 @@ class Header extends React.Component{
                                     <span>CONTESTS</span><img src={`${CONSTANTS.STATIC_IMAGES_PATH}menu-down.png`}
                                                               alt='menu'/>
                                     <ul>
-                                        <li><a href="/">HOW IT WORKS</a></li>
+                                        <li><Link to='/howitworks'  style={{textDecoration: 'none'}}>HOW IT WORKS</Link></li>
                                         <li><a href="/">PRICING</a></li>
                                         <li><a href="/">AGENCY SERVICE</a></li>
                                         <li><a href="/">ACTIVE CONTESTS</a></li>
@@ -212,6 +217,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getUser: () => dispatch(headerRequest()),
     clearUserStore: () => dispatch(clearUserStore()),
+    clearContestList: () => dispatch(clearContestList())
   };
 };
 

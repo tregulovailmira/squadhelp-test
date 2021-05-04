@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import CONTANTS from '../../constants'
-import { connect } from 'react-redux'
-import { setOffer, clearAddOfferError } from '../../actions/actionCreator'
-import styles from './OfferForm.module.sass'
-import { reduxForm, Field } from 'redux-form'
-import ImageUpload from '../InputComponents/ImageUpload/ImageUpload'
-import FormInput from '../FormInput/FormInput'
-import customValidator from '../../validators/validator'
-import Schems from '../../validators/validationSchems'
-import Error from '../../components/Error/Error'
+import React from 'react';
+import CONTANTS from '../../constants';
+import { connect } from 'react-redux';
+import { setOffer, clearAddOfferError } from '../../actions/actionCreator';
+import styles from './OfferForm.module.sass';
+import { reduxForm, Field } from 'redux-form';
+import ImageUpload from '../InputComponents/ImageUpload/ImageUpload';
+import FormInput from '../FormInput/FormInput';
+import customValidator from '../../validators/validator';
+import Schems from '../../validators/validationSchems';
+import Error from '../../components/Error/Error';
 
-let contestType
+let contestType;
 
 const OfferForm = (props) => {
   const renderOfferInput = () => {
@@ -26,7 +26,7 @@ const OfferForm = (props) => {
                       imgStyle: styles.imgStyle
                     }}
                 />
-      )
+      );
     } else {
       return (
                 <Field
@@ -41,24 +41,24 @@ const OfferForm = (props) => {
                     type='text'
                     label='your suggestion'
                 />
-      )
+      );
     }
-  }
+  };
 
   const setOffer = (values) => {
-    props.clearOfferError()
-    const data = new FormData()
-    const { contestId, contestType, customerId, reset } = props
-    data.append('contestId', contestId)
-    data.append('contestType', contestType)
-    data.append('offerData', values.offerData)
-    data.append('customerId', customerId)
-    props.setNewOffer(data)
-    reset()
-  }
+    props.clearOfferError();
+    const data = new FormData();
+    const { contestId, contestType, customerId, reset } = props;
+    data.append('contestId', contestId);
+    data.append('contestType', contestType);
+    data.append('offerData', values.offerData);
+    data.append('customerId', customerId);
+    props.setNewOffer(data);
+    reset();
+  };
 
-  contestType = props.contestType
-  const { handleSubmit, valid, addOfferError, clearOfferError } = props
+  contestType = props.contestType;
+  const { handleSubmit, valid, addOfferError, clearOfferError } = props;
   return (
         <div className={styles.offerContainer}>
             {addOfferError &&
@@ -68,22 +68,22 @@ const OfferForm = (props) => {
                 {valid && <button type='submit' className={styles.btnOffer}>Send Offer</button>}
             </form>
         </div>
-  )
-}
+  );
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setNewOffer: (data) => dispatch(setOffer(data)),
     clearOfferError: () => dispatch(clearAddOfferError())
-  }
-}
+  };
+};
 
 const mapStateToProps = (state) => {
-  const { addOfferError } = state.contestByIdStore
-  return { addOfferError }
-}
+  const { addOfferError } = state.contestByIdStore;
+  return { addOfferError };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'offerForm',
   validate: customValidator(contestType === CONTANTS.LOGO_CONTEST ? Schems.LogoOfferSchema : Schems.TextOfferSchema)
-})(OfferForm))
+})(OfferForm));

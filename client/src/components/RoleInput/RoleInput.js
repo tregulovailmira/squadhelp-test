@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import styles from './RoleInput.module.sass'
+import React from 'react';
+import styles from './RoleInput.module.sass';
 
 const RoleInput = ({ label, id, strRole, infoRole, input, type }) => {
   return (
@@ -13,7 +13,7 @@ const RoleInput = ({ label, id, strRole, infoRole, input, type }) => {
                 </div>
             </div>
         </label>
-  )
-}
+  );
+};
 
-export default RoleInput
+export default RoleInput;
