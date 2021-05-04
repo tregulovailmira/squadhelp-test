@@ -40,6 +40,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
         defaultValue: 'pending'
+      },
+      moderationStatus: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        defaultValue: 'pending'
       }
     });
   },

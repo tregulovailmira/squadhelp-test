@@ -12,6 +12,7 @@ import updateContestReducer from './updateContestReducer';
 import chatReducer from './chatReducer';
 import userProfileReducer from './userProfileReducer';
 import restorePasswordReducer from './restorePasswordReducer';
+import offerReducer from './offerReducer';
 
 const appReducer = combineReducers({
   form: formReducer,
@@ -26,6 +27,7 @@ const appReducer = combineReducers({
   updateContestStore: updateContestReducer,
   chatStore: chatReducer,
   userProfile: userProfileReducer,
+  offersStore: offerReducer,
   restorePassword: restorePasswordReducer
 });
 

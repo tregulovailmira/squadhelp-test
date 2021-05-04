@@ -68,7 +68,7 @@ module.exports.getContestById = async (req, res, next) => {
           required: false,
           where: role === CONSTANTS.CREATOR
             ? { userId }
-            : {},
+            : { moderationStatus: CONSTANTS.MODERATION_OFFER_STATUS_APPROVE },
           attributes: { exclude: ['userId', 'contestId'] },
           include: [
             {
@@ -136,7 +136,7 @@ module.exports.updateContest = async (req, res, next) => {
 
 module.exports.setNewOffer = async (req, res, next) => {
   const {
-    body: { contestType, offerData, contestId, customerId },
+    body: { contestType, offerData, contestId },
     tokenData,
     tokenData: { userId }
   } = req;
@@ -160,8 +160,6 @@ module.exports.setNewOffer = async (req, res, next) => {
     const createdOffer = await contestQueries.createOffer(newOffer);
     delete createdOffer.contestId;
     delete createdOffer.userId;
-
-    controller.getNotificationController().emitEntryCreated(customerId);
 
     const User = Object.assign({}, tokenData, { id: userId });
     return res.send(Object.assign({}, createdOffer, { User }));

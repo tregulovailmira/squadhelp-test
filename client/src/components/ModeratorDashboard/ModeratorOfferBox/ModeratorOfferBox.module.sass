@@ -1,0 +1,116 @@
+$main-font-color: #46568a
+$background-color: #f9fafb
+$button-font-color: #ffffff
+$approve-button-color: #8aca6b
+$decline-button-color: #cd5c5c
+$approve-button-hover: #a6d68e
+$decline-button-hover: #da8484
+
+
+.offerContainer
+    display: grid
+    grid-template-columns: 1fr 2fr
+    grid-row-gap: 10px
+    grid-column-gap: 15px
+    justify-items: center
+    align-items: center
+    position: relative
+
+    padding: 15px 30px
+    background-color: $background-color
+    color: $main-font-color
+
+    @media screen and ( max-width: 600px )
+        grid-template-columns: 1fr
+
+    .status
+        position: absolute
+        left: calc(100% - 35px)
+        top: -10px
+        border-radius: 50%
+        background-color: #ffffff
+        font-size: 54px
+    
+    .approve
+        color: #008000
+        
+    .decline
+        color: #ff0000
+
+    .contestInfo
+        font-weight: 500
+        font-size: 20px    
+        text-align: center
+        grid-column: 1 / 3
+
+    .creator
+        display: flex
+        font-weight: 500
+        gap: 10px
+        grid-column: 1 / 2
+        justify-self: start
+
+        @media screen and ( max-width: 600px )
+            grid-column: 1 / 3
+            justify-self: center
+            
+        .avatar
+            width: 50px
+            height: 50px
+            border-radius: 50%
+
+            &> img
+                object-fit: cover
+
+        .creatorInfo
+            display: flex
+            flex-direction: column
+
+    .offerInfo
+        grid-column: 2 / 3
+        justify-self: end
+        font-size: 18px
+        text-align: center
+
+        @media screen and ( max-width: 600px )
+            grid-column: 1 / 3
+            justify-self: center
+
+        .logo
+            max-width: 100%
+            object-fit: contain
+            width: auto
+            height: 100px
+            cursor: pointer
+
+    .approveButton
+        grid-column: 1 / 2
+
+        background-color: $approve-button-color
+        justify-self: start
+
+        &:hover
+            background-color: $approve-button-hover
+
+    .declineButton
+        grid-column: 2 / 3
+
+        background-color: $decline-button-color
+        justify-self: end
+
+        &:hover
+            background-color: $decline-button-hover
+
+    .controls
+        color: $button-font-color
+        padding: 10px 25px
+        border-radius: 8px
+        width: 100%
+        max-width: 110px
+        box-sizing: border-box
+        text-align: center
+        cursor: pointer
+
+        @media screen and ( max-width: 600px )
+            grid-column: 1 / 3
+            justify-self: center

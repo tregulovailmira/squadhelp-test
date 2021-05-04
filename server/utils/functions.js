@@ -70,6 +70,31 @@ module.exports.sendEmail = async (email, subject, text, html) => {
   }
 };
 
+module.exports.createModerationOfferMessages = (contestId, moderationStatus) => {
+  const textForCustomer = `You have new offer on contest №${contestId}`;
+  const htlmBodyForCustomer = `
+        <div>
+          You have new offer on 
+          <a href=${CONSTANTS.BASE_URL}/contest/${contestId}>
+            contest №${contestId}
+          </a>
+        </div>`;
+
+  const textForCreator = `Your offer has been moderated! Status: ${moderationStatus}. Contest ID: ${contestId}`;
+  const htmlBodyForCreator = `
+      <div>
+        Your offer has been moderated! Status: ${moderationStatus}. 
+        <a href=${CONSTANTS.BASE_URL}/contest/${contestId}>
+          Contest ID: ${contestId}
+        </a>
+      </div>`;
+
+  return {
+    customerMessage: [textForCustomer, htlmBodyForCustomer],
+    creatorMessage: [textForCreator, htmlBodyForCreator]
+  };
+};
+
 module.exports.getConversationPreview = (conversation) => {
   const { id, BlackLists, FavoriteLists, Messages, interlocutorId, userId } = conversation;
 

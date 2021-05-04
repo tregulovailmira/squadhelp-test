@@ -90,9 +90,9 @@ const OfferBox = (props) => {
   const goChat = () => {
     props.goToExpandedDialog({ interlocutor: props.data.User, conversationData: findConversationInfo() });
   };
-
-  const { data, role, id, contestType } = props;
+  const { data, data: { moderationStatus }, role, id, contestType } = props;
   const { avatar, firstName, lastName, email, rating } = props.data.User;
+
   return (
         <div className={styles.offerContainer}>
             {offerStatus()}
@@ -138,6 +138,7 @@ const OfferBox = (props) => {
                     />}
                 </div>
                 {role !== CONSTANTS.CREATOR && <i onClick={goChat} className="fas fa-comments"/>}
+                { role === CONSTANTS.CREATOR && <div className={styles.moderationStatus}>Moderation status: {moderationStatus}</div> }
             </div>
             {props.needButtons(data.status) && <div className={styles.btnsContainer}>
                 <div onClick={resolveOffer} className={styles.resolveBtn}>Resolve</div>

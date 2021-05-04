@@ -27,6 +27,8 @@ import {
 } from './chatSagas';
 import { restorePasswordSaga, updatePasswordSaga } from './restorePasswordSaga';
 
+import { getAllOffersSaga, setModerationOfferStatusSaga } from './offerSagas';
+
 function * rootSaga () {
   yield takeLatest(ACTION.AUTH_ACTION_REGISTER, registerSaga);
   yield takeLatest(ACTION.AUTH_ACTION_LOGIN, loginSaga);
@@ -58,6 +60,8 @@ function * rootSaga () {
   yield takeLatest(ACTION.CHANGE_CATALOG_NAME_REQUEST, changeCatalogName);
   yield takeLatest(ACTION.RESTORE_PASSWORD_ACTION, restorePasswordSaga);
   yield takeLatest(ACTION.UPDATE_PASSWORD_ACTION, updatePasswordSaga);
-}
+  yield takeLatest(ACTION.GET_ALL_OFFERS_ACTION, getAllOffersSaga);
+  yield takeLatest(ACTION.SET_MODERATION_STATUS_ACTION, setModerationOfferStatusSaga);
+};
 
 export default rootSaga;
