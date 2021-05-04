@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Logo from '../../components/Logo';
 import RegistrationForm
   from '../../components/RegistrationForm/RegistrationForm';
@@ -10,7 +10,9 @@ import { clearErrorSignUpAndLogin } from '../../actions/actionCreator';
 import CONSTANTS from '../../constants';
 
 const RegistrationPage = (props) => {
-  props.clearError();
+  useEffect(() => {
+    props.clearError();
+  }, []);
 
   const changeRoute = () => {
     props.history.replace('/');
