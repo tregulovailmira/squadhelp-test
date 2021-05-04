@@ -32,9 +32,9 @@ module.exports.getOrCreateConversationByParticipants = async ([userId, interlocu
   const newConversation = await Conversations.create({
     userId,
     interlocutorId
-  }).get({ plain: true });
+  });
 
-  return { ...newConversation, BlackLists: [], FavoriteLists: [] };
+  return { ...newConversation.dataValues, BlackLists: [], FavoriteLists: [] };
 };
 
 module.exports.findChatByParticipants = async ([userId, interlocutorId]) => {
