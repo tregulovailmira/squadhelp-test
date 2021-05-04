@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import { connect } from 'react-redux'
-import { clearUserError } from '../../actions/actionCreator'
-import styles from './UpdateUserInfoForm.module.sass'
-import ImageUpload from '../InputComponents/ImageUpload/ImageUpload'
-import FormInput from '../FormInput/FormInput'
-import customValidator from '../../validators/validator'
-import Schems from '../../validators/validationSchems'
-import Error from '../../components/Error/Error'
+import React from 'react';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { clearUserError } from '../../actions/actionCreator';
+import styles from './UpdateUserInfoForm.module.sass';
+import ImageUpload from '../InputComponents/ImageUpload/ImageUpload';
+import FormInput from '../FormInput/FormInput';
+import customValidator from '../../validators/validator';
+import Schems from '../../validators/validationSchems';
+import Error from '../../components/Error/Error';
 
 const UpdateUserInfoForm = (props) => {
-  const { handleSubmit, submitting, error, clearUserError } = props
+  const { handleSubmit, submitting, error, clearUserError } = props;
   return (
         <form onSubmit={handleSubmit} className={styles.updateContainer}>
             {error && <Error data={error.data} status={error.status} clearError={clearUserError}/>}
@@ -69,15 +69,15 @@ const UpdateUserInfoForm = (props) => {
                   imgStyle: styles.imgStyle
                 }}
             />
-            <button type='submit' disabled={submitting} style={{ marginTop:"10px" }}>
+            <button type='submit' disabled={submitting} style={{ marginTop: '10px' }}>
                 Submit
             </button>
         </form>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => {
-  const { data, error } = state.userStore
+  const { data, error } = state.userStore;
   return {
     error,
     initialValues: {
@@ -85,16 +85,16 @@ const mapStateToProps = (state) => {
       lastName: data.lastName,
       displayName: data.displayName
     }
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     clearUserError: () => dispatch(clearUserError())
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'updateProfile',
   validate: customValidator(Schems.UpdateUserSchema)
-})(UpdateUserInfoForm))
+})(UpdateUserInfoForm));

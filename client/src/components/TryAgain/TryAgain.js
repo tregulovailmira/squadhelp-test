@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import styles from './TryAgain.module.sass'
+import React from 'react';
+import styles from './TryAgain.module.sass';
 
 const TryAgain = (props) => {
-  const { getData } = props
+  const { getData } = props;
   return (
         <div className={styles.container}>
             <span onClick={() => getData()}>Server Error. Try again</span>
             <i className="fas fa-redo" onClick={() => getData()}/>
         </div>
-  )
-}
+  );
+};
 
-export default TryAgain
+export default TryAgain;

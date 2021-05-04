@@ -3,7 +3,7 @@ import styles from './Header.module.sass';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import CONSTANTS from '../../constants';
-import { clearUserStore, headerRequest } from '../../actions/actionCreator';
+import { clearUserStore, headerRequest, clearContestList } from '../../actions/actionCreator';
 import { controller } from '../../api/ws/socketController';
 import Logo from '../Logo';
 
@@ -39,6 +39,7 @@ class Header extends React.Component{
   logOut = () => {
     localStorage.clear();
     this.props.clearUserStore();
+    this.props.clearContestList()    
   };
 
     startContests = () => {
@@ -204,6 +205,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getUser: () => dispatch(headerRequest()),
     clearUserStore: () => dispatch(clearUserStore()),
+    clearContestList: () => dispatch(clearContestList())
   };
 };
 

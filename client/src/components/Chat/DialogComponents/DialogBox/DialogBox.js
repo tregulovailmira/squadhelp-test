@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import styles from './DialogBox.module.sass'
-import CONSTANTS from '../../../../constants'
-import classNames from 'classnames'
+import React from 'react';
+import styles from './DialogBox.module.sass';
+import CONSTANTS from '../../../../constants';
+import classNames from 'classnames';
 
 const DialogBox = (props) => {
-  const { chatPreview, userId, getTimeStr, changeFavorite, changeBlackList, catalogOperation, goToExpandedDialog, chatMode, interlocutor, interlocutor: { id } } = props
-  const { favoriteList, participants, blackList, _id, text, createAt } = chatPreview
-  const isFavorite = favoriteList[participants.indexOf(userId)]
-  const isBlocked = blackList[participants.indexOf(userId)]
+  const { chatPreview, userId, getTimeStr, changeFavorite, changeBlackList, catalogOperation, goToExpandedDialog, chatMode, interlocutor, interlocutor: { id } } = props;
+  const { favoriteList, participants, blackList, _id, text, createAt } = chatPreview;
+  const isFavorite = favoriteList[participants.indexOf(userId)];
+  const isBlocked = blackList[participants.indexOf(userId)];
   return (
         <div className={styles.previewChatBox} onClick={() => goToExpandedDialog({
           interlocutor,
@@ -45,7 +45,7 @@ const DialogBox = (props) => {
                 </div>
             </div>
         </div>
-  )
-}
+  );
+};
 
-export default DialogBox
+export default DialogBox;

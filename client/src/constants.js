@@ -1,6 +1,6 @@
-const env = process.env.NODE_ENV || 'development'
-const serverIP = 'localhost'
-const serverPort = env === 'production' ? 3000 : 9632
+const env = process.env.NODE_ENV || 'development';
+const serverIP = 'localhost';
+const serverPort = env === 'production' ? 3000 : 9632;
 export default {
   CUSTOMER: 'customer',
   CREATOR: 'creator',
@@ -86,4 +86,4 @@ export default {
       ]
     }
   ]
-}
+};

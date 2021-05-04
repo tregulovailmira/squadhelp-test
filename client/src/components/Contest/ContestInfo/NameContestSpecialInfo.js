@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import styles from './ContestInfo.module.sass'
+import React from 'react';
+import styles from './ContestInfo.module.sass';
 
 const NameContestSpecialInfo = props => {
-  const { typeOfName, styleName } = props
+  const { typeOfName, styleName } = props;
   return (
         <>
             <div className={styles.dataContainer}>
@@ -15,7 +15,7 @@ const NameContestSpecialInfo = props => {
                 <span className={styles.data}>{styleName}</span>
             </div>
         </>
-  )
-}
+  );
+};
 
-export default NameContestSpecialInfo
+export default NameContestSpecialInfo;

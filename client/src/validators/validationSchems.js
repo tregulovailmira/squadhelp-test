@@ -1,5 +1,5 @@
-import * as yup from 'yup'
-import valid from 'card-validator'
+import * as yup from 'yup';
+import valid from 'card-validator';
 
 export default {
   LoginSchem: yup.object().shape({
@@ -60,4 +60,4 @@ export default {
     displayName: yup.string().test('test-displayName', 'required', value => (value && value.trim().length >= 1)).required('required'),
     file: yup.mixed()
   })
-}
+};
