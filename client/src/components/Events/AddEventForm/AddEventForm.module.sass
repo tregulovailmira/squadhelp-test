@@ -1,0 +1,39 @@
+$main-modal-window-color: #007bff
+$warning-font-color: #ffffff
+    
+.nameInput
+    position: relative
+    width: 100%
+    border-radius: 5px
+    outline: none
+    padding: 10px
+    border: 1px solid $main-modal-window-color
+
+.validationWarning
+    position: absolute
+    z-index: 100
+    top: 69px
+    left: 17px
+    
+    background-color: $main-modal-window-color
+    border-radius: 3px
+    color: $warning-font-color
+    font-size: 13px
+    font-weight: 500
+    padding: 5px
+
+    &::before
+        position: absolute
+        top: -7px
+        left: 10px
+        content: ''
+        width: 0
+        height: 0
+        border-style: solid
+        border-width: 0 4.5px 7px 4.5px
+        border-color: transparent transparent $main-modal-window-color transparent
+
+.pickerTitle
+    text-align: center
+    line-height: 1
+    margin-top: 5px

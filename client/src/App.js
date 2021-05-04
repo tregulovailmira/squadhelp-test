@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import PrivateHoc from './components/PrivateHoc/PrivateHoc';
 import NotFound from './components/NotFound/NotFound';
 import Home from './pages/Home/Home';
+import EventsPage from './pages/EventsPage';
 import OnlyNotAuthorizedUserHoc from './components/OnlyNotAuthorizedUserHoc/OnlyNotAuthorizedUserHoc';
 import ContestPage from './pages/ContestPage/ContestPage';
 import UserProfile from './pages/UserProfile/UserProfile';
@@ -19,6 +20,7 @@ import ContestCreationPage from './pages/ContestCreation/ContestCreationPage';
 import CONSTANTS from './constants';
 import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
+import OnlyForCustomerHOC from './components/OnlyForCustomerHOC';
 
 class App extends Component {
   render () {
@@ -60,6 +62,7 @@ class App extends Component {
                     <Route exact path='/dashboard' component={PrivateHoc(Dashboard)}/>
                     <Route exact path='/contest/:id' component={PrivateHoc(ContestPage)}/>
                     <Route exact path='/account' component={PrivateHoc(UserProfile)}/>
+                    <Route exact path='/events' component={PrivateHoc(OnlyForCustomerHOC(EventsPage))}/>
                     <Route component={NotFound}/>
                 </Switch>
                 <ChatContainer/>
