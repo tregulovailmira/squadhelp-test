@@ -53,8 +53,8 @@ function DatePickerField (props) {
 }
 
 DatePickerField.propTypes = {
-  value: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  value: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 export default DatePickerField;
