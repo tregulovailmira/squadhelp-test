@@ -21,6 +21,7 @@ import CONSTANTS from './constants';
 import browserHistory from './browserHistory';
 import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import OnlyForCustomerHOC from './components/OnlyForCustomerHOC';
+import RestorePassword from './pages/RestorePassword';
 
 class App extends Component {
   render () {
@@ -62,6 +63,7 @@ class App extends Component {
                     <Route exact path='/dashboard' component={PrivateHoc(Dashboard)}/>
                     <Route exact path='/contest/:id' component={PrivateHoc(ContestPage)}/>
                     <Route exact path='/account' component={PrivateHoc(UserProfile)}/>
+                    <Route exact path='/restorePassword' component={OnlyNotAuthorizedUserHoc(RestorePassword)}/>
                     <Route exact path='/events' component={PrivateHoc(OnlyForCustomerHOC(EventsPage))}/>
                     <Route component={NotFound}/>
                 </Switch>

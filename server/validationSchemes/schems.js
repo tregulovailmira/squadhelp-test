@@ -1,17 +1,20 @@
 const yup = require('yup');
 
+const emailScheme = yup.string().email().required().min(4);
+const passwordScheme = yup.string().required().min(1);
+
 module.exports.registrationSchem = yup.object().shape({
   firstName: yup.string().required().min(1),
   lastName: yup.string().required().min(1),
   displayName: yup.string().required().min(1),
-  email: yup.string().email().required().min(4),
-  password: yup.string().required().min(1),
+  email: emailScheme,
+  password: passwordScheme,
   role: yup.string().matches(/(customer|creator)/).required()
 });
 
 module.exports.loginSchem = yup.object().shape({
-  email: yup.string().email().required().min(4),
-  password: yup.string().required().min(1)
+  email: emailScheme,
+  password: passwordScheme
 });
 
 module.exports.contestSchem = yup.object().shape({
@@ -27,4 +30,9 @@ module.exports.contestSchem = yup.object().shape({
   nameVenture: yup.string().min(1),
   typeOfTagline: yup.string().min(1),
   brandStyle: yup.string().min(1)
+});
+
+module.exports.restorePasswordSchem = yup.object().shape({
+  email: emailScheme,
+  password: passwordScheme
 });

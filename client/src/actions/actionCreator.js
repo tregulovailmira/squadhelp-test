@@ -411,3 +411,51 @@ export const changeModalShow = (data) => {
     data: data
   };
 };
+
+export const restorePasswordAction = (data) => {
+  return {
+    type: ACTION.RESTORE_PASSWORD_ACTION,
+    data
+  };
+};
+
+export const restorePasswordSuccess = (data) => {
+  return {
+    type: ACTION.RESTORE_PASSWORD_SUCCESS,
+    data
+  };
+};
+
+export const restorePasswordError = (error) => {
+  return {
+    type: ACTION.RESTORE_PASSWORD_ERROR,
+    error
+  };
+};
+
+export const clearRestorePasswordAction = () => {
+  return {
+    type: ACTION.RESET_RESTORE_PASSWORD_STATE
+  };
+};
+
+export const updatePasswordAction = (data) => {
+  return {
+    type: ACTION.UPDATE_PASSWORD_ACTION,
+    data
+  };
+};
+
+export const updatePasswordSuccess = (data) => {
+  return {
+    type: ACTION.UPDATE_PASSWORD_SUCCESS,
+    data
+  };
+};
+
+export const updatePasswordError = (error) => {
+  return {
+    type: ACTION.UPDATE_PASSWORD_ERROR,
+    error
+  };
+};
