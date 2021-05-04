@@ -5,7 +5,7 @@ import history from '../browserHistory';
 const instance = axios.create({
   baseURL: CONTANTS.BASE_URL
 });
-const allowLinksForNotAuth = ['/login', '/registration', '/howitworks', '/', '/restorePassword']
+const allowLinksForNotAuth = ['/login', '/registration', '/howitworks', '/', '/restorePassword'];
 
 instance.interceptors.request.use(config => {
   const token = window.localStorage.getItem(CONTANTS.ACCESS_TOKEN);
@@ -23,8 +23,7 @@ instance.interceptors.response.use(response => {
 }, err => {
   const isAllowLink = allowLinksForNotAuth.some(element => element === history.location.pathname);
   if (err.response.status === 408 && !isAllowLink) {
-    history.replace('/login')
-
+    history.replace('/login');
   }
   return Promise.reject(err);
 });
