@@ -10,7 +10,7 @@ import CONSTANTS from '../../constants';
 import styles from './ModeratorDashboard.module.sass';
 
 export default function ModeratorDashboard () {
-  const { isFetching, error, offers, haveMore, isShowOnFull, imagePath } = useSelector(state => state.offersStore);
+  const { isFetching, isModerating, error, offers, haveMore, isShowOnFull, imagePath } = useSelector(state => state.offersStore);
   const dispatch = useDispatch();
   const getOffers = bindActionCreators(getAllOffersAction, dispatch);
   const setOfferStatus = bindActionCreators(setModerationStatusAction, dispatch);
@@ -61,6 +61,7 @@ export default function ModeratorDashboard () {
                 mainSrc={`${CONSTANTS.publicURL}${imagePath}`}
                 onCloseRequest={() => showImage({ isShowOnFull: false, imagePath: null })}
             /> }
+            <div style={{ width: '200px', height: '50px' }}>{ isModerating && <Spinner/>}</div>
             { error
               ? <TryAgain getData={loadMore} />
               : <div className={styles.offersList}>

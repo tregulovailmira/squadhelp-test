@@ -2,6 +2,7 @@ import ACTION from '../actions/actionTypes';
 
 const initialState = {
   isFetching: false,
+  isModerating: false,
   error: null,
   offers: [],
   haveMore: true,
@@ -12,8 +13,7 @@ const initialState = {
 export default function (state = initialState, action) {
   const { type } = action;
   switch (type) {
-    case ACTION.GET_ALL_OFFERS_ACTION:
-    case ACTION.SET_MODERATION_STATUS_ACTION: {
+    case ACTION.GET_ALL_OFFERS_ACTION: {
       return {
         ...state,
         isFetching: true,
@@ -42,6 +42,14 @@ export default function (state = initialState, action) {
       };
     }
 
+    case ACTION.SET_MODERATION_STATUS_ACTION: {
+      return {
+        ...state,
+        isModerating: true,
+        error: null
+      };
+    }
+
     case ACTION.SET_MODERATION_STATUS_SUCCESS: {
       const { data: { id, moderationStatus } } = action;
       const { offers } = state;
@@ -58,7 +66,7 @@ export default function (state = initialState, action) {
 
       return {
         ...state,
-        isFetching: false,
+        isModerating: false,
         error: null,
         offers: newOffers
       };
@@ -68,7 +76,7 @@ export default function (state = initialState, action) {
       const { error } = action;
       return {
         ...state,
-        isFetching: false,
+        isModerating: false,
         error
       };
     }
