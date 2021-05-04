@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import useEvents from '../hooks/Events/useEvents';
 import EventsList from './EventsList';
 import AddEventForm from './AddEventForm';
+import EventReminder from './EventsReminder';
 import styles from './Events.module.sass';
 
 export default function Events (props) {
@@ -30,6 +31,7 @@ export default function Events (props) {
             </Button>
             <AddEventForm show={isShownAddEventForm} onHide={closeAddEventForm} onSubmit={addEvent}/>
             <EventsList events={events} closeNotification={closeRemindingNotification} classContainer={styles.listPosition}/>
+            <EventReminder events={events} closeNotification={closeRemindingNotification}/>
         </div>
   );
 }

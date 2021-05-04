@@ -81,9 +81,9 @@ export default function useEvents () {
     }
   };
 
-  const closeRemindingNotification = (eventId) => {
+  const closeRemindingNotification = () => {
     const newEvents = events.map(event =>
-      eventId === event.id
+      event.isRemindTime && !event.isViewed
         ? { ...event, isViewed: true }
         : event
     );
