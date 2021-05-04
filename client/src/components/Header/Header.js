@@ -46,6 +46,7 @@ class Header extends React.Component{
     };
     renderLoginButtons = () => {
         if (this.props.data) {
+            const { data: { role } } = this.props;
             return (
                 <>
                     <div className={styles.userInfo}>
@@ -65,11 +66,13 @@ class Header extends React.Component{
                                     <span>My Account</span>
                                 </Link>
                             </li>
-                            <li>
-                                <Link to='/events' style={{textDecoration: 'none'}}>
-                                    <span>Events</span>
-                                </Link>
-                            </li>
+                            { role === CONSTANTS.CUSTOMER && 
+                                <li>
+                                    <Link to='/events' style={{textDecoration: 'none'}}>
+                                        <span>Events</span>
+                                    </Link>
+                                </li> 
+                            }
                             <li>
                                 <Link to='/' style={{textDecoration: 'none'}}>
                                     <span>Messages</span>
