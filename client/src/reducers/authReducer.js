@@ -1,9 +1,9 @@
-import ACTION from '../actions/actionTypes'
+import ACTION from '../actions/actionTypes';
 
 const initialState = {
   isFetching: false,
   error: null
-}
+};
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -11,30 +11,30 @@ export default function (state = initialState, action) {
       return {
         isFetching: true,
         error: null
-      }
+      };
     }
     case ACTION.AUTH_ACTION_SUCCESS: {
       return {
         isFetching: false,
         error: null
-      }
+      };
     }
     case ACTION.AUTH_ACTION_ERROR: {
       return {
         isFetching: false,
         error: action.error
-      }
+      };
     }
     case ACTION.AUTH_ACTION_CLEAR_ERROR: {
       return {
         ...state,
         error: null
-      }
+      };
     }
     case ACTION.AUTH_ACTION_CLEAR: {
-      return initialState
+      return initialState;
     }
     default:
-      return state
+      return state;
   }
 }

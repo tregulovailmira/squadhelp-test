@@ -1,8 +1,8 @@
-import ACTION from '../actions/actionTypes'
+import ACTION from '../actions/actionTypes';
 
 const initialState = {
   contests: {}
-}
+};
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -10,14 +10,14 @@ export default function (state = initialState, action) {
       return {
         ...state,
         contests: { ...state.contests, ...{ [action.data.type]: action.data.info } }
-      }
+      };
     }
     case ACTION.CLEAR_CONTEST_STORE: {
       return {
         contests: {}
-      }
+      };
     }
     default:
-      return state
+      return state;
   }
 }
