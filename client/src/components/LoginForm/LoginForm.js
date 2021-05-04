@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 import { authActionLogin, clearAuth } from '../../actions/actionCreator';
 import styles from './LoginForm.module.sass';
 import { Field, reduxForm } from 'redux-form';
@@ -50,6 +51,7 @@ class LoginForm extends React.Component{
             type='password'
             label='password'
           />
+          <Link to='/restorePassword' className={styles.forgotPassword}>Forgot Password</Link>
           <button type='submit' disabled={ submitting }
                   className={ styles.submitContainer }>
             <span className={ styles.inscription }>{ isFetching

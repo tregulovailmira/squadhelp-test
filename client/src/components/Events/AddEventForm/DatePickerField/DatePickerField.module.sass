@@ -1,0 +1,38 @@
+$main-modal-window-color: #007bff
+$warning-font-color: #ffffff
+$date-field-background: #d1e9cf
+
+.pickerButton
+    outline: none
+    border: none
+    background-color: $date-field-background
+    border-radius: 5px
+    width: 100%
+    padding: 5px
+    margin: 10px 0
+    font-size: 18px
+    font-weight: 500
+
+    transition: 0.3s
+
+.validationWarning
+    position: absolute
+    top: 54px
+    left: 0
+    
+    background-color: $main-modal-window-color
+    border-radius: 3px
+    color: $warning-font-color
+    font-size: 13px
+    padding: 5px 10px
+
+    &::before
+        position: absolute
+        top: -7px
+        left: 10px
+        content: ''
+        width: 0
+        height: 0
+        border-style: solid
+        border-width: 0 4.5px 7px 4.5px
+        border-color: transparent transparent $main-modal-window-color transparent

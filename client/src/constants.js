@@ -1,7 +1,8 @@
-const env = process.env.NODE_ENV || 'development'
-const serverIP = 'localhost'
-const serverPort = env === 'production' ? 3000 : 9632
+const env = process.env.NODE_ENV || 'development';
+const serverIP = 'localhost';
+const serverPort = env === 'production' ? 3000 : 9632;
 export default {
+  SQUADHELP_PHONE: '(877) 355-3585',
   CUSTOMER: 'customer',
   CREATOR: 'creator',
   MODERATOR: 'moderator',
@@ -90,4 +91,4 @@ export default {
       ]
     }
   ]
-}
+};

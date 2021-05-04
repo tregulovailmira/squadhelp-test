@@ -13,6 +13,7 @@ import Schems from '../../validators/validationSchems';
 import FieldFileInput from '../InputComponents/FieldFileInput/FieldFileInput';
 import FormTextArea from '../InputComponents/FormTextArea/FormTextArea';
 import TryAgain from '../TryAgain/TryAgain';
+import ButtonGroup from '../ButtonGroup';
 
 let submitFunc;
 
@@ -227,6 +228,7 @@ class ContestForm extends React.Component{
                     } }
                     type='file'
                   />
+                  <ButtonGroup/>
                 </form>
               </div>
           }

@@ -2,6 +2,7 @@
 const bd = require('../models/index');
 const RightsError = require('../errors/RightsError');
 const ServerError = require('../errors/ServerError');
+const BadRequestError = require('../errors/BadRequestError');
 const CONSTANTS = require('../constants');
 
 module.exports.parseBody = (req, res, next) => {
@@ -155,4 +156,10 @@ module.exports.findUserEmailById = async (req, res, next) => {
   } catch (error) {
     next(new ServerError());
   }
+};
+
+module.exports.checkUserByEmail = async (req, res, next) => {
+  const { body: { email } } = req;
+  const foundUser = await bd.Users.findOne({ where: { email } });
+  foundUser ? next() : next(new BadRequestError('User with this email does not exists!'));
 };

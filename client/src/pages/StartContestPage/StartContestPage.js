@@ -1,29 +1,29 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import { selectBundle } from '../../actions/actionCreator'
-import { connect } from 'react-redux'
-import BundleBox from '../../components/BundleBox/BundleBox'
-import CONSTANTS from '../../constants'
-import styles from './StartContestPage.module.sass'
-import Footer from '../../components/Footer/Footer'
-import ProgressBar from '../../components/ProgressBar/ProgressBar'
-import Header from '../../components/Header/Header'
+import React from 'react';
+import { selectBundle } from '../../actions/actionCreator';
+import { connect } from 'react-redux';
+import BundleBox from '../../components/BundleBox/BundleBox';
+import CONSTANTS from '../../constants';
+import styles from './StartContestPage.module.sass';
+import Footer from '../../components/Footer/Footer';
+import ProgressBar from '../../components/ProgressBar/ProgressBar';
+import Header from '../../components/Header/Header';
 
 const StartContestPage = (props) => {
   if (props.userStore.data.role !== CONSTANTS.CUSTOMER) {
-    props.history.replace('/')
+    props.history.replace('/');
   }
 
   const setBundle = (bundleStr) => {
-    const array = bundleStr.toLowerCase().split('+')
-    const bundleList = {}
-    bundleList.first = array[0]
+    const array = bundleStr.toLowerCase().split('+');
+    const bundleList = {};
+    bundleList.first = array[0];
     for (let i = 0; i < array.length; i++) {
-      bundleList[array[i]] = i === array.length - 1 ? 'payment' : array[i + 1]
+      bundleList[array[i]] = i === array.length - 1 ? 'payment' : array[i + 1];
     }
-    props.choseBundle(bundleList)
-    props.history.push(`/startContest/${bundleList.first}Contest`)
-  }
+    props.choseBundle(bundleList);
+    props.history.push(`/startContest/${bundleList.first}Contest`);
+  };
 
   return (
         <div>
@@ -81,18 +81,18 @@ const StartContestPage = (props) => {
             </div>
             <Footer/>
         </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = (state) => {
-  const { bundleStore, userStore } = state
-  return { bundleStore, userStore }
-}
+  const { bundleStore, userStore } = state;
+  return { bundleStore, userStore };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     choseBundle: (bundle) => dispatch(selectBundle(bundle))
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(StartContestPage)
+export default connect(mapStateToProps, mapDispatchToProps)(StartContestPage);

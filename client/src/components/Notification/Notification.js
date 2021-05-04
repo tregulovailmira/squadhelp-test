@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import { withRouter } from 'react-router-dom'
-import styles from './Notification.module.sass'
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import styles from './Notification.module.sass';
 
 const Notification = (props) => {
   return (
@@ -11,7 +11,7 @@ const Notification = (props) => {
             <br/>
             {props.contestId && <span onClick={() => props.history.push(`/contest/${props.contestId}`)} className={styles.goToContest}>Go to contest</span>}
         </div>
-  )
-}
+  );
+};
 
-export default withRouter(Notification)
+export default withRouter(Notification);

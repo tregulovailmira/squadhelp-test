@@ -1,20 +1,29 @@
-import * as yup from 'yup'
-import valid from 'card-validator'
+import * as yup from 'yup';
+import valid from 'card-validator';
+
+const passwordSchem = yup.string().test('test-password', 'min 6 symbols', value => (value && value.trim().length >= 6)).required('required');
+const confirmPasswordSchem = yup.string().required('confirm password is required').oneOf([yup.ref('password')], 'confirmation pass must match password');
+const emailSchem = yup.string().email('check email').required('required');
 
 export default {
   LoginSchem: yup.object().shape({
-    email: yup.string().email('check email').required('required'),
-    password: yup.string().test('test-password', 'min 6 symbols', value => (value && value.trim().length >= 6)).required('required')
+    email: emailSchem,
+    password: passwordSchem
   }),
   RegistrationSchem: yup.object().shape({
-    email: yup.string().email('check email').required('Email is required'),
-    password: yup.string().test('test-password', 'min 6 symbols', value => (value && value.trim().length >= 6)).required('required'),
-    confirmPassword: yup.string().required('confirm password is required').oneOf([yup.ref('password')], 'confirmation pass must match password'),
+    email: emailSchem,
+    password: passwordSchem,
+    confirmPassword: confirmPasswordSchem,
     firstName: yup.string().test('test-firstName', 'required', value => (value && value.trim().length >= 1)).required('First Name is required'),
     lastName: yup.string().test('test-lastName', 'required', value => (value && value.trim().length >= 1)).required('Last Name is required'),
     displayName: yup.string().test('test-displayName', 'required', value => (value && value.trim().length >= 1)).required('Display Name is required'),
     role: yup.string().matches(/(customer|creator)/).required('Role is required'),
     agreeOfTerms: yup.boolean().oneOf([true], 'Must Accept Terms and Conditions').required('Must Accept Terms and Conditions')
+  }),
+  RestorePasswordSchem: yup.object().shape({
+    email: emailSchem,
+    password: passwordSchem,
+    confirmPassword: confirmPasswordSchem
   }),
   ContestSchem: yup.object().shape({
     contestType: yup.string().matches(/(name|tagline|logo)/).required(),
@@ -60,4 +69,4 @@ export default {
     displayName: yup.string().test('test-displayName', 'required', value => (value && value.trim().length >= 1)).required('required'),
     file: yup.mixed()
   })
-}
+};

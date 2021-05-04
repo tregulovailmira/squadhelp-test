@@ -1,17 +1,18 @@
-import { combineReducers } from 'redux'
-import { reducer as formReducer } from 'redux-form'
-import authReducer from './authReducer'
-import getUserReducer from './userReducer'
-import dataForContestReducer from './dataForContestReducer'
-import payReducer from './payReducer'
-import getContestsReducer from './getContestsReducer'
-import storeContestReducer from './storeContestReducer'
-import bundleReducer from './bundleReducer'
-import getContestByIdReducer from './getContestByIdReducer'
-import updateContestReducer from './updateContestReducer'
-import chatReducer from './chatReducer'
-import userProfileReducer from './userProfileReducer'
-import offerReducer from './offerReducer'
+import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
+import authReducer from './authReducer';
+import getUserReducer from './userReducer';
+import dataForContestReducer from './dataForContestReducer';
+import payReducer from './payReducer';
+import getContestsReducer from './getContestsReducer';
+import storeContestReducer from './storeContestReducer';
+import bundleReducer from './bundleReducer';
+import getContestByIdReducer from './getContestByIdReducer';
+import updateContestReducer from './updateContestReducer';
+import chatReducer from './chatReducer';
+import userProfileReducer from './userProfileReducer';
+import restorePasswordReducer from './restorePasswordReducer';
+import offerReducer from './offerReducer';
 
 const appReducer = combineReducers({
   form: formReducer,
@@ -26,7 +27,8 @@ const appReducer = combineReducers({
   updateContestStore: updateContestReducer,
   chatStore: chatReducer,
   userProfile: userProfileReducer,
-  offersStore: offerReducer
-})
+  offersStore: offerReducer,
+  restorePassword: restorePasswordReducer
+});
 
-export default appReducer
+export default appReducer;

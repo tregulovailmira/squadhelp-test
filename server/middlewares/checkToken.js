@@ -38,3 +38,17 @@ module.exports.checkToken = async (req, res, next) => {
     next(new TokenError());
   }
 };
+
+module.exports.checkRestorePasswordToken = async (req, res, next) => {
+  const { body: { token } } = req;
+
+  if (!token) {
+    return next(new TokenError('Need token'));
+  }
+  try {
+    req.tokenData = jwt.verify(token, CONSTANTS.JWT_SECRET);
+    next();
+  } catch (error) {
+    next(new TokenError('Token expired'));
+  }
+};

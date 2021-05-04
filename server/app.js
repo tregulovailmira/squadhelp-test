@@ -3,6 +3,7 @@ const cors = require('cors');
 const handlerError = require('./handlerError/handler');
 const router = require('./router');
 require('dotenv').config();
+const { reportTimer } = require('./utils/logger');
 
 const app = express();
 
@@ -11,5 +12,7 @@ app.use(express.json());
 app.use('/public', express.static('public'));
 app.use('/api', router);
 app.use(handlerError);
+
+reportTimer();
 
 module.exports = app;

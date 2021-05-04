@@ -218,7 +218,6 @@ const resolveOffer = async (contestId, creatorId, orderId, offerId, priority, tr
     'Someone of yours offers was rejected', contestId);
   controller.getNotificationController().emitChangeOfferStatus(creatorId,
     'Someone of your offers WIN', contestId);
-  console.log('updatedOffers', updatedOffers);
   return updatedOffers[0].dataValues;
 };
 

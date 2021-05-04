@@ -1,13 +1,15 @@
 const jwt = require('jsonwebtoken');
-const CONSTANTS = require('../constants');
-const bd = require('../models/index');
-const NotUniqueEmail = require('../errors/NotUniqueEmail');
 const moment = require('moment');
 const uuid = require('uuid/v1');
+const bd = require('../models/index');
+const NotUniqueEmail = require('../errors/NotUniqueEmail');
 const controller = require('../socketInit');
 const userQueries = require('./queries/userQueries');
 const bankQueries = require('./queries/bankQueries');
 const ratingQueries = require('./queries/ratingQueries');
+const { sendEmail } = require('../utils/functions');
+const CONSTANTS = require('../constants');
+const ServerError = require('../errors/ServerError');
 
 module.exports.login = async (req, res, next) => {
   const { body: { email, password } } = req;
@@ -63,6 +65,38 @@ module.exports.registration = async (req, res, next) => {
     } else {
       next(err);
     }
+  }
+};
+
+module.exports.sendTokenForRestorePassword = async (req, res, next) => {
+  const { body: { accessToken, email } } = req;
+
+  try {
+    const restorePasswordLink = `${CONSTANTS.BASE_URL}${CONSTANTS.RESTORE_PASSWORD_ROUTE}?token=${accessToken}`;
+
+    const textMessage = `To confirm the new password, follow the link ${restorePasswordLink}
+                      Do not follow the link if you have not tried to update your password`;
+
+    const htmlBody = `<div>
+                      <p>To confirm the new password, follow the <a href=${restorePasswordLink}>link</a></p>
+                      <p>Do not follow the link if you have not tried to update your password</p>
+                    </div>`;
+
+    await sendEmail(email, 'Restore password', textMessage, htmlBody);
+
+    return res.status(200).send('Check your email');
+  } catch (error) {
+    next(new ServerError('Restore password error'));
+  }
+};
+
+module.exports.updateLostPassword = async (req, res, next) => {
+  const { tokenData: { email, hashPass } } = req;
+  try {
+    await userQueries.updatePassword(email, hashPass);
+    return res.status(200).send('Your password has been updated. Now you can login.');
+  } catch (error) {
+    next(error);
   }
 };
 

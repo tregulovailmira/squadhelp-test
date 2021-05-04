@@ -37,3 +37,11 @@ module.exports.validateContestCreation = (req, res, next) => {
       next(err);
     });
 };
+
+module.exports.validateRestorePasswordData = async (req, res, next) => {
+  const { body } = req;
+  const validationResult = await schems.restorePasswordSchem.isValid(body);
+  validationResult
+    ? next()
+    : next(new BadRequestError('Invalid data for restore password'));
+};
