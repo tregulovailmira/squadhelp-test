@@ -95,7 +95,7 @@ function ModeratorOfferBox (props) {
 ModeratorOfferBox.propTypes = {
   offer: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
     fileName: PropTypes.string,
     contestId: PropTypes.number.isRequired,
     userId: PropTypes.number.isRequired,
